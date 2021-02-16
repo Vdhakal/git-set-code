@@ -5,6 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.Manifest;
@@ -47,10 +52,16 @@ public class MainActivity extends AppCompatActivity {
     //Global variables
     FusedLocationProviderClient fusedLocationProviderClient;
     LocationRequest locationRequest;
+    Location currentLocation;
+    List<Location> savedLocations;
+
+    //Database variables
+    private SavedDataViewModel savedDataViewModel;
 
     //UI elements
     TextView latitude, longtitude, address;
     RadioButton highAccuracy, lowAccuracy;
+    Button saveLocation;
     EditText destinationAddress;
     Switch viewMap;
 
@@ -64,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         highAccuracy = findViewById(R.id.highAccuracy);;
         lowAccuracy = findViewById(R.id.lowAccuracy);
         viewMap = findViewById(R.id.viewMap);
+        saveLocation = findViewById(R.id.button);
+        destinationAddress = findViewById(R.id.destInput);
 
         locationRequest = new LocationRequest() ;
         locationRequest.setFastestInterval(DEFAULT_FAST_INTERVAL);
@@ -71,6 +84,37 @@ public class MainActivity extends AppCompatActivity {
 
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        SavedDataAdapter adapter = new SavedDataAdapter();
+        recyclerView.setAdapter(adapter);
+        savedDataViewModel = new ViewModelProvider(this).get(SavedDataViewModel.class);
+        savedDataViewModel.getAllData().observe(this, new Observer<List<SavedData>>() {
+            @Override
+            public void onChanged(List<SavedData> savedData) {
+                adapter.setSavedData(savedData);
+            }
+        });
+
+        saveLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String destAddress = destinationAddress.getText().toString();
+                double latitude = currentLocation.getLatitude();
+                double longtitude = currentLocation.getLongitude();
+                if(destAddress.trim().isEmpty()){
+                    Toast.makeText(MainActivity.this, "Please enter a valid address", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else{
+                    SavedData savedData = new SavedData(latitude, longtitude, destAddress);
+                    savedDataViewModel.insert(savedData);
+                    Toast.makeText(MainActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         highAccuracy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     super.onLocationResult(locationResult);
+                    currentLocation = locationResult.getLastLocation();
                     latitude.setText(String.valueOf(locationResult.getLastLocation().getLatitude()));
                     longtitude.setText(String.valueOf(locationResult.getLastLocation().getLongitude()));
                     getAddress(locationResult);
