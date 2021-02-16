@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">git-set-code</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="addressLabel">Your Address:</string>
+    <string name="destinationAddress">Your Destination:</string>
+    <string name="submitButton" >Save Location</string>
+    <string name="viewButton" >View Locations</string>
+    <string name="highAccuracy">High Accuracy Mode</string>
+    <string name="lowAccuracy">Battery Saver Mode</string>
+    <string name="viewMap">View Map</string>
 </resources>
