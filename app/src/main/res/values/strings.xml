@@ -10,4 +10,8 @@
     <string name="lowAccuracy">Battery Saver Mode</string>
     <string name="viewMap">View Map</string>
     <string name="deletButton">Clear All</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="todo">TODO</string>
 </resources>

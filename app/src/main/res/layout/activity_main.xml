@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#373737"
+    android:background="@color/background_orange"
     tools:context=".MainActivity">
 
 
@@ -15,9 +15,98 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="273dp"
-        android:background="@drawable/blue_bg"
-        />
-
+        android:background="@drawable/orange_bg"
+        >
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="53dp"
+            android:src="@drawable/aims_logo"
+            android:contentDescription="@string/todo" />
+    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="62dp"
+        android:layout_marginTop="36.7dp"
+        android:layout_marginRight="62dp"
+        android:background="@drawable/orange_border_rounded_cornwe">
+        <EditText
+            android:id="@+id/userID_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/userID_icon"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/enceladusdemi"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:paddingStart="17dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="12sp"
+            android:autofillHints="username" />
+        <ImageView
+            android:id="@+id/userID_icon"
+            android:layout_width="22dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="17dp"
+            android:src="@drawable/user_icon"
+            android:contentDescription="@string/todo" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="62dp"
+        android:layout_marginTop="12.7dp"
+        android:layout_marginRight="62dp"
+        android:background="@drawable/orange_border_rounded_cornwe">
+        <EditText
+            android:id="@+id/password_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/passoword_icon"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/enceladusdemi"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="12"
+            android:maxLines="1"
+            android:paddingStart="17dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:autofillHints="password" />
+        <ImageView
+            android:id="@+id/passoword_icon"
+            android:layout_width="20dp"
+            android:layout_height="22dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="17dp"
+            android:src="@drawable/password_icon"
+            android:contentDescription="@string/todo" />
+    </RelativeLayout>
+    <Button
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="62dp"
+        android:layout_marginTop="18.7dp"
+        android:layout_marginRight="62dp"
+        android:background="@drawable/orange_fill__rounded_color"
+        android:fontFamily="@font/enceladusbold"
+        android:gravity="center"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:text="@string/login"
+        android:textColor="@color/black"
+        android:textSize="12sp"/>
 </LinearLayout>
 
 </RelativeLayout>
