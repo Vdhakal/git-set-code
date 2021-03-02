@@ -9,4 +9,5 @@
     <string name="highAccuracy">High Accuracy Mode</string>
     <string name="lowAccuracy">Battery Saver Mode</string>
     <string name="viewMap">View Map</string>
+    <string name="deletButton">Clear All</string>
 </resources>

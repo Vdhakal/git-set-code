@@ -14,6 +14,6 @@ public interface SavedDataDao {
     void insert(SavedData savedData);
     @Delete
     void delete(SavedData savedData);
-    @Query("SELECT * FROM saved_data ORDER BY id ASC")
+    @Query("SELECT * FROM saved_data ORDER BY id DESC")
     LiveData<List<SavedData>> getAllData();
 }
