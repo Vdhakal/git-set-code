@@ -4,8 +4,8 @@
     <string name="longitude">Longitude:</string>
     <string name="addressLabel">Your Address:</string>
     <string name="destinationAddress">Your Destination:</string>
-    <string name="submitButton" >Save Location</string>
-    <string name="viewButton" >View Locations</string>
+    <string name="submitButton">Save Location</string>
+    <string name="viewButton">View Locations</string>
     <string name="highAccuracy">High Accuracy Mode</string>
     <string name="lowAccuracy">Battery Saver Mode</string>
     <string name="viewMap">View Map</string>
@@ -14,4 +14,12 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="todo">TODO</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_landing">LandingActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>
