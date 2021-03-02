@@ -61,7 +61,9 @@
             android:paddingBottom="15dp"
             android:textColor="@color/black"
             android:textCursorDrawable="@drawable/cursor_color"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:ellipsize="end"
+            android:textColorHint="#989898"/>
 
         <ImageView
             android:id="@+id/userID_icon"
@@ -103,7 +105,9 @@
             android:paddingBottom="15dp"
             android:textColor="@color/black"
             android:textCursorDrawable="@drawable/cursor_color"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:ellipsize="end"
+            android:textColorHint="#989898"/>
 
         <ImageView
             android:id="@+id/passoword_icon"
