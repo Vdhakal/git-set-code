@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         lowAccuracy = findViewById(R.id.lowAccuracy);
         viewMap = findViewById(R.id.viewMap);
 
+        //Creating a LocationRequest object
         locationRequest = new LocationRequest() ;
         locationRequest.setFastestInterval(DEFAULT_FAST_INTERVAL);
         locationRequest.setInterval(DEFAULT_INTERVAL);
