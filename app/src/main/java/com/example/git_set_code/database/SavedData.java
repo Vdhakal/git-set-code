@@ -1,4 +1,4 @@
-package com.example.git_set_code;
+package com.example.git_set_code.database;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

@@ -1,7 +1,6 @@
-package com.example.git_set_code;
+package com.example.git_set_code.database;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
