@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
 }
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 30
@@ -54,12 +53,5 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
-    implementation "androidx.core:core-ktx:+"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-}
-repositories {
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-    mavenCentral()
 }
