@@ -1,10 +1,13 @@
-package com.example.git_set_code;
+package com.example.git_set_code.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Delete;
+
+import com.example.git_set_code.database.SavedData;
+import com.example.git_set_code.database.SavedDataDB;
+import com.example.git_set_code.database.SavedDataDao;
 
 import java.util.List;
 

@@ -1,10 +1,13 @@
-package com.example.git_set_code;
+package com.example.git_set_code.viewmodels;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import com.example.git_set_code.database.SavedData;
+import com.example.git_set_code.repository.SavedDataRepository;
 
 import java.util.List;
 
