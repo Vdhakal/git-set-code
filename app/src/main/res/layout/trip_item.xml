@@ -4,168 +4,182 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="10dp"
+    android:elevation="40dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:background="@color/background_orange">
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="40dp"
-            android:layout_height="21dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="7dp"
-            android:text="Trip1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:text="Trip"
+            android:fontFamily="@font/playfair_semibold"
+            android:textAlignment="textStart"
+            />
+
+        <TextView
+            android:id="@+id/label_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Product Name:"
             android:textSize="12dp"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
+            android:layout_below="@id/title"
+            />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tv_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:text="Gasoline A"
-            android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
-            app:layout_constraintStart_toEndOf="@+id/textView3" />
+            android:layout_below="@id/title"
+            android:layout_toRightOf="@id/label_product_name"/>
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/label_vendor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:text="Vendor Name:"
             android:textSize="12dp"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            android:layout_below="@id/label_product_name"/>
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tv_vendor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:text="Vendor A"
             android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-            app:layout_constraintStart_toEndOf="@+id/textView5" />
+            android:layout_toRightOf="@id/label_vendor_name"
+            android:layout_below="@id/label_product_name"/>
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/label_terminal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:text="Terminal Name:"
             android:textSize="12dp"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            android:layout_below="@id/label_vendor_name"/>
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/tv_terminal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:layout_marginStart="5dp"
             android:text="Terminal A"
             android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
-            app:layout_constraintStart_toEndOf="@+id/textView7" />
+            android:layout_below="@id/label_vendor_name"
+            android:layout_toRightOf="@id/label_terminal_name"/>
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/label_quantities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:text="Quantities:"
             android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-            app:layout_constraintStart_toEndOf="@+id/textView4" />
+            android:layout_toLeftOf="@id/tv_quantities"
+            android:layout_below="@id/title"
+            />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/tv_quantities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:layout_marginStart="5dp"
             android:text="300lb"
             android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView9"
-            app:layout_constraintStart_toEndOf="@+id/textView9" />
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/title"/>
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/label_stops"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:layout_marginStart="15dp"
-            android:text="Number of Stops:"
+            android:text="Stops:"
             android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
-            app:layout_constraintStart_toEndOf="@+id/textView6" />
+            android:layout_toLeftOf="@id/tv_stops"
+            android:layout_below="@id/tv_quantities" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/tv_stops"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:layout_marginStart="5dp"
             android:text="5"
             android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView11"
-            app:layout_constraintStart_toEndOf="@+id/textView11" />
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/tv_quantities" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/label_terminal_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:text="Terminal Address:"
             android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
-            app:layout_constraintStart_toEndOf="@+id/textView8" />
+            android:layout_below="@id/label_terminal_name"/>
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/tv_terminal_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:text="1008 Brian Avenue"
             android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView13"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView13" />
+            android:layout_toRightOf="@id/label_terminal_name"
+            android:layout_below="@id/label_terminal_name"/>
 
         <TextView
-            android:id="@+id/textView15"
-            android:layout_width="114dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="7dp"
+            android:id="@+id/label_special_instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:layout_marginBottom="5dp"
             android:text="Special Instructions:"
             android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            android:layout_below="@id/label_terminal_address"/>
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/tv_special_instructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_normal"
+            android:textColor="#2d2d2d"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:text="Get the delivery ticket from the customer"
             android:textSize="12dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView15"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView15" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_toRightOf="@id/label_special_instructions"
+            android:layout_below="@id/label_terminal_address"/>
+    </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>
