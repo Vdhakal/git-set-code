@@ -8,7 +8,6 @@
     android:elevation="10dp"
     android:minHeight="?attr/actionBarSize"
     android:theme="?attr/actionBarTheme"
-    app:logo="@drawable/main_menu_side"
     app:logoDescription="main_menu">
 
     <ImageView
@@ -16,5 +15,18 @@
         android:layout_height="wrap_content"
         android:src="@drawable/aims_logo"
         android:layout_gravity="center"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/main_menu_side"
+        android:layout_gravity="left"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_notifications_none_24"
+        android:layout_gravity="right"
+        android:paddingRight="10dp"
         />
 </androidx.appcompat.widget.Toolbar>
