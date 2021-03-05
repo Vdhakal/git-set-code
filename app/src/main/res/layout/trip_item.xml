@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
-    android:elevation="40dp">
+    app:cardElevation="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trip"
+            android:textColor="#2d2d2d"
             android:fontFamily="@font/playfair_semibold"
             android:textAlignment="textStart"
             />
@@ -26,8 +27,9 @@
             android:id="@+id/label_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="120dp"
             android:text="Product Name:"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
             android:layout_below="@id/title"
@@ -39,6 +41,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
+            android:textSize="12sp"
             android:text="Gasoline A"
             android:layout_below="@id/title"
             android:layout_toRightOf="@id/label_product_name"/>
@@ -47,10 +50,11 @@
             android:id="@+id/label_vendor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="120dp"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
             android:text="Vendor Name:"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_below="@id/label_product_name"/>
 
         <TextView
@@ -60,7 +64,7 @@
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
             android:text="Vendor A"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_toRightOf="@id/label_vendor_name"
             android:layout_below="@id/label_product_name"/>
 
@@ -68,10 +72,11 @@
             android:id="@+id/label_terminal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="120dp"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
             android:text="Terminal Name:"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_below="@id/label_vendor_name"/>
 
         <TextView
@@ -80,9 +85,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
-            android:layout_marginStart="5dp"
             android:text="Terminal A"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_below="@id/label_vendor_name"
             android:layout_toRightOf="@id/label_terminal_name"/>
 
@@ -90,10 +94,11 @@
             android:id="@+id/label_quantities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="64dp"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
             android:text="Quantities:"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_toLeftOf="@id/tv_quantities"
             android:layout_below="@id/title"
             />
@@ -102,11 +107,13 @@
             android:id="@+id/tv_quantities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="64dp"
+            android:textAlignment="textEnd"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
             android:layout_marginStart="5dp"
             android:text="300lb"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/title"/>
 
@@ -114,11 +121,12 @@
             android:id="@+id/label_stops"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="64dp"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
             android:layout_marginStart="15dp"
             android:text="Stops:"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_toLeftOf="@id/tv_stops"
             android:layout_below="@id/tv_quantities" />
 
@@ -126,11 +134,13 @@
             android:id="@+id/tv_stops"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="64dp"
+            android:textAlignment="textEnd"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
             android:layout_marginStart="5dp"
             android:text="5"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/tv_quantities" />
 
@@ -138,34 +148,33 @@
             android:id="@+id/label_terminal_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="120dp"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
             android:text="Terminal Address:"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_below="@id/label_terminal_name"/>
 
         <TextView
             android:id="@+id/tv_terminal_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/label_terminal_name"
+            android:layout_toRightOf="@id/label_terminal_address"
             android:fontFamily="@font/playfair_normal"
-            android:textColor="#2d2d2d"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
             android:text="1008 Brian Avenue"
-            android:textSize="12dp"
-            android:layout_toRightOf="@id/label_terminal_name"
-            android:layout_below="@id/label_terminal_name"/>
+            android:textColor="#2d2d2d"
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/label_special_instructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="120dp"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
-            android:layout_marginBottom="5dp"
             android:text="Special Instructions:"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:layout_below="@id/label_terminal_address"/>
 
         <TextView
@@ -174,10 +183,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/playfair_normal"
             android:textColor="#2d2d2d"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:text="Get the delivery ticket from the customer"
-            android:textSize="12dp"
+            android:text="None"
+            android:textSize="12sp"
             android:layout_toRightOf="@id/label_special_instructions"
             android:layout_below="@id/label_terminal_address"/>
     </RelativeLayout>
