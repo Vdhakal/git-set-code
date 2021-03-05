@@ -7,19 +7,101 @@
     android:layout_height="match_parent"
     android:background="@color/background_orange">
 
-  <include android:id="@+id/toolbar"
-      layout="@layout/tool_bar"/>
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/tool_bar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/toolbar"
+      app:layout_constraintVertical_bias="1.0">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <include
+          android:id="@+id/trip1"
+          layout="@layout/trip_item"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+      <include
+          android:id="@+id/trip2"
+          layout="@layout/trip_item"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/trip1" />
+
+      <include
+          android:id="@+id/trip3"
+          layout="@layout/trip_item"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/trip2" />
+
+      <include
+          android:id="@+id/trip4"
+          layout="@layout/trip_item"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/trip3" />
+
+      <include
+          android:id="@+id/trip5"
+          layout="@layout/trip_item"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/trip4" />
+
+      <include
+          android:id="@+id/trip6"
+          layout="@layout/trip_item"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/trip5" />
+
+      <TextView
+          android:id="@+id/textView17"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="5dp"
+          android:text="Trips"
+          android:textSize="18dp"
+          android:textStyle="bold"
+          app:layout_constraintStart_toStartOf="@+id/trip1"
+          app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
