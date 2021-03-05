@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_orange">#FAE0D0</color>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="blue_100">#2196F3</color>
-    <color name="blue_200">#0069C0</color>
-    <color name="statusBlue"> #951565C0</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="background_orange">#FBEDD0</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="status_bar">#E09C15</color>
+    <color name="tool_bar">#E09C15</color>
     <color name="bottom_navigation_text_color">#FFFFFF</color>
-    <color name="tool_bar">#E8AF3E</color>
+    <color name="status_bar">#d3800c</color>
+    <color name="trip_card">#f2d5a2</color>
 </resources>
