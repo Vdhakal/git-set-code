@@ -8,4 +8,5 @@
     <color name="option_outline">#2D2D2D</color>
     <color name="status_bar">#d3800c</color>
     <color name="trip_card">#f2d5a2</color>
+    <color name="blue_100">#951565c0</color>
 </resources>
