@@ -6,17 +6,34 @@
     android:background="@color/background_orange"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <include
-        layout="@layout/tool_bar"/>
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="20dp">
+
+            <include layout="@layout/capture_bol_form" />
+        </androidx.cardview.widget.CardView>
+
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
