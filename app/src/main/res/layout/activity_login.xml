@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".LoginActivity">
+    tools:context=".activities.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_bg"
@@ -57,6 +57,7 @@
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:paddingStart="17dp"
+            android:paddingEnd="2dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:textColor="@color/black"
@@ -101,6 +102,7 @@
             android:maxLength="12"
             android:maxLines="1"
             android:paddingStart="17dp"
+            android:paddingEnd="2dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:textColor="@color/black"

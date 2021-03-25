@@ -1,4 +1,4 @@
-package com.example.git_set_code;
+package com.example.git_set_code.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.git_set_code.R;
 
 public class LoginActivity extends AppCompatActivity {
 
