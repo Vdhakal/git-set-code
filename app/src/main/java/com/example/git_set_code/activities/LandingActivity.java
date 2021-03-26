@@ -7,11 +7,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.git_set_code.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,9 +28,10 @@ public class LandingActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
-
+    final String TAG="DEBUG";
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG,"On create opt menu works");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav_menu, menu);
         return true;
@@ -36,11 +43,13 @@ public class LandingActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.ham_menu) {
+        if (id == R.id.notification) {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,9 @@ public class LandingActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Setting toolbar as the ActionBar with setSupportActionBar() call
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
     }
     private void setUpNavigation(){
         bottomNavigationView =findViewById(R.id.bottomNavigationView);

@@ -7,6 +7,9 @@
     android:background="@drawable/background_gradient"
     tools:context=".activities.LandingActivity">
 
+    <include
+        layout="@layout/tool_bar"/>
+
     <fragment
         android:id="@+id/fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
