@@ -28,6 +28,7 @@ import com.example.git_set_code.TripsAPIService;
 import com.example.git_set_code.adapters.TripsAdapter;
 import com.example.git_set_code.adapters.TripsData;
 import com.example.git_set_code.singletons.TripsRequestSingleton;
+import com.example.git_set_code.utils.TripsDecorator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,11 +86,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse() {
                 mLayoutManager = new LinearLayoutManager(getActivity());
+                mRecyclerView.addItemDecoration(new TripsDecorator(20));
                 adapter = new TripsAdapter(getActivity(), tripsDataList);
                 mRecyclerView.setAdapter(adapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.scrollToPosition(0);
-                Toast.makeText(thiscontext, tripsDataList.get(0).getCity(), Toast.LENGTH_LONG).show();
             }
         });
     }
