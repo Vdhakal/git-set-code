@@ -38,8 +38,8 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         holder.getTerminalName().setText(tripsDataList.get(position).getDestinationName());
         holder.getTerminalAddress().setText(tripsDataList.get(position).getAddress1()+", "+tripsDataList.get(position).getCity()+" "+tripsDataList.get(position).getStateAbbrev());
         holder.getSpecialInstructions().setText("NONE");
-        holder.getQuantities().setText(tripsDataList.get(position).getRequestedQty());
-        holder.getStops().setText(tripsDataList.get(position).getProductDesc());
+        holder.getQuantities().setText(String.valueOf(tripsDataList.get(position).getRequestedQty()));
+        holder.getStops().setText(String.valueOf(tripsDataList.size()));
     }
 
     @Override

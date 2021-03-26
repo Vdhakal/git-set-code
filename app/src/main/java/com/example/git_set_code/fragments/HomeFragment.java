@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
 
     private void extractData(){
         TripsAPIService tripsAPIService = new TripsAPIService();
-        tripsAPIService.getRequestedJson(thiscontext, new TripsAPIService.VolleyResponseListener() {
+        tripsAPIService.getRequestedJson(thiscontext, tripsDataList, new TripsAPIService.VolleyResponseListener() {
             @Override
             public void onError(String message) {
                 Toast.makeText(thiscontext, message, Toast.LENGTH_LONG).show();
@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment {
                 mRecyclerView.setAdapter(adapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.scrollToPosition(0);
+                Toast.makeText(thiscontext, tripsDataList.get(0).getCity(), Toast.LENGTH_LONG).show();
             }
         });
     }

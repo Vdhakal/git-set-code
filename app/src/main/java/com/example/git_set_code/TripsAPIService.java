@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class TripsAPIService {
     private static String JSON_GET_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/GetTripListDetailByDriver/D1?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
 
@@ -27,7 +29,7 @@ public class TripsAPIService {
         void onResponse();
     }
 
-    public void getRequestedJson(Context thiscontext, VolleyResponseListener volleyResponseListener){
+    public void getRequestedJson(Context thiscontext, List<TripsData> tripsDataList, VolleyResponseListener volleyResponseListener){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, JSON_GET_URL, null, new Response.Listener<JSONObject>() {
 
@@ -46,8 +48,8 @@ public class TripsAPIService {
                                     tripsData.setAddress1(jsonObject.getString("Address1"));
                                     tripsData.setCity(jsonObject.getString("City"));
                                     tripsData.setStateAbbrev(jsonObject.getString("StateAbbrev"));
-                                    tripsData.setRequestedQty(1);
-                                    Toast.makeText(thiscontext, i+" "+tripsData.getCity(), Toast.LENGTH_LONG).show();
+                                    tripsData.setRequestedQty(jsonObject.getInt("TruckId"));
+                                    tripsDataList.add(tripsData);
                                 }
                             }
                         } catch (JSONException e) {
