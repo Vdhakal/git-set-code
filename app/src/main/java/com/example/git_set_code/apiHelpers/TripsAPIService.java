@@ -1,4 +1,4 @@
-package com.example.git_set_code;
+package com.example.git_set_code.apiHelpers;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -43,12 +43,18 @@ public class TripsAPIService {
                                 for(int i=0; i<resultSet1.length(); i++){
                                     JSONObject jsonObject = resultSet1.getJSONObject(i);
                                     TripsData tripsData = new TripsData();
-                                    tripsData.setProductDesc(jsonObject.getString("ProductDesc"));
+                                    if(!jsonObject.isNull("ProductDesc")) tripsData.setProductDesc(jsonObject.getString("ProductDesc"));
+                                    else {tripsData.setProductDesc("NONE");}
+                                    tripsData.setDestinationCod(jsonObject.getString("DestinationCode"));
                                     tripsData.setDestinationName(jsonObject.getString("DestinationName"));
                                     tripsData.setAddress1(jsonObject.getString("Address1"));
                                     tripsData.setCity(jsonObject.getString("City"));
+                                    tripsData.setWaypointTypeDescription(jsonObject.getString("WaypointTypeDescription"));
                                     tripsData.setStateAbbrev(jsonObject.getString("StateAbbrev"));
-                                    tripsData.setRequestedQty(jsonObject.getInt("TruckId"));
+                                    if(jsonObject.isNull("RequestedQty")) tripsData.setRequestedQty(0);
+                                    else {
+                                        tripsData.setRequestedQty(jsonObject.getInt("RequestedQty"));
+                                    }
                                     tripsDataList.add(tripsData);
                                 }
                             }

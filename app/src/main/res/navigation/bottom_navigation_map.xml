@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.git_set_code.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_temporarySource"
+            app:destination="@id/temporarySource" />
+    </fragment>
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.git_set_code.fragments.MapsFragment"
@@ -20,4 +24,22 @@
         android:name="com.example.git_set_code.fragments.EditFragment"
         android:label="fragment_edit"
         tools:layout="@layout/edit_fragment" />
+    <fragment
+        android:id="@+id/temporarySource"
+        android:name="com.example.git_set_code.fragments.TemporarySource"
+        android:label="fragment_temporary_source"
+        tools:layout="@layout/fragment_temporary_source" >
+        <action
+            android:id="@+id/action_temporarySource_to_temporarySite"
+            app:destination="@id/temporarySite"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_open_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/temporarySite"
+        android:name="com.example.git_set_code.fragments.TemporarySite"
+        android:label="fragment_temporary_site"
+        tools:layout="@layout/fragment_temporary_site" />
 </navigation>

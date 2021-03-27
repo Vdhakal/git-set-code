@@ -33,10 +33,11 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull TripsAdapter.ViewHolder holder, int position) {
+        holder.getWayPointType().setText(tripsDataList.get(position).getWaypointTypeDescription()+" "+position);
         holder.getProductName().setText(tripsDataList.get(position).getProductDesc());
-        holder.getVendorName().setText(tripsDataList.get(position).getDestinationName());
+        holder.getVendorName().setText(tripsDataList.get(position).getDestinationCod());
         holder.getTerminalName().setText(tripsDataList.get(position).getDestinationName());
-        holder.getTerminalAddress().setText(tripsDataList.get(position).getAddress1()+", "+tripsDataList.get(position).getCity()+" "+tripsDataList.get(position).getStateAbbrev());
+        holder.getTerminalAddress().setText(tripsDataList.get(position).getAddress1().trim()+", "+tripsDataList.get(position).getCity().trim()+" "+tripsDataList.get(position).getStateAbbrev().trim());
         holder.getSpecialInstructions().setText("NONE");
         holder.getQuantities().setText(String.valueOf(tripsDataList.get(position).getRequestedQty()));
         holder.getStops().setText(String.valueOf(tripsDataList.size()));
@@ -47,12 +48,12 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         return tripsDataList.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, stops;
+        private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, stops, wayPointType;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            wayPointType = itemView.findViewById(R.id.title);
             productName = itemView.findViewById(R.id.tv_product_name);
             vendorName = itemView.findViewById(R.id.tv_vendor_name);
             terminalName = itemView.findViewById(R.id.tv_terminal_name);
@@ -61,6 +62,9 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
             quantities = itemView.findViewById(R.id.tv_quantities);
             stops = itemView.findViewById(R.id.tv_stops);
 
+        }
+        public TextView getWayPointType() {
+            return wayPointType;
         }
 
         public TextView getProductName() {

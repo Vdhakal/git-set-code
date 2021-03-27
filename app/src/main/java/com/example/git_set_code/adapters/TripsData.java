@@ -1,5 +1,7 @@
 package com.example.git_set_code.adapters;
 
+import androidx.annotation.NonNull;
+
 public class TripsData {
     private int statusCode;
     private String datastatus;
@@ -336,9 +338,7 @@ public class TripsData {
         return requestedQty;
     }
 
-    public void setRequestedQty(int requestedQty) {
-        this.requestedQty = requestedQty;
-    }
+    public void setRequestedQty(int requestedQty) { this.requestedQty = requestedQty; }
 
     public String getUom() {
         return uom;

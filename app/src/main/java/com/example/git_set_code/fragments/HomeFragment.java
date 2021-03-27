@@ -6,33 +6,22 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
+import android.widget.Button;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.git_set_code.R;
-import com.example.git_set_code.TripsAPIService;
+import com.example.git_set_code.apiHelpers.TripsAPIService;
 import com.example.git_set_code.adapters.TripsAdapter;
 import com.example.git_set_code.adapters.TripsData;
-import com.example.git_set_code.singletons.TripsRequestSingleton;
 import com.example.git_set_code.utils.TripsDecorator;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,14 +51,29 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
+
         View rootView =  inflater.inflate(R.layout.home_fragment, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.trip_summary_list);
+        Button sourceButton = rootView.findViewById(R.id.sourceButton);
         tripsDataList = new ArrayList<>();
         extractData();
+        onSourceButtonClicked(sourceButton);
 
         return rootView;
     }
 
+    private void onSourceButtonClicked(Button sourceButton) {
+        sourceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swapFragment(v);
+            }
+        });
+    }
+    private void swapFragment(View v){
+        Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_temporarySource);
+
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

@@ -18,33 +18,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/playfair_semibold"
-            android:text="Enter Source Information"
+            android:text="Enter Site Information"
             android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
-            style="@style/playfair_normal_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/playfair_semibold"
-            android:text="@string/fuel_stick_reading"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
-
-        <TextView
             android:id="@+id/textView5"
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Pre-Delivery"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            android:text="Remaining Fuel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <TextView
             android:id="@+id/textView6"
@@ -52,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Product Dropped"
+            android:text="Product Type"
             app:layout_constraintStart_toStartOf="@+id/textInputEditText"
             app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
 
@@ -62,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Drop Start Date"
+            android:text="Load Start Date"
             app:layout_constraintStart_toStartOf="@+id/textInputEditText2"
             app:layout_constraintTop_toBottomOf="@+id/textInputEditText2" />
 
@@ -91,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Drop End Date"
+            android:text="Load End Date"
             app:layout_constraintStart_toStartOf="@+id/textInputEditText3"
             app:layout_constraintTop_toBottomOf="@+id/textInputEditText3" />
 
@@ -134,20 +121,12 @@
             app:layout_constraintStart_toStartOf="@+id/materialButton"
             app:layout_constraintTop_toBottomOf="@+id/materialButton" />
 
-        <TextView
-            android:id="@+id/textView3"
-            style="@style/playfair_normal_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Post-Delivery"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-            app:layout_constraintStart_toStartOf="@+id/editText2" />
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText"
-            android:layout_width="128sp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:layout_marginRight="10dp"
             android:background="@color/background_orange"
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -245,36 +224,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText2"
-            android:layout_width="128sp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/background_orange"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
         <Button
             android:id="@+id/materialButton"
             style="@style/playfair_normal_black"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_margin="10dp"
             android:backgroundTint="@color/background_orange"
             android:fontFamily="@font/playfair_bold"
             android:padding="4dp"
-            android:text="Scan Bill"
+            android:text="Scan Bill of Lading"
             app:layout_constraintEnd_toEndOf="@+id/textInputEditText6"
             app:layout_constraintStart_toStartOf="@+id/textInputEditText5"
             app:layout_constraintTop_toBottomOf="@+id/textInputEditText5" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="50sp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:background="@color/background_orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView11"
@@ -282,7 +251,6 @@
             android:orientation="horizontal" />
 
         <Button
-            android:id="@+id/save_cont"
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -294,10 +262,18 @@
             android:text="Save and Continue"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <TextView
+            android:id="@+id/textView10"
+            style="@style/playfair_normal_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf ="@+id/materialButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
