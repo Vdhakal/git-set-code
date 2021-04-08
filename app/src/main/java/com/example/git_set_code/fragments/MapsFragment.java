@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.git_set_code.R;
+import com.example.git_set_code.permissions.PermissionsRequestor;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,6 +27,7 @@ import com.here.sdk.mapview.MapView;
 public class MapsFragment extends Fragment {
 
     private static final String TAG = "Maps";
+    private PermissionsRequestor permissionsRequestor;
     private MapView mapView;
     private View rootView;
 
@@ -64,13 +66,36 @@ public class MapsFragment extends Fragment {
 //        SupportMapFragment mapFragment =
 //                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapView = rootView.findViewById(R.id.map_view);
-
         if (mapView != null) {
             mapView.onCreate(savedInstanceState);
             //ASK FOR PERMISSIONS
+            mapView.setOnReadyListener(new MapView.OnReadyListener() {
+                @Override
+                public void onMapViewReady() {
+                    // This will be called each time after this activity is resumed.
+                    // It will not be called before the first map scene was loaded.
+                    // Any code that requires map data may not work as expected beforehand.
+                    Log.d(TAG, "HERE Rendering Engine attached.");
+                }
+            });
 
-            loadMapScene();
+            handleAndroidPermissions();
         }
+    }
+    private void handleAndroidPermissions() {
+        permissionsRequestor = new PermissionsRequestor(getActivity());
+        permissionsRequestor.request(new PermissionsRequestor.ResultListener(){
+
+            @Override
+            public void permissionsGranted() {
+                loadMapScene();
+            }
+
+            @Override
+            public void permissionsDenied() {
+                Log.e(TAG, "Permissions denied by user.");
+            }
+        });
     }
     private void loadMapScene() {
         // Load a scene from the HERE SDK to render the map with a map scheme.
