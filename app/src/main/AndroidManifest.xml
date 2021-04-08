@@ -51,7 +51,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-
+        <!-- Set your credentials for the HERE SDK. -->
+        <meta-data android:name="com.here.sdk.access_key_id" android:value="vME_nF_MEJCh1FWLe_0epw" />
+        <meta-data android:name="com.here.sdk.access_key_secret" android:value="Z-NxYOOhxXqJI2a6EoWq0-rJtonC3nxH9WeAK3GZH5Er01Sn8alGLdwc2lGm7P19FDd9AY1CqMjTzZFE9MZNjA" />
     </application>
 
 
