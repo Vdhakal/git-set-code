@@ -6,21 +6,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
 import com.example.git_set_code.apiHelpers.TripsAPIService;
 import com.example.git_set_code.adapters.TripsAdapter;
-import com.example.git_set_code.adapters.TripsData;
+import com.example.git_set_code.viewmodels.TripsData;
 import com.example.git_set_code.utils.TripsDecorator;
 
 import java.util.ArrayList;

@@ -3,14 +3,11 @@ package com.example.git_set_code.apiHelpers;
 import android.content.Context;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.git_set_code.adapters.TripsAdapter;
-import com.example.git_set_code.adapters.TripsData;
+import com.example.git_set_code.viewmodels.TripsData;
 import com.example.git_set_code.singletons.TripsRequestSingleton;
 
 import org.json.JSONArray;

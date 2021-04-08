@@ -1,8 +1,13 @@
-package com.example.git_set_code.adapters;
+package com.example.git_set_code.viewmodels;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity
 public class TripsData {
+    @PrimaryKey
+    long id;
     private int statusCode;
     private String datastatus;
     private String jsonstatus;
