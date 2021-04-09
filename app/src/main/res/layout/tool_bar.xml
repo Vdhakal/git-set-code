@@ -18,10 +18,4 @@
         android:src="@drawable/aims_logo"
         android:layout_gravity="center"
         />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/main_menu_side"
-        android:layout_gravity="left"
-        />
 </androidx.appcompat.widget.Toolbar>

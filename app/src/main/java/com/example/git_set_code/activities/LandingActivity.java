@@ -44,9 +44,13 @@ public class LandingActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.notification) {
+            Toast.makeText(this, "You clicked on Notifications", Toast.LENGTH_SHORT).show();
             return true;
         }
-
+        if (id == R.id.menuBar) {
+            Toast.makeText(this, "You clicked on menuBar", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
