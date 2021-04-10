@@ -78,7 +78,7 @@ public class TemporarySource extends Fragment {
         });
     }
     private void swapFragment(View v){
-        Navigation.findNavController(v).navigate(R.id.action_temporarySource_to_temporarySite);
+        Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_tripSummary);
 
     }
 }

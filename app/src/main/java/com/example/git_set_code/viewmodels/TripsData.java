@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class TripsData {
-    @PrimaryKey
-    long id;
+    @PrimaryKey(autoGenerate = true)
+    public long id;
     private int statusCode;
     private String datastatus;
     private String jsonstatus;
@@ -36,6 +36,8 @@ public class TripsData {
     private  String   stateAbbrev;
     private int   postalCode;
     private  int  delReqNum;
+
+
     private   int  delReqLineNum;
     private  int   productId;
     private  String   productCode;
@@ -43,10 +45,11 @@ public class TripsData {
     private   int  requestedQty;
     private   String  uom;
     private  String   fill;
+    private int stops;
 
     public TripsData(){}
 
-    public TripsData(int statusCode, String datastatus, String jsonstatus, String driverCode, String driverName, int truckId, String truckCode, String truckDesc, int trailerId, String trailerCode, String trailerDesc, int tripId, String tripName, String tripDate, int seqNum, String waypointTypeDescription, float latitude, float longitude, String destinationCod, String destinationName, String siteContainerCode, String siteContainerDescription, String address1, String address2, String city, String stateAbbrev, int postalCode, int delReqNum, int delReqLineNum, int productId, String productCode, String productDesc, int requestedQty, String uom, String fill) {
+    public TripsData(int statusCode, String datastatus, String jsonstatus, String driverCode, String driverName, int truckId, String truckCode, String truckDesc, int trailerId, String trailerCode, String trailerDesc, int tripId, String tripName, String tripDate, int seqNum, String waypointTypeDescription, float latitude, float longitude, String destinationCod, String destinationName, String siteContainerCode, String siteContainerDescription, String address1, String address2, String city, String stateAbbrev, int postalCode, int delReqNum, int delReqLineNum, int productId, String productCode, String productDesc, int requestedQty, String uom, String fill, int stops) {
         this.statusCode = statusCode;
         this.datastatus = datastatus;
         this.jsonstatus = jsonstatus;
@@ -82,6 +85,7 @@ public class TripsData {
         this.requestedQty = requestedQty;
         this.uom = uom;
         this.fill = fill;
+        this.stops = stops;
     }
     public int getStatusCode() {
         return statusCode;
@@ -360,6 +364,10 @@ public class TripsData {
     public void setFill(String fill) {
         this.fill = fill;
     }
+
+    public int getStops() { return stops; }
+
+    public void setStops(int stops) { this.stops = stops; }
 
 
 }

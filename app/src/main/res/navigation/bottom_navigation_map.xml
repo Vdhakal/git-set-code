@@ -11,8 +11,8 @@
         android:label="fragment_home"
         tools:layout="@layout/home_fragment" >
         <action
-            android:id="@+id/action_homeFragment_to_temporarySource"
-            app:destination="@id/temporarySource" />
+            android:id="@+id/action_homeFragment_to_tripSummary"
+            app:destination="@id/tripSummary" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
@@ -25,21 +25,8 @@
         android:label="fragment_edit"
         tools:layout="@layout/edit_fragment" />
     <fragment
-        android:id="@+id/temporarySource"
-        android:name="com.example.git_set_code.fragments.TemporarySource"
-        android:label="fragment_temporary_source"
-        tools:layout="@layout/fragment_temporary_source" >
-        <action
-            android:id="@+id/action_temporarySource_to_temporarySite"
-            app:destination="@id/temporarySite"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_open_exit" />
-    </fragment>
-    <fragment
-        android:id="@+id/temporarySite"
-        android:name="com.example.git_set_code.fragments.TemporarySite"
-        android:label="fragment_temporary_site"
-        tools:layout="@layout/fragment_temporary_site" />
+        android:id="@+id/tripSummary"
+        android:name="com.example.git_set_code.fragments.TripSummary"
+        android:label="fragment_trip_summary"
+        tools:layout="@layout/fragment_trip_summary" />
 </navigation>
