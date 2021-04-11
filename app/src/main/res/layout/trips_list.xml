@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trips_card_view"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    android:layout_margin="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/trip_card"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/playfair_normal_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_semibold"
+            android:text="Trip"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:id="@+id/label_product_name"
+            style="@style/playfair_normal_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:width="120dp"
+            android:text="Product Name:"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            style="@style/playfair_normal_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_toRightOf="@id/label_product_name"
+            android:text="Gasoline A"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/label_stops"
+            style="@style/playfair_normal_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginStart="81dp"
+            android:layout_toLeftOf="@id/tv_stops"
+            android:layout_toEndOf="@+id/tv_product_name"
+            android:width="64dp"
+            android:text="Stops:"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_stops"
+            style="@style/playfair_normal_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:width="64dp"
+            android:text="5"
+            android:textAlignment="textEnd"
+            android:textSize="12sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandable_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/label_product_name">
+
+            <com.shuhart.stepview.StepView
+                android:id="@+id/step_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:sv_animationType="Line"
+                app:sv_doneCircleColor="@color/blue_100"
+                app:sv_doneCircleRadius="12dp"
+                app:sv_doneStepLineColor="@color/blue_100"
+                app:sv_doneStepMarkColor="@color/dark_orange"
+                app:sv_nextStepLineColor="@color/blue_100"
+                app:sv_nextTextColor="@color/blue_100"
+                app:sv_selectedCircleColor="@color/blue_100"
+                app:sv_selectedCircleRadius="12dp"
+                app:sv_selectedStepNumberColor="@color/dark_orange"
+                app:sv_selectedTextColor="@color/blue_100"
+                app:sv_stepLineWidth="1dp"
+                app:sv_stepNumberTextSize="12sp"
+                app:sv_stepPadding="4dp"
+                app:sv_stepViewStyle="@style/StepView"
+                />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

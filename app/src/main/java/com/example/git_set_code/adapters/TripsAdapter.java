@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.git_set_code.R;
@@ -17,81 +19,59 @@ import java.util.List;
 public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> {
 
     List<TripsData> tripsDataList;
-
+     boolean expanded;
     public TripsAdapter(Context context, List<TripsData> tripsData){
         this.tripsDataList = tripsData;
+        this.expanded = false;
         //Toast.makeText(context, tripsDataList.get(2).toString(), Toast.LENGTH_SHORT).show();
 
     }
     @NonNull
     @Override
     public TripsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trip_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trips_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TripsAdapter.ViewHolder holder, int position) {
-        holder.getWayPointType().setText(tripsDataList.get(position).getWaypointTypeDescription()+" "+position);
-        holder.getProductName().setText(tripsDataList.get(position).getProductDesc());
-        holder.getVendorName().setText(tripsDataList.get(position).getDestinationCod());
-        holder.getTerminalName().setText(tripsDataList.get(position).getDestinationName());
-        holder.getTerminalAddress().setText(tripsDataList.get(position).getAddress1().trim()+", "+tripsDataList.get(position).getCity().trim()+" "+tripsDataList.get(position).getStateAbbrev().trim());
-        holder.getSpecialInstructions().setText("NONE");
-        holder.getQuantities().setText(String.valueOf(tripsDataList.get(position).getRequestedQty()));
-        holder.getStops().setText(String.valueOf(tripsDataList.size()));
+        holder.getProductName().setText(tripsDataList.get(1).getProductDesc());
+        holder.getStops().setText(String.valueOf(tripsDataList.get(0).getStops()));
+        holder.getExpandableLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public int getItemCount() {
-        return tripsDataList.size();
+        return 1;
     }
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, stops, wayPointType;
-
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        private final TextView  productName, stops;
+        private final CardView cardView;
+        private final ConstraintLayout expandableLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            wayPointType = itemView.findViewById(R.id.title);
+            cardView = itemView.findViewById(R.id.trips_card_view);
             productName = itemView.findViewById(R.id.tv_product_name);
-            vendorName = itemView.findViewById(R.id.tv_vendor_name);
-            terminalName = itemView.findViewById(R.id.tv_terminal_name);
-            terminalAddress = itemView.findViewById(R.id.tv_terminal_address);
-            specialInstructions = itemView.findViewById(R.id.tv_special_instructions);
-            quantities = itemView.findViewById(R.id.tv_quantities);
             stops = itemView.findViewById(R.id.tv_stops);
+            expandableLayout = itemView.findViewById(R.id.expandable_layout);
 
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    expanded = !expanded;
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
         }
-        public TextView getWayPointType() {
-            return wayPointType;
-        }
-
-        public TextView getProductName() {
-            return productName;
-        }
-        public TextView getVendorName() {
-            return vendorName;
-        }
-
-        public TextView getTerminalName() {
-            return terminalName;
-        }
-
-        public TextView getTerminalAddress() {
-            return terminalAddress;
-        }
-
-        public TextView getSpecialInstructions() {
-            return specialInstructions;
-        }
-
-        public TextView getQuantities() {
-            return quantities;
-        }
+        public TextView getProductName() { return productName; }
 
         public TextView getStops() {
             return stops;
         }
+
+        public ConstraintLayout getExpandableLayout(){return expandableLayout;}
+
 
     }
 }

@@ -48,6 +48,7 @@ public class TripsAPIService {
                                     tripsData.setCity(jsonObject.getString("City"));
                                     tripsData.setWaypointTypeDescription(jsonObject.getString("WaypointTypeDescription"));
                                     tripsData.setStateAbbrev(jsonObject.getString("StateAbbrev"));
+                                    tripsData.setStops(resultSet1.length());
                                     if(jsonObject.isNull("RequestedQty")) tripsData.setRequestedQty(0);
                                     else {
                                         tripsData.setRequestedQty(jsonObject.getInt("RequestedQty"));
