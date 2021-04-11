@@ -1,4 +1,4 @@
-package com.example.git_set_code.fragments.dummy;
+package com.example.git_set_code.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

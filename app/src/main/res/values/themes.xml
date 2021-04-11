@@ -15,5 +15,6 @@
         <!-- Customize your theme here. -->
         <item name="android:actionMenuTextColor">@color/bottom_navigation_text_color</item>
         <item name="android:windowContentOverlay">@drawable/drop_shadow</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
     </style>
 </resources>

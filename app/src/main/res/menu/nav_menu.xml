@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuBar"
-        android:title="menuBar"
-        android:icon="@drawable/main_menu_side"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/notification"
         android:title="Notification"
         android:icon="@drawable/ic_baseline_notifications_none_24"
