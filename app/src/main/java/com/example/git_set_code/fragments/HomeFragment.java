@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,7 +46,6 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         thiscontext = this.getContext();
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,10 +55,15 @@ public class HomeFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.home_fragment, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_trips_list);
         button = (Button)rootView.findViewById(R.id.button2);
+        initializeStepView(rootView);
         tripsDataList = new ArrayList<>();
         extractData();
         onSourceButtonClicked(button);
         return rootView;
+    }
+
+    private void initializeStepView(View rootView) {
+
     }
 
     //This is how you'd change fragments
@@ -79,6 +84,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
     }
 
     private void extractData(){
@@ -97,6 +103,7 @@ public class HomeFragment extends Fragment {
                 mRecyclerView.setAdapter(adapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.scrollToPosition(0);
+
             }
         });
     }

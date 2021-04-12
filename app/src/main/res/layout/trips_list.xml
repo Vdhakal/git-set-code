@@ -13,15 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/trip_card"
-        android:padding="10dp">
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="20dp">
 
         <TextView
             android:id="@+id/title"
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/playfair_semibold"
             android:text="Trip"
+            android:textSize="24sp"
+            android:layout_marginBottom="8dp"
             android:textAlignment="textStart" />
 
         <TextView
@@ -31,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:width="120dp"
-            android:text="Product Name:"
-            android:textSize="12sp" />
+            android:text="Product Types:"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_product_name"
@@ -42,73 +45,58 @@
             android:layout_below="@id/title"
             android:layout_toRightOf="@id/label_product_name"
             android:text="Gasoline A"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/label_stops"
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_marginStart="81dp"
-            android:layout_toLeftOf="@id/tv_stops"
-            android:layout_toEndOf="@+id/tv_product_name"
+            android:layout_below="@id/label_product_name"
             android:width="64dp"
             android:text="Stops:"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_stops"
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_alignParentEnd="true"
+            android:layout_below="@id/tv_product_name"
+            android:layout_toRightOf="@id/label_stops"
             android:layout_marginStart="5dp"
             android:width="64dp"
             android:text="5"
-            android:textAlignment="textEnd"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/expandable_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_product_name">
+            android:layout_below="@+id/label_stops">
 
-            <com.shuhart.stepview.StepView
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#2F2D2D2D"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+
+            <com.example.git_set_code.step_view.VerticalStepView
                 android:id="@+id/step_view"
+                style="@style/playfair_normal_black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp"
+                android:paddingBottom="10dp"
+                app:layout_constraintTop_toBottomOf="@id/divider"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:sv_animationType="Line"
-                app:sv_doneCircleColor="@color/blue_100"
-                app:sv_doneCircleRadius="12dp"
-                app:sv_doneStepLineColor="@color/blue_100"
-                app:sv_doneStepMarkColor="@color/dark_orange"
-                app:sv_nextStepLineColor="@color/blue_100"
-                app:sv_nextTextColor="@color/blue_100"
-                app:sv_selectedCircleColor="@color/blue_100"
-                app:sv_selectedCircleRadius="12dp"
-                app:sv_selectedStepNumberColor="@color/dark_orange"
-                app:sv_selectedTextColor="@color/blue_100"
-                app:sv_stepLineWidth="1dp"
-                app:sv_stepNumberTextSize="12sp"
-                app:sv_stepPadding="4dp"
-                app:sv_stepViewStyle="@style/StepView"
-                />
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/expandable_layout" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
