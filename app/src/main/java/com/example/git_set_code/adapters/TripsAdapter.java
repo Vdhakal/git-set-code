@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.git_set_code.R;
+import com.example.git_set_code.helperClasses.SlidebarStateHolder;
 import com.example.git_set_code.step_view.VerticalStepView;
 import com.example.git_set_code.viewmodels.TripsData;
 
@@ -33,6 +34,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     private List<TripsData> tripsDataList;
     private boolean expanded;
     private Context context;
+    private SlidebarStateHolder slidebarStateHolder;
 
     public TripsAdapter(Context context, List<TripsData> tripsData){
         this.tripsDataList = tripsData;
@@ -83,6 +85,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
                 holder.getSlideView().setButtonBackgroundColor(ColorStateList.valueOf(Color.LTGRAY));
                 holder.getSlideView().setSlideBackgroundColor(ColorStateList.valueOf(Color.GRAY));
                 holder.getSlideView().setEnabled(false);
+                slidebarStateHolder = new SlidebarStateHolder(!holder.getSlideView().isEnabled(), 1);
             }
         });
     }

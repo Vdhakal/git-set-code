@@ -38,6 +38,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <ng.max.slideview.SlideView
                 android:id="@+id/slideView_summary"
                 style="@style/playfair_normal_black"

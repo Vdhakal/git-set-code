@@ -51,8 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Product Dropped"
-            app:layout_constraintStart_toStartOf="@+id/textInputEditText"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+            app:layout_constraintStart_toStartOf="@+id/pre_delivery"
+            app:layout_constraintTop_toBottomOf="@+id/pre_delivery" />
 
         <TextView
             android:id="@+id/textView7"
@@ -61,8 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Drop Start Date"
-            app:layout_constraintStart_toStartOf="@+id/textInputEditText2"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText2" />
+            app:layout_constraintStart_toStartOf="@+id/product_dropped"
+            app:layout_constraintTop_toBottomOf="@+id/product_dropped" />
 
         <TextView
             android:id="@+id/textView18"
@@ -72,7 +72,7 @@
             android:text="Time
 "
             app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
-            app:layout_constraintStart_toStartOf="@+id/textInputEditText10" />
+            app:layout_constraintStart_toStartOf="@+id/drop_end_time" />
 
         <TextView
             android:id="@+id/textView14"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:text="Time"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
-            app:layout_constraintStart_toStartOf="@+id/textInputEditText8" />
+            app:layout_constraintStart_toStartOf="@+id/start_time" />
 
         <TextView
             android:id="@+id/textView8"
@@ -90,8 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Drop End Date"
-            app:layout_constraintStart_toStartOf="@+id/textInputEditText3"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText3" />
+            app:layout_constraintStart_toStartOf="@+id/start_date"
+            app:layout_constraintTop_toBottomOf="@+id/start_date" />
 
         <TextView
             android:id="@+id/textView13"
@@ -100,8 +100,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Gross Gallons"
-            app:layout_constraintStart_toStartOf="@+id/textInputEditText4"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText4" />
+            app:layout_constraintStart_toStartOf="@+id/drop_end_date"
+            app:layout_constraintTop_toBottomOf="@+id/drop_end_date" />
 
         <TextView
             android:id="@+id/textView12"
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:text="Net Gallons"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView13"
-            app:layout_constraintStart_toStartOf="@+id/editText" />
+            app:layout_constraintStart_toStartOf="@+id/net_gallons" />
 
         <TextView
             android:id="@+id/textView9"
@@ -119,8 +119,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Remaining Fuel"
-            app:layout_constraintStart_toStartOf="@+id/textInputEditText6"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText6" />
+            app:layout_constraintStart_toStartOf="@+id/gross_gallons"
+            app:layout_constraintTop_toBottomOf="@+id/gross_gallons" />
 
         <TextView
             android:id="@+id/textView11"
@@ -139,52 +139,56 @@
             android:layout_height="wrap_content"
             android:text="Post-Delivery"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-            app:layout_constraintStart_toStartOf="@+id/editText2" />
+            app:layout_constraintStart_toStartOf="@+id/post_delivery" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText"
+            android:id="@+id/pre_delivery"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:layout_marginTop="4dp"
             android:background="@color/background_orange"
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText6"
+            android:id="@+id/gross_gallons"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:inputType="number"
             android:background="@color/background_orange"
             app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText2"
+            android:id="@+id/product_dropped"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:inputType="text"
             android:background="@color/background_orange"
-            app:layout_constraintEnd_toEndOf="@+id/editText"
+            app:layout_constraintEnd_toEndOf="@+id/net_gallons"
             app:layout_constraintStart_toStartOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText5"
+            android:id="@+id/remaining_fuel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@color/background_orange"
-            app:layout_constraintEnd_toEndOf="@+id/editText"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="@+id/net_gallons"
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText3"
+            android:id="@+id/start_date"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -196,7 +200,7 @@
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText8"
+            android:id="@+id/start_time"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -209,7 +213,7 @@
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText10"
+            android:id="@+id/drop_end_time"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -222,7 +226,7 @@
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText4"
+            android:id="@+id/drop_end_date"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -234,20 +238,22 @@
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText"
+            android:id="@+id/net_gallons"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:background="@color/background_orange"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText2"
+            android:id="@+id/post_delivery"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:inputType="number"
             android:layout_marginEnd="8dp"
             android:background="@color/background_orange"
             app:layout_constraintEnd_toEndOf="parent"
@@ -262,9 +268,9 @@
             android:backgroundTint="@color/background_orange"
             android:padding="4dp"
             android:text="Scan Bill"
-            app:layout_constraintEnd_toEndOf="@+id/textInputEditText6"
-            app:layout_constraintStart_toStartOf="@+id/textInputEditText5"
-            app:layout_constraintTop_toBottomOf="@+id/textInputEditText5" />
+            app:layout_constraintEnd_toEndOf="@+id/gross_gallons"
+            app:layout_constraintStart_toStartOf="@+id/remaining_fuel"
+            app:layout_constraintTop_toBottomOf="@+id/remaining_fuel" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -279,7 +285,7 @@
             android:orientation="horizontal" />
 
         <Button
-            android:id="@+id/save_cont"
+            android:id="@+id/save_cont_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/playfair_normal_black"

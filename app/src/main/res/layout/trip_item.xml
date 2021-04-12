@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trip_summary_card_view"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +15,7 @@
         android:background="@color/trip_card">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/trip_summary_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trip"
@@ -34,9 +35,8 @@
             android:text="Product Name:"
             android:textSize="14sp"
             android:layout_marginBottom="4dp"
-            android:layout_below="@id/title"
             style="@style/playfair_normal_black"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/trip_summary_title"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
@@ -47,8 +47,7 @@
             android:layout_marginBottom="4dp"
             android:textSize="14sp"
             android:text="Gasoline A"
-            android:layout_below="@id/title"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/trip_summary_title"
             app:layout_constraintStart_toEndOf="@id/label_product_name"/>
 
         <TextView
@@ -177,6 +176,65 @@
             android:layout_below="@id/label_terminal_address"
             app:layout_constraintTop_toBottomOf="@id/label_terminal_address"
             app:layout_constraintStart_toEndOf="@id/label_special_instructions"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandable_layout_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_quantities">
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="#2F2D2D2D"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/enter_information"
+                style="@style/playfair_normal_black"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:background="@drawable/orange_fill__rounded_color"
+                android:gravity="center"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="Enter Infromation"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/expandable_layout_summary"
+                app:layout_constraintEnd_toStartOf="@+id/head_to_source"
+                app:layout_constraintStart_toStartOf="@+id/expandable_layout_summary"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+            <Button
+                android:id="@+id/head_to_source"
+                style="@style/playfair_normal_black"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:background="@drawable/orange_fill__rounded_color"
+                android:gravity="center"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="Start Navigation"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/expandable_layout_summary"
+                app:layout_constraintStart_toEndOf="@+id/enter_information"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

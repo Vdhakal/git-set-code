@@ -1,5 +1,7 @@
 package com.example.git_set_code.fragments;
 
+import android.content.Context;
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.git_set_code.R;
 
@@ -27,7 +31,7 @@ public class TemporarySource extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    EditText preDelivery, postDelivery, droppedProduct, startDate, startTime, endDate, endTime, grossGallons, netGallons, remainingFuel;
     public TemporarySource() {
         // Required empty public constructor
     }
@@ -63,22 +67,49 @@ public class TemporarySource extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_temporary_source, container, false);
-        Button sourceButton = rootView.findViewById(R.id.save_cont);
+        View rootView = inflater.inflate(R.layout.fragment_source_info, container, false);
+        Button sourceButton = rootView.findViewById(R.id.save_cont_source);
+        initItems(rootView);
         onSourceButtonClicked(sourceButton);
 
         return rootView;
     }
+
+    private void initItems(View rootView) {
+        preDelivery = rootView.findViewById(R.id.pre_delivery);
+        postDelivery = rootView.findViewById(R.id.post_delivery);
+        droppedProduct = rootView.findViewById(R.id.product_dropped);
+        startDate = rootView.findViewById(R.id.start_date);
+        startTime = rootView.findViewById(R.id.start_time);
+        endDate = rootView.findViewById(R.id.drop_end_date);
+        endTime = rootView.findViewById(R.id.drop_end_time);
+        grossGallons = rootView.findViewById(R.id.gross_gallons);
+        netGallons = rootView.findViewById(R.id.net_gallons);
+        remainingFuel = rootView.findViewById(R.id.remaining_fuel);
+
+    }
+
     private void onSourceButtonClicked(Button sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 swapFragment(v);
+                Toast.makeText(getContext(), "{" +
+                        "\nPre delivery: "+preDelivery.getText()+
+                        "\nPost delivery: "+postDelivery.getText()+
+                        "\nProduct Dropped: "+droppedProduct.getText()+
+                        "\nStart Date: "+startDate.getText()+
+                        "\nStart Time: "+startTime.getText()+
+                        "\nEnd Date: "+endDate.getText()+
+                        "\nEnd Time: "+endTime.getText()+
+                        "\nGross Gallons: "+grossGallons.getText()+
+                        "\nNet Gallons: "+netGallons.getText()+
+                        "\nRemaining Fuel: "+remainingFuel.getText()+"\n}", Toast.LENGTH_LONG).show();
             }
         });
     }
     private void swapFragment(View v){
-        Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_tripSummary);
+        Navigation.findNavController(v).navigate(R.id.action_temporarySource_to_tripSummary);
 
     }
 }

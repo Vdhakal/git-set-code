@@ -28,5 +28,28 @@
         android:id="@+id/tripSummary"
         android:name="com.example.git_set_code.fragments.TripSummary"
         android:label="fragment_trip_summary"
-        tools:layout="@layout/fragment_trip_summary" />
+        tools:layout="@layout/fragment_trip_summary" >
+        <action
+            android:id="@+id/action_tripSummary_to_temporarySource"
+            app:destination="@id/temporarySource" />
+        <action
+            android:id="@+id/action_tripSummary_to_temporarySite"
+            app:destination="@id/temporarySite" />
+    </fragment>
+    <fragment
+        android:id="@+id/temporarySource"
+        android:name="com.example.git_set_code.fragments.TemporarySource"
+        android:label="TemporarySource" >
+        <action
+            android:id="@+id/action_temporarySource_to_tripSummary"
+            app:destination="@id/tripSummary" />
+    </fragment>
+    <fragment
+        android:id="@+id/temporarySite"
+        android:name="com.example.git_set_code.fragments.TemporarySite"
+        android:label="TemporarySite" >
+        <action
+            android:id="@+id/action_temporarySite_to_tripSummary"
+            app:destination="@id/tripSummary" />
+    </fragment>
 </navigation>
