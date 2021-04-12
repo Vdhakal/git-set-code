@@ -36,7 +36,7 @@ public class MapsFragment extends Fragment {
     private View rootView;
     private Location currentLocation;
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
+    private final OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         /**
          * Manipulates the map once available.
@@ -105,7 +105,7 @@ public class MapsFragment extends Fragment {
     }
     private void loadMapScene() {
         // Load a scene from the HERE SDK to render the map with a map scheme.
-        mapView.getMapScene().loadScene(MapScheme.HYBRID_NIGHT, new MapScene.LoadSceneCallback() {
+        mapView.getMapScene().loadScene(MapScheme.NORMAL_DAY, new MapScene.LoadSceneCallback() {
             @Override
             public void onLoadScene(@Nullable MapError mapError) {
                 if (mapError == null) {
