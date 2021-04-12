@@ -74,7 +74,10 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     private void setUpStepView(ViewHolder holder) {
         List<String> stepsBeanList = new ArrayList<>();
         for (int i=0; i<tripsDataList.size(); i++){
-            stepsBeanList.add(tripsDataList.get(i).getDestinationName().trim().toUpperCase()+"\n"+tripsDataList.get(i).getAddress1().trim().toUpperCase()+" "+tripsDataList.get(i).getCity().trim().toUpperCase()+" "+tripsDataList.get(i).getStateAbbrev().trim().toUpperCase());
+            String waypointType="";
+            if(tripsDataList.get(i).getWaypointTypeDescription().equals("Site Container"))waypointType="SITE";
+            if(tripsDataList.get(i).getWaypointTypeDescription().equals("Source"))waypointType="SOURCE";
+            stepsBeanList.add(tripsDataList.get(i).getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+tripsDataList.get(i).getAddress1().trim().toUpperCase()+" "+tripsDataList.get(i).getCity().trim().toUpperCase()+" "+tripsDataList.get(i).getStateAbbrev().trim().toUpperCase());
         }
         stepsBeanList.add("");
         holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-1)
