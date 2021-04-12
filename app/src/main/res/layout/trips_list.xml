@@ -18,7 +18,7 @@
         android:paddingBottom="20dp">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/trip_title"
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
+            android:layout_below="@id/trip_title"
             android:width="120dp"
             android:text="Product Types:"
             android:textSize="16sp" />
@@ -42,7 +42,7 @@
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
+            android:layout_below="@id/trip_title"
             android:layout_toRightOf="@id/label_product_name"
             android:text="Gasoline A"
             android:textSize="16sp" />
@@ -84,7 +84,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
-
             <com.example.git_set_code.step_view.VerticalStepView
                 android:id="@+id/step_view"
                 style="@style/playfair_normal_black"
@@ -96,6 +95,22 @@
                 app:layout_constraintTop_toBottomOf="@id/divider"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/expandable_layout" />
+            <ng.max.slideview.SlideView
+                android:id="@+id/slideView"
+                style="@style/playfair_normal_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sv_buttonBackgroundColor="#e5e5e5"
+                app:sv_slideBackgroundColor="@color/source_green"
+                app:sv_slideText="Select Trip"
+                app:sv_slideTextColor="#f1f1f1"
+                app:sv_slideTextSize="20sp"
+                app:sv_animateSlideText="true"
+                app:sv_reverseSlide="false"
+                app:layout_constraintTop_toBottomOf="@id/step_view"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="54dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
