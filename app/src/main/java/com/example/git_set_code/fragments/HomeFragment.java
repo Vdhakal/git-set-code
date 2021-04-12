@@ -39,7 +39,6 @@ public class HomeFragment extends Fragment {
     List<TripsData> tripsDataList;
     Context thiscontext;
     TripsAdapter adapter;
-    Button button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,32 +53,11 @@ public class HomeFragment extends Fragment {
 
         View rootView =  inflater.inflate(R.layout.home_fragment, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_trips_list);
-        button = (Button)rootView.findViewById(R.id.button2);
-        initializeStepView(rootView);
         tripsDataList = new ArrayList<>();
         extractData();
-        onSourceButtonClicked(button);
         return rootView;
     }
 
-    private void initializeStepView(View rootView) {
-
-    }
-
-    //This is how you'd change fragments
-
-    private void onSourceButtonClicked(Button sourceButton) {
-        sourceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swapFragment(v);
-            }
-        });
-    }
-    private void swapFragment(View v){
-        Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_tripSummary);
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

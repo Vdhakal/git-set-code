@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.git_set_code.R;
 import com.example.git_set_code.viewmodels.TripsData;
 
+
 import java.util.List;
 
 public class TripsSummaryAdapter extends RecyclerView.Adapter<TripsSummaryAdapter.ViewHolder> {
@@ -39,7 +40,6 @@ public class TripsSummaryAdapter extends RecyclerView.Adapter<TripsSummaryAdapte
         holder.getTerminalAddress().setText(tripsDataList.get(position).getAddress1().trim()+", "+tripsDataList.get(position).getCity().trim()+" "+tripsDataList.get(position).getStateAbbrev().trim());
         holder.getSpecialInstructions().setText("NONE");
         holder.getQuantities().setText(String.valueOf(tripsDataList.get(position).getRequestedQty()));
-        holder.getStops().setText(String.valueOf(tripsDataList.size()));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class TripsSummaryAdapter extends RecyclerView.Adapter<TripsSummaryAdapte
         return tripsDataList.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, stops, wayPointType;
+        private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, wayPointType;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -59,7 +59,6 @@ public class TripsSummaryAdapter extends RecyclerView.Adapter<TripsSummaryAdapte
             terminalAddress = itemView.findViewById(R.id.tv_terminal_address);
             specialInstructions = itemView.findViewById(R.id.tv_special_instructions);
             quantities = itemView.findViewById(R.id.tv_quantities);
-            stops = itemView.findViewById(R.id.tv_stops);
 
         }
         public TextView getWayPointType() {
@@ -89,9 +88,6 @@ public class TripsSummaryAdapter extends RecyclerView.Adapter<TripsSummaryAdapte
             return quantities;
         }
 
-        public TextView getStops() {
-            return stops;
-        }
 
     }
 }

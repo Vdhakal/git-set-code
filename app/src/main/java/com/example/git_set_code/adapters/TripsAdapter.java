@@ -8,6 +8,7 @@ import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.git_set_code.R;
@@ -28,9 +30,10 @@ import ng.max.slideview.SlideView;
 
 public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> {
 
-    List<TripsData> tripsDataList;
-    boolean expanded;
-    Context context;
+    private List<TripsData> tripsDataList;
+    private boolean expanded;
+    private Context context;
+
     public TripsAdapter(Context context, List<TripsData> tripsData){
         this.tripsDataList = tripsData;
         this.expanded = false;
@@ -53,8 +56,22 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         holder.getStops().setText(String.valueOf(tripsDataList.get(0).getStops()));
         setUpStepView(holder);
         setUpSlider(holder);
+        onSummaryButtonClick(holder.getSummaryButton());
     }
+    //This is how you'd change fragments
 
+    private void onSummaryButtonClick(Button sourceButton) {
+        sourceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swapFragment(v);
+            }
+        });
+    }
+    private void swapFragment(View v){
+        Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_tripSummary);
+
+    }
     private void setUpSlider(ViewHolder holder) {
         holder.getSlideView().setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
@@ -66,7 +83,6 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
                 holder.getSlideView().setButtonBackgroundColor(ColorStateList.valueOf(Color.LTGRAY));
                 holder.getSlideView().setSlideBackgroundColor(ColorStateList.valueOf(Color.GRAY));
                 holder.getSlideView().setEnabled(false);
-
             }
         });
     }
@@ -103,6 +119,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         private final ConstraintLayout expandableLayout;
         private final VerticalStepView stepView;
         private final SlideView slideView;
+        private final Button summaryButton;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -114,6 +131,8 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
             expandableLayout = itemView.findViewById(R.id.expandable_layout);
             stepView = (VerticalStepView) itemView.findViewById(R.id.step_view);
             slideView = (SlideView) itemView.findViewById(R.id.slideView);
+            summaryButton = (Button) itemView.findViewById(R.id.summary_button);
+
             expandOnClick(cardView);
         }
 
@@ -125,6 +144,10 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
                 notifyItemChanged(getAdapterPosition());
             }
         });
+        }
+
+        public Button getSummaryButton() {
+            return summaryButton;
         }
 
         public TextView getProductName() { return productName; }

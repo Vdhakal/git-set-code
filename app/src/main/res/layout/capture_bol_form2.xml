@@ -239,8 +239,8 @@
             app:layout_constraintStart_toStartOf="@+id/textInputEditText5"
             app:layout_constraintTop_toBottomOf="@+id/textInputEditText5" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/notes_edit"
             android:layout_width="0dp"
             android:layout_height="50sp"
             android:layout_marginTop="4dp"
@@ -251,21 +251,6 @@
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-        <Button
-            style="@style/playfair_normal_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/dark_orange"
-            android:padding="8dp"
-            android:text="Save and Continue"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
         <TextView
             android:id="@+id/textView10"
             style="@style/playfair_normal_black"
@@ -274,6 +259,29 @@
             android:text="Notes"
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+
+        <Button
+            android:id="@+id/save_cont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/playfair_normal_black"
+            android:layout_gravity="center"
+            android:layout_marginLeft="82dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="82dp"
+            android:background="@drawable/orange_fill__rounded_color"
+            android:gravity="center"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:text="Save And Continue"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/notes_edit"
+            app:layout_constraintStart_toEndOf="@+id/notes_edit"
+            app:layout_constraintStart_toStartOf="@+id/notes_edit"
+            app:layout_constraintTop_toBottomOf="@+id/notes_edit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
