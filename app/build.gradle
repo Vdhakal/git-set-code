@@ -13,8 +13,15 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        splits {
+            abi {
+                enable true
+                reset()
+                include 'x86_64', 'x86', 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+                universalApk false
+            }
+        }
     }
 
     buildTypes {

@@ -68,7 +68,7 @@ public class TemporarySite extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_site_info, container, false);
 
-        Button sourceButton = rootView.findViewById(R.id.save_cont_source);
+        Button sourceButton = rootView.findViewById(R.id.save_cont_site);
         initItems(rootView);
         onSourceButtonClicked(sourceButton);
         return  rootView;
