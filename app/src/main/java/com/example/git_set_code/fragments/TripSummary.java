@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.example.git_set_code.R;
 import com.example.git_set_code.apiHelpers.TripsAPIService;
 import com.example.git_set_code.adapters.TripsSummaryAdapter;
-import com.example.git_set_code.helperClasses.SlidebarStateHolder;
 import com.example.git_set_code.viewmodels.TripsData;
 import com.example.git_set_code.utils.TripsDecorator;
 

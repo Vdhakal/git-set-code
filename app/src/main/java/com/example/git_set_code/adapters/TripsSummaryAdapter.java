@@ -1,10 +1,6 @@
 package com.example.git_set_code.adapters;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +19,6 @@ import com.example.git_set_code.viewmodels.TripsData;
 
 
 import java.util.List;
-
-import ng.max.slideview.SlideView;
 
 public class TripsSummaryAdapter extends RecyclerView.Adapter<TripsSummaryAdapter.ViewHolder> {
 
