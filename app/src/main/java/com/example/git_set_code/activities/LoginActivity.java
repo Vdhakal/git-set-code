@@ -16,8 +16,9 @@ import com.example.git_set_code.R;
 public class LoginActivity extends AppCompatActivity {
 
     Button login_button;
-    Animation topAnim;
+    Animation topAnim, bottomAnim;
     ImageView image;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +28,13 @@ public class LoginActivity extends AppCompatActivity {
 
         //Animations
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
         //Hooks
         image = findViewById(R.id.imageView);
         image.setAnimation(topAnim);
+
+        button = findViewById(R.id.login_button);
+        button.setAnimation(bottomAnim);
 
         initializeUIelements();
 
