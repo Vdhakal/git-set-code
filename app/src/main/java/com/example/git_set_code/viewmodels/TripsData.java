@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
 public class TripsData {
-    @PrimaryKey(autoGenerate = true)
     public long id;
     private int statusCode;
     private String datastatus;
@@ -36,8 +34,6 @@ public class TripsData {
     private  String   stateAbbrev;
     private int   postalCode;
     private  int  delReqNum;
-
-
     private   int  delReqLineNum;
     private  int   productId;
     private  String   productCode;

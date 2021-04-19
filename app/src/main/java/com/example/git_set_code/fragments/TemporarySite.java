@@ -3,10 +3,14 @@ package com.example.git_set_code.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.git_set_code.R;
 
@@ -21,6 +25,7 @@ public class TemporarySite extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    EditText preDelivery, prodType, droppedProduct, startDate, startTime, endDate, endTime, grossGallons, netGallons, remainingFuel;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -61,6 +66,47 @@ public class TemporarySite extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_temporary_site, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_site_info, container, false);
+
+        Button sourceButton = rootView.findViewById(R.id.save_cont_source);
+        initItems(rootView);
+        onSourceButtonClicked(sourceButton);
+        return  rootView;
+
+    }
+    private void initItems(View rootView) {
+        preDelivery = rootView.findViewById(R.id.pre_delivery_rem_site);
+        prodType = rootView.findViewById(R.id.product_type_site);
+        startDate = rootView.findViewById(R.id.start_date_site);
+        startTime = rootView.findViewById(R.id.start_time_site);
+        endDate = rootView.findViewById(R.id.drop_end_date_site);
+        endTime = rootView.findViewById(R.id.drop_end_time_site);
+        grossGallons = rootView.findViewById(R.id.gross_gallons_site);
+        netGallons = rootView.findViewById(R.id.net_gallons_site);
+        remainingFuel = rootView.findViewById(R.id.remaining_fuel_site);
+
+    }
+
+    private void onSourceButtonClicked(Button sourceButton) {
+        sourceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swapFragment(v);
+                Toast.makeText(getContext(), "{" +
+                        "\nRemaining fuel (Pre delivery): "+preDelivery.getText()+
+                        "\nProduct Type: "+prodType.getText()+
+                        "\nStart Date: "+startDate.getText()+
+                        "\nStart Time: "+startTime.getText()+
+                        "\nEnd Date: "+endDate.getText()+
+                        "\nEnd Time: "+endTime.getText()+
+                        "\nGross Gallons: "+grossGallons.getText()+
+                        "\nNet Gallons: "+netGallons.getText()+
+                        "\nRemaining Fuel: "+remainingFuel.getText()+"\n}", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    private void swapFragment(View v){
+        Navigation.findNavController(v).navigate(R.id.action_temporarySite_to_tripSummary);
+
     }
 }

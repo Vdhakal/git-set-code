@@ -17,7 +17,7 @@ import com.example.git_set_code.R;
 import java.util.List;
 
 /**
- * ：16/6/24 11:48
+ * ：04/11/2021 11:48
  * <p/>
  *
  */
@@ -27,8 +27,8 @@ public class VerticalStepView extends LinearLayout implements VerticalStepViewIn
     private VerticalStepViewIndicator mStepsViewIndicator;
     private List<String> mTexts;
     private int mComplectingPosition;
-    private int mUnComplectedTextColor = ContextCompat.getColor(getContext(), R.color.black);//定义默认未完成文字的颜色;
-    private int mComplectedTextColor = ContextCompat.getColor(getContext(), android.R.color.white);//定义默认完成文字的颜色;
+    private int mUnComplectedTextColor = ContextCompat.getColor(getContext(), R.color.black);
+    private int mComplectedTextColor = ContextCompat.getColor(getContext(), android.R.color.white);
 
     private int mTextSize = 14;//default textSize
     private TextView mTextView;

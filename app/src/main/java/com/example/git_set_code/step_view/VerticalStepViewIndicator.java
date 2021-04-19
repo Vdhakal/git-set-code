@@ -22,15 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 日期：16/6/24 11:48
+ * 04/11/2021 11:48
  * <p/>
- * 描述：
+ *
  */
 public class VerticalStepViewIndicator extends View
 {
     private final String TAG_NAME = this.getClass().getSimpleName();
 
-    //定义默认的高度   definition default height
+    // definition default height
     private int defaultStepIndicatorNum = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
 
     private float mCompletedLineHeight;//     definition completed line height
@@ -53,12 +53,12 @@ public class VerticalStepViewIndicator extends View
     private int mCompletedLineColor = Color.WHITE;//      definition mCompletedLineColor
     private PathEffect mEffects;
 
-    private int mComplectingPosition;//正在进行position   underway position
+    private int mComplectingPosition;//position   underway position
     private Path mPath;
 
     private OnDrawIndicatorListener mOnDrawListener;
     private Rect mRect;
-    private int mHeight;//这个控件的动态高度    this view dynamic height
+    private int mHeight;//    this view dynamic height
     private boolean mIsReverseDraw;//is reverse draw this view;
 
 
@@ -204,9 +204,9 @@ public class VerticalStepViewIndicator extends View
         //----------------------------draw line-----------------------------------------------
         for(int i = 0; i < mCircleCenterPointPositionList.size() - 1; i++)
         {
-            //前一个ComplectedXPosition
+            //ComplectedXPosition
             final float preComplectedXPosition = mCircleCenterPointPositionList.get(i);
-            //后一个ComplectedXPosition
+            //ComplectedXPosition
             final float afterComplectedXPosition = mCircleCenterPointPositionList.get(i + 1);
 
             if(i < mComplectingPosition)

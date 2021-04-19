@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trip_summary_card_view"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,71 +8,85 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:background="@color/trip_card">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/trip_summary_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trip"
             style="@style/playfair_normal_black"
-            android:fontFamily="@font/playfair_semibold"
             android:textAlignment="textStart"
+            android:textSize="24sp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             />
 
         <TextView
             android:id="@+id/label_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="120dp"
+            android:width="140dp"
             android:text="Product Name:"
-            android:textSize="12sp"
-            android:layout_below="@id/title"
-            style="@style/playfair_normal_black" />
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"
+            style="@style/playfair_normal_black"
+            app:layout_constraintTop_toBottomOf="@id/trip_summary_title"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tv_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/playfair_normal_black"
-            android:textSize="12sp"
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
             android:text="Gasoline A"
-            android:layout_below="@id/title"
-            android:layout_toRightOf="@id/label_product_name"/>
+            app:layout_constraintTop_toBottomOf="@id/trip_summary_title"
+            app:layout_constraintStart_toEndOf="@id/label_product_name"/>
 
         <TextView
             android:id="@+id/label_vendor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="120dp"
+            android:width="140dp"
             style="@style/playfair_normal_black"
+            android:layout_marginBottom="4dp"
             android:text="Vendor Name:"
-            android:textSize="12sp"
-            android:layout_below="@id/label_product_name"/>
+            android:textSize="14sp"
+            android:layout_below="@id/label_product_name"
+            app:layout_constraintTop_toBottomOf="@id/label_product_name"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tv_vendor_name"
+            android:gravity="left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/playfair_normal_black"
             android:text="Vendor A"
-            android:textSize="12sp"
-            android:layout_toRightOf="@id/label_vendor_name"
-            android:layout_below="@id/label_product_name"/>
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
+            android:layout_below="@id/label_product_name"
+            app:layout_constraintTop_toBottomOf="@id/label_product_name"
+            app:layout_constraintStart_toEndOf="@id/label_vendor_name"/>
 
         <TextView
             android:id="@+id/label_terminal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="120dp"
+            android:width="140dp"
+            android:layout_marginBottom="4dp"
             style="@style/playfair_normal_black"
             android:text="Terminal Name:"
-            android:textSize="12sp"
-            android:layout_below="@id/label_vendor_name"/>
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/label_vendor_name"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tv_terminal_name"
@@ -79,89 +94,76 @@
             android:layout_height="wrap_content"
             style="@style/playfair_normal_black"
             android:text="Terminal A"
-            android:textSize="12sp"
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
             android:layout_below="@id/label_vendor_name"
-            android:layout_toRightOf="@id/label_terminal_name"/>
+            app:layout_constraintTop_toBottomOf="@id/label_vendor_name"
+            app:layout_constraintStart_toEndOf="@id/label_terminal_name"/>
 
         <TextView
             android:id="@+id/label_quantities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="64dp"
+            android:width="140dp"
             style="@style/playfair_normal_black"
             android:text="Quantities:"
-            android:textSize="12sp"
-            android:layout_toLeftOf="@id/tv_quantities"
-            android:layout_below="@id/title"
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/label_special_instructions"
+            app:layout_constraintStart_toStartOf="parent"
             />
 
         <TextView
             android:id="@+id/tv_quantities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="64dp"
             android:textAlignment="textEnd"
             style="@style/playfair_normal_black"
-            android:layout_marginStart="5dp"
             android:text="300lb"
-            android:textSize="12sp"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/title"/>
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"
+            android:layout_below="@id/tv_special_instructions"
+            app:layout_constraintTop_toBottomOf="@id/label_special_instructions"
+            app:layout_constraintStart_toEndOf="@id/label_quantities"/>
 
-        <TextView
-            android:id="@+id/label_stops"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:width="64dp"
-            style="@style/playfair_normal_black"
-            android:layout_marginStart="15dp"
-            android:text="Stops:"
-            android:textSize="12sp"
-            android:layout_toLeftOf="@id/tv_stops"
-            android:layout_below="@id/tv_quantities" />
 
-        <TextView
-            android:id="@+id/tv_stops"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:width="64dp"
-            android:textAlignment="textEnd"
-            style="@style/playfair_normal_black"
-            android:layout_marginStart="5dp"
-            android:text="5"
-            android:textSize="12sp"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/tv_quantities" />
 
         <TextView
             android:id="@+id/label_terminal_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="120dp"
+            android:width="140dp"
             style="@style/playfair_normal_black"
             android:text="Terminal Address:"
-            android:textSize="12sp"
-            android:layout_below="@id/label_terminal_name"/>
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/label_terminal_name"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tv_terminal_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label_terminal_name"
-            android:layout_toRightOf="@id/label_terminal_address"
             style="@style/playfair_normal_black"
-            android:text="1008 Brian Avenue"
-            android:textSize="12sp"/>
+            android:layout_marginBottom="4dp"
+            android:text="1008 Brian Avenue,WESTEST MONROE OF ALL LA"
+            android:textSize="14sp"
+            android:gravity="left"
+            app:layout_constraintTop_toBottomOf="@id/label_terminal_name"
+            app:layout_constraintStart_toEndOf="@id/label_terminal_address"/>
 
         <TextView
             android:id="@+id/label_special_instructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="120dp"
+            android:width="140dp"
+            android:layout_marginBottom="4dp"
             style="@style/playfair_normal_black"
             android:text="Special Instructions:"
-            android:textSize="12sp"
-            android:layout_below="@id/label_terminal_address"/>
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/label_terminal_address"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tv_special_instructions"
@@ -169,9 +171,70 @@
             android:layout_height="wrap_content"
             style="@style/playfair_normal_black"
             android:text="None"
-            android:textSize="12sp"
-            android:layout_toRightOf="@id/label_special_instructions"
-            android:layout_below="@id/label_terminal_address"/>
-    </RelativeLayout>
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
+            android:layout_below="@id/label_terminal_address"
+            app:layout_constraintTop_toBottomOf="@id/label_terminal_address"
+            app:layout_constraintStart_toEndOf="@id/label_special_instructions"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandable_layout_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_quantities">
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="#2F2D2D2D"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/enter_information"
+                style="@style/playfair_normal_black"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:background="@drawable/orange_fill__rounded_color"
+                android:gravity="center"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="Enter Infromation"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/expandable_layout_summary"
+                app:layout_constraintEnd_toStartOf="@+id/head_to_source"
+                app:layout_constraintStart_toStartOf="@+id/expandable_layout_summary"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+            <Button
+                android:id="@+id/head_to_source"
+                style="@style/playfair_normal_black"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:background="@drawable/orange_fill__rounded_color"
+                android:gravity="center"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="Start Navigation"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/expandable_layout_summary"
+                app:layout_constraintStart_toEndOf="@+id/enter_information"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

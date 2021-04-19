@@ -29,16 +29,34 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trip_summary_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ng.max.slideview.SlideView
+                android:id="@+id/slideView_summary"
+                style="@style/playfair_normal_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:sv_buttonBackgroundColor="#e5e5e5"
+                app:sv_slideBackgroundColor="@color/source_green"
+                app:sv_slideText="Select Trip"
+                app:sv_slideTextColor="#f1f1f1"
+                app:sv_slideTextSize="20sp"
+                app:sv_animateSlideText="true"
+                app:sv_reverseSlide="false"
+                app:layout_constraintTop_toBottomOf="@id/trip_summary_list"
+                app:layout_constraintBottom_toBottomOf="@id/main_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="54dp"
+                android:layout_marginTop="32dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
