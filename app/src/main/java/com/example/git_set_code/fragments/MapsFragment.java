@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.git_set_code.R;
 import com.example.git_set_code.locations.PlatformPositioningProvider;
@@ -98,6 +99,7 @@ public class MapsFragment extends Fragment {
 
             @Override
             public void permissionsDenied() {
+                Toast.makeText(getContext(), "Sorry! You need to allow location permissions for the map feature to work!", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "Permissions denied by user.");
             }
         });

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
+import com.example.git_set_code.permissions.PermissionsRequestor;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
 /**
@@ -29,7 +30,9 @@ public class EditFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
+    private static final String TAG = "Maps";
     private static final String ARG_PARAM2 = "param2";
+    private PermissionsRequestor permissionsRequestor;
     private SignaturePad signaturePad = null;
     private Bitmap signatureBitmap = null;
     private Bitmap bolBitmap = null;
@@ -78,8 +81,25 @@ public class EditFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        handleAndroidPermissions();
+
         initiateSignaturePad();
-        initiateBolCapture();
+    }
+    private void handleAndroidPermissions() {
+        permissionsRequestor = new PermissionsRequestor(getActivity());
+        permissionsRequestor.request(new PermissionsRequestor.ResultListener(){
+
+            @Override
+            public void permissionsGranted() {
+                initiateBolCapture();
+            }
+
+            @Override
+            public void permissionsDenied() {
+                Log.e(TAG, "Permissions denied by user.");
+            }
+        });
+
     }
 
     private void initiateSignaturePad() {
