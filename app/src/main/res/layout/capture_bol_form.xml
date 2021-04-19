@@ -129,8 +129,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Signature"
-            app:layout_constraintStart_toStartOf="@+id/scanBillButton"
-            app:layout_constraintTop_toBottomOf="@+id/scanBillButton" />
+            app:layout_constraintStart_toStartOf="@+id/scanBillButtonSource"
+            app:layout_constraintTop_toBottomOf="@+id/scanBillButtonSource" />
 
         <TextView
             android:id="@+id/textView3"
@@ -254,13 +254,12 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <Button
-            android:id="@+id/scanBillButton"
+            android:id="@+id/scanBillButtonSource"
             style="@style/playfair_normal_black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/background_orange"
-            android:fontFamily="@font/playfair_bold"
             android:padding="4dp"
             android:text="Scan Bill"
             app:layout_constraintEnd_toEndOf="@+id/gross_gallons"

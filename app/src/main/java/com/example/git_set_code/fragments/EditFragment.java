@@ -104,7 +104,7 @@ public class EditFragment extends Fragment {
     }
 
     private void initiateBolCapture() {
-        getView().findViewById(R.id.scanBillButton).setOnClickListener(new View.OnClickListener() {
+        getView().findViewById(R.id.scanBillButtonSource).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
