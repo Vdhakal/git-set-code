@@ -57,5 +57,5 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
     implementation 'com.shuhart.stepview:stepview:1.5.1'
-
+    implementation 'com.github.gcacace:signature-pad:1.2.1'
 }
