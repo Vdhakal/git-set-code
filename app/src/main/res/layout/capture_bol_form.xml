@@ -270,7 +270,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputEditText5" />
 
         <com.github.gcacace.signaturepad.views.SignaturePad
-            android:id="@+id/signaturePad"
+            android:id="@+id/signaturePad1"
             android:layout_width="0dp"
             android:layout_height="100sp"
             android:layout_marginTop="4dp"
@@ -294,10 +294,10 @@
             android:text="Save and Continue"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/signaturePad"
-            app:layout_constraintStart_toEndOf="@+id/signaturePad"
-            app:layout_constraintStart_toStartOf="@+id/signaturePad"
-            app:layout_constraintTop_toBottomOf="@+id/signaturePad" />
+            app:layout_constraintEnd_toEndOf="@+id/signaturePad1"
+            app:layout_constraintStart_toEndOf="@+id/signaturePad1"
+            app:layout_constraintStart_toStartOf="@+id/signaturePad1"
+            app:layout_constraintTop_toBottomOf="@+id/signaturePad1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

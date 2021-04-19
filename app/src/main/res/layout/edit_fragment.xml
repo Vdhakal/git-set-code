@@ -30,7 +30,7 @@
             android:layout_margin="20dp"
             app:cardCornerRadius="20dp">
 
-            <include layout="@layout/capture_bol_form" />
+            <include layout="@layout/capture_bol_form" android:id="@+id/bol_form"/>
         </androidx.cardview.widget.CardView>
 
 
