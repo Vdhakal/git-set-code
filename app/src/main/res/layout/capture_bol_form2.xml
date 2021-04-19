@@ -119,8 +119,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Signature"
-            app:layout_constraintStart_toStartOf="@+id/materialButton"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            app:layout_constraintStart_toStartOf="@+id/scanBillButton"
+            app:layout_constraintTop_toBottomOf="@+id/scanBillButton" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText"
@@ -228,7 +228,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
         <Button
-            android:id="@+id/materialButton"
+            android:id="@+id/scanBillButton"
             style="@style/playfair_normal_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -276,7 +276,7 @@
             android:layout_height="wrap_content"
             android:text="Signature"
             app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            app:layout_constraintTop_toBottomOf="@+id/scanBillButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

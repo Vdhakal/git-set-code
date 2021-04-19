@@ -131,8 +131,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Signature"
-            app:layout_constraintStart_toStartOf="@+id/materialButton"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            app:layout_constraintStart_toStartOf="@+id/scanBillButton"
+            app:layout_constraintTop_toBottomOf="@+id/scanBillButton" />
 
         <TextView
             android:id="@+id/textView3"
@@ -256,7 +256,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <Button
-            android:id="@+id/materialButton"
+            android:id="@+id/scanBillButton"
             style="@style/playfair_normal_black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

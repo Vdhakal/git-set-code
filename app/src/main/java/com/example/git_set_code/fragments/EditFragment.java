@@ -1,5 +1,7 @@
 package com.example.git_set_code.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -7,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +32,7 @@ public class EditFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private SignaturePad signaturePad = null;
     private Bitmap signatureBitmap = null;
+    private Bitmap bolBitmap = null;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -74,6 +78,11 @@ public class EditFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initiateSignaturePad();
+        initiateBolCapture();
+    }
+
+    private void initiateSignaturePad() {
         signaturePad = getView().findViewById(R.id.signaturePad1);
         signaturePad.setOnSignedListener(new SignaturePad.OnSignedListener() {
             @Override
@@ -92,5 +101,24 @@ public class EditFragment extends Fragment {
 
             }
         });
+    }
+
+    private void initiateBolCapture() {
+        getView().findViewById(R.id.scanBillButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 1888);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1888 && resultCode == Activity.RESULT_OK) {
+            //photo bitmap saved here
+            bolBitmap = (Bitmap) data.getExtras().get("data");
+        }
     }
 }
