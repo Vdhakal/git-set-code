@@ -7,6 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,8 +25,10 @@ import com.example.git_set_code.R;
 import com.example.git_set_code.adapters.TripsAdapter;
 import com.example.git_set_code.apiHelpers.TripsAPIService;
 import com.example.git_set_code.adapters.TripsSummaryAdapter;
+import com.example.git_set_code.cache.TripsDataRoom;
 import com.example.git_set_code.viewmodels.TripsData;
 import com.example.git_set_code.utils.TripsDecorator;
+import com.example.git_set_code.viewmodels.TripsInformationViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +41,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     protected RecyclerView mRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
+    private TripsInformationViewModel tripsInformationViewModel;
 
     List<TripsData> tripsDataList;
     Context thiscontext;
@@ -55,6 +62,13 @@ public class HomeFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_trips_list);
         tripsDataList = new ArrayList<>();
         extractData();
+//        tripsInformationViewModel = ViewModelProviders.of(this).get(TripsInformationViewModel.class);
+//        tripsInformationViewModel.getAllData().observe(getViewLifecycleOwner(), new Observer<List<TripsDataRoom>>() {
+//            @Override
+//            public void onChanged(List<TripsDataRoom> tripsDataRooms) {
+////                Toast.makeText(thiscontext, tripsInformationViewModel.getAllData().toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
         return rootView;
     }
 
