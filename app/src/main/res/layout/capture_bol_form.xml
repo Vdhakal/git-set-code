@@ -129,8 +129,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Signature"
-            app:layout_constraintStart_toStartOf="@+id/materialButton"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            app:layout_constraintStart_toStartOf="@+id/scanBillButton"
+            app:layout_constraintTop_toBottomOf="@+id/scanBillButton" />
 
         <TextView
             android:id="@+id/textView3"
@@ -145,7 +145,6 @@
             android:id="@+id/pre_delivery"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:layout_marginTop="4dp"
             android:background="@color/background_orange"
             app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -156,7 +155,6 @@
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:inputType="number"
             android:background="@color/background_orange"
             app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -166,7 +164,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:inputType="text"
             android:background="@color/background_orange"
             app:layout_constraintEnd_toEndOf="@+id/net_gallons"
             app:layout_constraintStart_toStartOf="@+id/textView6"
@@ -180,7 +177,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@color/background_orange"
-            android:inputType="number"
             app:layout_constraintEnd_toEndOf="@+id/net_gallons"
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/textView9">
@@ -244,7 +240,6 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:background="@color/background_orange"
-            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -253,29 +248,29 @@
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:inputType="number"
             android:layout_marginEnd="8dp"
             android:background="@color/background_orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <Button
-            android:id="@+id/materialButton"
+            android:id="@+id/scanBillButton"
             style="@style/playfair_normal_black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/background_orange"
+            android:fontFamily="@font/playfair_bold"
             android:padding="4dp"
             android:text="Scan Bill"
             app:layout_constraintEnd_toEndOf="@+id/gross_gallons"
             app:layout_constraintStart_toStartOf="@+id/remaining_fuel"
             app:layout_constraintTop_toBottomOf="@+id/remaining_fuel" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <com.github.gcacace.signaturepad.views.SignaturePad
+            android:id="@+id/signaturePad1"
             android:layout_width="0dp"
-            android:layout_height="50sp"
+            android:layout_height="100sp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:background="@color/background_orange"
@@ -302,10 +297,10 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintEnd_toEndOf="@+id/signaturePad1"
+            app:layout_constraintStart_toEndOf="@+id/signaturePad1"
+            app:layout_constraintStart_toStartOf="@+id/signaturePad1"
+            app:layout_constraintTop_toBottomOf="@+id/signaturePad1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

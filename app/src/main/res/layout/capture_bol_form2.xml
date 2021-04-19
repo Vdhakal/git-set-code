@@ -118,8 +118,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Signature"
-            app:layout_constraintStart_toStartOf="@+id/materialButton"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            app:layout_constraintStart_toStartOf="@+id/scanBillButton"
+            app:layout_constraintTop_toBottomOf="@+id/scanBillButton" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/pre_delivery_rem_site"
@@ -229,7 +229,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
         <Button
-            android:id="@+id/materialButton"
+            android:id="@+id/scanBillButton"
             style="@style/playfair_normal_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -241,26 +241,41 @@
             app:layout_constraintStart_toStartOf="@+id/remaining_fuel_site"
             app:layout_constraintTop_toBottomOf="@+id/remaining_fuel_site" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/notes_edit"
+        <com.github.gcacace.signaturepad.views.SignaturePad
+            android:id="@+id/signaturePad"
             android:layout_width="0dp"
-            android:layout_height="50sp"
+            android:layout_height="100sp"
             android:layout_marginTop="4dp"
             android:layout_marginRight="8dp"
             android:background="@color/background_orange"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintStart_toStartOf="@+id/notes_edit"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="@color/dark_orange"
+            android:fontFamily="@font/playfair_bold"
+            android:padding="8dp"
+            android:text="Save and Continue"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signaturePad" />
+
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/notes_edit"
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Notes"
+            android:text="Signature"
             app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            app:layout_constraintTop_toBottomOf="@+id/scanBillButton" />
 
         <Button
             android:id="@+id/save_cont_site"
