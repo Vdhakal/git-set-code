@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
@@ -42,6 +43,7 @@ public class HomeFragment extends Fragment {
     protected RecyclerView mRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
     private TripsInformationViewModel tripsInformationViewModel;
+    private ProgressBar progressBar;
 
     List<TripsData> tripsDataList;
     Context thiscontext;
@@ -61,6 +63,7 @@ public class HomeFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.home_fragment, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_trips_list);
         tripsDataList = new ArrayList<>();
+        progressBar = (ProgressBar)rootView.findViewById(R.id.progress_circular);
         extractData();
 //        tripsInformationViewModel = ViewModelProviders.of(this).get(TripsInformationViewModel.class);
 //        tripsInformationViewModel.getAllData().observe(getViewLifecycleOwner(), new Observer<List<TripsDataRoom>>() {
@@ -89,6 +92,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onResponse() {
+                progressBar.setVisibility(View.GONE);
                 mLayoutManager = new LinearLayoutManager(getActivity());
                 mRecyclerView.addItemDecoration(new TripsDecorator(20));
                 adapter = new TripsAdapter(getActivity(), tripsDataList);

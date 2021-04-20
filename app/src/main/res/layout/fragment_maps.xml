@@ -14,6 +14,17 @@
         android:layout_height="match_parent">
     </com.here.sdk.mapview.MapView>
 
+    <include
+        layout="@layout/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        </include>
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_satelite"
         android:layout_width="wrap_content"
@@ -21,6 +32,15 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:src="@drawable/ic_baseline_map_24"
+        app:layout_constraintBottom_toTopOf="@+id/fab_CurrentLocation"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_CurrentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:src="@drawable/map_icon"
         app:layout_constraintBottom_toTopOf="@+id/navigationButton"
         app:layout_constraintEnd_toEndOf="parent" />
     <Button
@@ -31,13 +51,11 @@
         android:layout_gravity="center"
         android:background="@drawable/orange_fill__rounded_color"
         android:gravity="center"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
-        android:layout_marginBottom="14dp"
         android:text="Start Navigation"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/map_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
@@ -39,6 +40,7 @@ public class TripSummary extends Fragment {
     protected RecyclerView mRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
     private SlideView slideView;
+    private ProgressBar progressBar;
 
     List<TripsData> tripsDataList;
     Context thiscontext;
@@ -61,8 +63,8 @@ public class TripSummary extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.trip_summary_list);
         tripsDataList = new ArrayList<>();
         slideView = (SlideView) rootView.findViewById(R.id.slideView_summary);
+        progressBar= (ProgressBar)rootView.findViewById(R.id.progress_circular);
         extractData();
-        setUpSlider(slideView);
 
         return rootView;
     }
@@ -111,6 +113,8 @@ public class TripSummary extends Fragment {
 
             @Override
             public void onResponse() {
+                progressBar.setVisibility(View.GONE);
+                setUpSlider(slideView);
                 mLayoutManager = new LinearLayoutManager(getActivity());
                 mRecyclerView.addItemDecoration(new TripsDecorator(20));
                 adapter = new TripsSummaryAdapter(getActivity(), tripsDataList);
