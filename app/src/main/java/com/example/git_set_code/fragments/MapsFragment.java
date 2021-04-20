@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.here.sdk.core.Color;
+import com.here.sdk.core.GeoBox;
 import com.here.sdk.core.GeoCoordinates;
 import com.here.sdk.core.GeoPolyline;
 import com.here.sdk.core.Location;
@@ -50,9 +51,12 @@ import com.here.sdk.mapview.MapScheme;
 import com.here.sdk.mapview.MapView;
 import com.here.sdk.routing.CalculateRouteCallback;
 import com.here.sdk.routing.CarOptions;
+import com.here.sdk.routing.Maneuver;
+import com.here.sdk.routing.ManeuverAction;
 import com.here.sdk.routing.Route;
 import com.here.sdk.routing.RoutingEngine;
 import com.here.sdk.routing.RoutingError;
+import com.here.sdk.routing.Section;
 import com.here.sdk.routing.Waypoint;
 import com.skydoves.powerspinner.IconSpinnerAdapter;
 import com.skydoves.powerspinner.IconSpinnerItem;
@@ -106,7 +110,6 @@ import java.util.List;
         mapViewModel = new ViewModelProvider(requireActivity()).get(MapViewModel.class);
         mapViewModel.init(getContext());
 
-        if(!mapViewModel.isRouteHasBeenDrawn())Toast.makeText(getContext(), "Route has not been drawn "+mapViewModel.getWaypoints().size(), Toast.LENGTH_SHORT).show();
 
         progressBar = rootView.findViewById(R.id.progress_circular);
         fabMapScene = rootView.findViewById(R.id.fab_satelite);
@@ -135,10 +138,14 @@ import java.util.List;
               public void onClick(View v) {
                   mapViewModel.calculateRoute();
                   mapViewModel.getMapView().getCamera().setTargetOrientation(new MapCamera.OrientationUpdate(90.0, 180.0));
+//                  mapViewModel.getMapView().getCamera().lookAt(mapViewModel.getRouteGeoBox(), new MapCamera.OrientationUpdate());
                   mapViewModel.getMapView().getCamera().flyTo(mapViewModel.getCurrentLocation().coordinates,1000*0.1, new MapCamera.FlyToOptions());
               }
           });
+
       }
+
+
 
       private void fabonclickListeners() {
         fabMapScene.setOnClickListener(new View.OnClickListener() {
