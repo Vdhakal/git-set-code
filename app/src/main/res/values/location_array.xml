@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_items">
+        <item>Monroe Bulk Plant</item>
+        <item>STERLING\'S QUIK STOP #1</item>
+        <item>STERLING\'S QUIK STOP #3</item>
+    </string-array>
+</resources>

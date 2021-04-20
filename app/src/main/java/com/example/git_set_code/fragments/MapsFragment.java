@@ -54,6 +54,9 @@ import com.here.sdk.routing.Route;
 import com.here.sdk.routing.RoutingEngine;
 import com.here.sdk.routing.RoutingError;
 import com.here.sdk.routing.Waypoint;
+import com.skydoves.powerspinner.IconSpinnerAdapter;
+import com.skydoves.powerspinner.IconSpinnerItem;
+import com.skydoves.powerspinner.PowerSpinnerView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,6 +65,7 @@ import java.util.List;
   public class MapsFragment extends Fragment implements LifecycleOwner {
 
       private ProgressBar progressBar;
+      private PowerSpinnerView powerSpinnerView;
       private View rootView;
       private static final String TAG = "Maps";
       private PermissionsRequestor permissionsRequestor;
@@ -104,19 +108,26 @@ import java.util.List;
 
         if(!mapViewModel.isRouteHasBeenDrawn())Toast.makeText(getContext(), "Route has not been drawn "+mapViewModel.getWaypoints().size(), Toast.LENGTH_SHORT).show();
 
-        progressBar = (ProgressBar)rootView.findViewById(R.id.progress_circular);
-        fabMapScene = (FloatingActionButton)rootView.findViewById(R.id.fab_satelite);
-        fabMapLocation = (FloatingActionButton)rootView.findViewById(R.id.fab_CurrentLocation);
-        startNavigationButton = (Button)rootView.findViewById(R.id.navigationButton);
+        progressBar = rootView.findViewById(R.id.progress_circular);
+        fabMapScene = rootView.findViewById(R.id.fab_satelite);
+        fabMapLocation = rootView.findViewById(R.id.fab_CurrentLocation);
+        startNavigationButton = rootView.findViewById(R.id.navigationButton);
+        powerSpinnerView =  rootView.findViewById(R.id.power_spinner);
         startNavigationButton.setVisibility(View.GONE);
         fabMapLocation.setVisibility(View.GONE);
         fabMapScene.setVisibility(View.GONE);
+        powerSpinnerView.setVisibility(View.GONE);
+        setUpSpinner();
         fabonclickListeners();
 
         navigationClickListener(rootView);
         return rootView;
 
     }
+
+      private void setUpSpinner() {
+          powerSpinnerView.showOrDismiss();
+      }
 
       private void navigationClickListener(View rootView) {
           startNavigationButton.setOnClickListener(new View.OnClickListener() {
@@ -214,10 +225,11 @@ import java.util.List;
                     }
 
                 });
+                progressBar.setVisibility(View.GONE);
                 startNavigationButton.setVisibility(View.VISIBLE);
                 fabMapLocation.setVisibility(View.VISIBLE);
                 fabMapScene.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
+                powerSpinnerView.setVisibility(View.VISIBLE);
             }
         });
 

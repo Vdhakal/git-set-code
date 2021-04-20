@@ -54,8 +54,37 @@
         android:text="Start Navigation"
         android:textColor="@color/black"
         android:textSize="12sp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/map_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/power_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#BAFFB453"
+        android:gravity="center"
+        android:hint="Monroe Bulk Plant"
+        style="@style/playfair_normal_black"
+        android:padding="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textColor="@color/black"
+        android:textColorHint="#2D2D2D"
+        android:textSize="14.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:spinner_item_array="@array/spinner_items"
+        app:spinner_arrow_gravity="end"
+        app:spinner_arrow_padding="8dp"
+        app:spinner_divider_color="@color/white"
+        app:spinner_divider_show="true"
+        app:spinner_divider_size="0.4dp"
+        app:spinner_popup_animation="bounce"
+        app:spinner_popup_background="#5BF9A825"
+        app:spinner_popup_elevation="14dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
