@@ -1,6 +1,7 @@
 package com.example.git_set_code.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,16 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
 import com.example.git_set_code.permissions.PermissionsRequestor;
 import com.github.gcacace.signaturepad.views.SignaturePad;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +42,7 @@ public class EditFragment extends Fragment {
     private SignaturePad signaturePad = null;
     private Bitmap signatureBitmap = null;
     private Bitmap bolBitmap = null;
+    Button scanBill;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -75,7 +82,15 @@ public class EditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.edit_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.edit_fragment, container, false);
+        scanBill = rootView.findViewById(R.id.scanBillButtonSource);
+        scanBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initiateBolCapture();
+            }
+        });
+        return rootView;
     }
 
     @Override
@@ -124,13 +139,8 @@ public class EditFragment extends Fragment {
     }
 
     private void initiateBolCapture() {
-        getView().findViewById(R.id.scanBillButtonSource).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, 1888);
-            }
-        });
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, 1888);
     }
 
     @Override
@@ -139,6 +149,31 @@ public class EditFragment extends Fragment {
         if(requestCode == 1888 && resultCode == Activity.RESULT_OK) {
             //photo bitmap saved here
             bolBitmap = (Bitmap) data.getExtras().get("data");
+            saveToGallery(bolBitmap);
+
+        }
+    }
+    public  void  saveToGallery(Bitmap bitmap){
+        FileOutputStream outputStream = null;
+        File file = getContext().getExternalFilesDir(null);
+        File dir = new File(file.getAbsolutePath()+"/BillOfLading");
+        String filename = String.format("%d.png", System.currentTimeMillis());
+        File outPutFile = new File(dir, filename);
+        try{
+            outputStream = new FileOutputStream(outPutFile);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        try{
+            outputStream.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            outputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
