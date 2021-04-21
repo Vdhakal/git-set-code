@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.cronet.CronetHttpStack;
 import com.example.git_set_code.R;
 import com.example.git_set_code.locations.PlatformPositioningProvider;
 import com.example.git_set_code.permissions.PermissionsRequestor;
@@ -72,7 +73,6 @@ import java.util.List;
       private PowerSpinnerView powerSpinnerView;
       private View rootView;
       private static final String TAG = "Maps";
-      private PermissionsRequestor permissionsRequestor;
       private MapViewModel mapViewModel;
       private FloatingActionButton fabMapScene, fabMapLocation;
       private Button startNavigationButton;
@@ -180,28 +180,11 @@ import java.util.List;
                     Log.d(TAG, "HERE Rendering Engine attached.");
                 }
             });
-
-            handleAndroidPermissions();
+        loadMapScene();
         }
     }
-    private void handleAndroidPermissions() {
-        permissionsRequestor = new PermissionsRequestor(getActivity());
-        permissionsRequestor.request(new PermissionsRequestor.ResultListener(){
 
-            @Override
-            public void permissionsGranted() {
-                if(!mapHasBeenLoaded)loadMapScene();
-            }
-
-            @Override
-            public void permissionsDenied() {
-                Log.e(TAG, "Permissions denied by user.");
-            }
-        });
-
-    }
       private void loadMapScene() {
-
           if(!mapViewModel.isMapHasBeenLoaded()) mapViewModel.setMapScheme(MapScheme.NORMAL_DAY);
           PlatformPositioningProvider platformPositioningProvider = new PlatformPositioningProvider(mapViewModel.getContext());
           platformPositioningProvider.startLocating(new PlatformPositioningProvider.PlatformLocationListener() {
@@ -228,6 +211,7 @@ import java.util.List;
 
                         } else {
                             Log.d(TAG, "Loading map failed: mapError: " + mapError.name());
+                            Toast.makeText(getContext(), "Map Failed", Toast.LENGTH_SHORT).show();
                         }
                     }
 

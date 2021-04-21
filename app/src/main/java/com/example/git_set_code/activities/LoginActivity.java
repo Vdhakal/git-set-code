@@ -10,8 +10,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.git_set_code.R;
+import com.example.git_set_code.permissions.PermissionsRequestor;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     Animation topAnim, bottomAnim;
     ImageView image;
     Button button;
+    private PermissionsRequestor permissionsRequestor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
         initializeUIelements();
 
+        handleAndroidPermissions();
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +53,22 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+    private void handleAndroidPermissions() {
+        permissionsRequestor = new PermissionsRequestor(LoginActivity.this);
+        permissionsRequestor.request(new PermissionsRequestor.ResultListener(){
 
+            @Override
+            public void permissionsGranted() {
+            }
+
+            @Override
+            public void permissionsDenied() {
+                Log.e("TAG", "Permissions denied by user.");
+                Toast.makeText(LoginActivity.this, "Please allow permissions to use this app", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
     private void initializeUIelements() {
         login_button = findViewById(R.id.login_button);
     }
