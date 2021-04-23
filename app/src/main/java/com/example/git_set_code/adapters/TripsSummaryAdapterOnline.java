@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -14,42 +15,41 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.git_set_code.R;
-import com.example.git_set_code.cache.TripsObject;
 import com.example.git_set_code.helperClasses.SlidebarStateHolder;
+import com.example.git_set_code.viewmodels.TripsData;
 
 
 import java.util.List;
 
-public class TripsSummaryAdapter extends RecyclerView.Adapter<TripsSummaryAdapter.ViewHolder> {
+public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummaryAdapterOnline.ViewHolder> {
 
-    List<TripsObject> tripsObjects;
+    private  List<TripsData> tripsDataList;
     private boolean expanded;
     SlidebarStateHolder slidebarStateHolder;
     Context context;
-    public TripsSummaryAdapter(Context context, List<TripsObject> tripsData){
-        this.tripsObjects = tripsData;
+    public TripsSummaryAdapterOnline(Context context, List<TripsData> tripsDataList){
+        this.tripsDataList = tripsDataList;
         this.context = context;
-        //Toast.makeText(context, tripsDataList.get(2).toString(), Toast.LENGTH_SHORT).show();
 
     }
     @NonNull
     @Override
-    public TripsSummaryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TripsSummaryAdapterOnline.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trip_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TripsSummaryAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TripsSummaryAdapterOnline.ViewHolder holder, int position) {
         holder.getExpandableSummaryLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
-        holder.getWayPointType().setText(tripsObjects.get(position).tripsData.getWaypointTypeDescription()+" "+position);
-        holder.getProductName().setText(tripsObjects.get(position).tripsData.getProductDesc());
-        holder.getVendorName().setText(tripsObjects.get(position).tripsData.getDestinationCod());
-        holder.getTerminalName().setText(tripsObjects.get(position).tripsData.getDestinationName());
-        holder.getTerminalAddress().setText(tripsObjects.get(position).tripsData.getAddress1().trim()+", "+tripsObjects.get(position).tripsData.getCity().trim()+" "+tripsObjects.get(position).tripsData.getStateAbbrev().trim());
+        holder.getWayPointType().setText(tripsDataList.get(position).getWaypointTypeDescription()+" "+position);
+        holder.getProductName().setText(tripsDataList.get(position).getProductDesc());
+        holder.getVendorName().setText(tripsDataList.get(position).getDestinationCod());
+        holder.getTerminalName().setText(tripsDataList.get(position).getDestinationName());
+        holder.getTerminalAddress().setText(tripsDataList.get(position).getAddress1().trim()+", "+tripsDataList.get(position).getCity().trim()+" "+tripsDataList.get(position).getStateAbbrev().trim());
         holder.getSpecialInstructions().setText("NONE");
-        holder.getQuantities().setText(String.valueOf(tripsObjects.get(position).tripsData.getRequestedQty()));
-        onSourceSummaryButtonClicked(holder.getFormButton(),tripsObjects.get(position).tripsData.getWaypointTypeDescription());
+        holder.getQuantities().setText(String.valueOf(tripsDataList.get(position).getRequestedQty()));
+        onSourceSummaryButtonClicked(holder.getFormButton(),tripsDataList.get(position).getWaypointTypeDescription());
     }
 
     private void onSourceSummaryButtonClicked(Button sourceButton, String wayPointType) {
@@ -67,7 +67,7 @@ public class TripsSummaryAdapter extends RecyclerView.Adapter<TripsSummaryAdapte
     }
     @Override
     public int getItemCount() {
-        return tripsObjects.size();
+        return tripsDataList.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, wayPointType;

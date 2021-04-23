@@ -30,15 +30,15 @@ import java.util.List;
 
 import ng.max.slideview.SlideView;
 
-public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> {
+public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.ViewHolder> {
 
-    private List<TripsObject> tripsObjects;
+    private  List<TripsData> tripsDataList;
     private boolean expanded;
     private Context context;
     private SlidebarStateHolder slidebarStateHolder;
 
-    public TripsAdapter(Context context, List<TripsObject> tripsObjects){
-        this.tripsObjects = tripsObjects;
+    public TripsAdapterOnline(Context context, List<TripsData> tripsDataList){
+        this.tripsDataList = tripsDataList;
         this.expanded = false;
         this.context = context;
         //Toast.makeText(context, tripsDataList.get(2).toString(), Toast.LENGTH_SHORT).show();
@@ -46,17 +46,17 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     }
     @NonNull
     @Override
-    public TripsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TripsAdapterOnline.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trips_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TripsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TripsAdapterOnline.ViewHolder holder, int position) {
         holder.getExpandableLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
         holder.getTitle().setText("Trip 1");
-        holder.getProductName().setText(tripsObjects.get(1).tripsData.getProductDesc());
-        holder.getStops().setText(String.valueOf(tripsObjects.get(0).tripsData.getStops()));
+        holder.getProductName().setText(tripsDataList.get(1).getProductDesc());
+        holder.getStops().setText(String.valueOf(tripsDataList.get(0).getStops()));
         setUpStepView(holder);
         setUpSlider(holder);
         onSummaryButtonClick(holder.getSummaryButton());
@@ -93,11 +93,11 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
     private void setUpStepView(ViewHolder holder) {
         List<String> stepsBeanList = new ArrayList<>();
-        for (int i=0; i<tripsObjects.size(); i++){
+        for (int i=0; i<tripsDataList.size(); i++){
             String waypointType="";
-            if(tripsObjects.get(i).tripsData.getWaypointTypeDescription().equals("Site Container"))waypointType="SITE";
-            if(tripsObjects.get(i).tripsData.getWaypointTypeDescription().equals("Source"))waypointType="SOURCE";
-            stepsBeanList.add(tripsObjects.get(i).tripsData.getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+tripsObjects.get(i).tripsData.getAddress1().trim().toUpperCase()+" "+tripsObjects.get(i).tripsData.getCity().trim().toUpperCase()+" "+tripsObjects.get(i).tripsData.getStateAbbrev().trim().toUpperCase());
+            if(tripsDataList.get(i).getWaypointTypeDescription().equals("Site Container"))waypointType="SITE";
+            if(tripsDataList.get(i).getWaypointTypeDescription().equals("Source"))waypointType="SOURCE";
+            stepsBeanList.add(tripsDataList.get(i).getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+tripsDataList.get(i).getAddress1().trim().toUpperCase()+" "+tripsDataList.get(i).getCity().trim().toUpperCase()+" "+tripsDataList.get(i).getStateAbbrev().trim().toUpperCase());
         }
         stepsBeanList.add("");
         holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-1)
@@ -142,12 +142,12 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
         private void expandOnClick(CardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                expanded = !expanded;
-                notifyItemChanged(getAdapterPosition());
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    expanded = !expanded;
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
         }
 
         public Button getSummaryButton() {

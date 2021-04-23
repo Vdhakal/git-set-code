@@ -1,14 +1,22 @@
 package com.example.git_set_code.apiHelpers;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
+
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.git_set_code.cache.TripsObject;
+import com.example.git_set_code.cache.TripsObjectRepository;
 import com.example.git_set_code.viewmodels.TripsData;
 import com.example.git_set_code.singletons.TripsRequestSingleton;
+import com.example.git_set_code.viewmodels.TripsObjectViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,14 +27,13 @@ import java.util.List;
 public class TripsAPIService {
     private static String JSON_GET_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/GetTripListDetailByDriver/D1?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
 
-
     public interface VolleyResponseListener {
         void onError(String message);
 
         void onResponse();
     }
 
-    public void getRequestedJson(Context thiscontext, List<TripsData> tripsDataList, VolleyResponseListener volleyResponseListener){
+    public void getRequestedJson( TripsObjectViewModel tripsObjectViewModel, Context thiscontext, List<TripsData> tripsDataList, VolleyResponseListener volleyResponseListener){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, JSON_GET_URL, null, new Response.Listener<JSONObject>() {
 
@@ -37,6 +44,7 @@ public class TripsAPIService {
                                 JSONObject obj = response.getJSONObject("data");
                                 JSONArray resultSet2 = obj.getJSONArray("resultSet2");
                                 JSONArray resultSet1 = obj.getJSONArray("resultSet1");
+//                                tripsObjectViewModel.delete();
                                 for(int i=0; i<resultSet1.length(); i++){
                                     JSONObject jsonObject = resultSet1.getJSONObject(i);
                                     TripsData tripsData = new TripsData();
@@ -56,6 +64,7 @@ public class TripsAPIService {
                                         tripsData.setRequestedQty(jsonObject.getInt("RequestedQty"));
                                     }
                                     tripsDataList.add(tripsData);
+
                                 }
                             }
                         } catch (JSONException e) {

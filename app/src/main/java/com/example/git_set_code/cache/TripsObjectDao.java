@@ -9,18 +9,17 @@ import androidx.room.Update;
 
 import java.util.List;
 
-
 @Dao
-public interface TripsDataDao {
+public interface TripsObjectDao {
     @Insert
-    void insert(TripsDataRoom tripsDataRoom);
+    void insert(TripsObject... tripsObjects);
     @Update
-    void update(TripsDataRoom tripsDataRoom);
-    @Delete
-    void delete(TripsDataRoom tripsDataRoom);
+    void update(TripsObject... tripsObjects);
+
     @Query("DELETE FROM trips_table")
-    void deleteAll();
+    void delete();
 
     @Query("SELECT * FROM trips_table")
-    LiveData<List<TripsDataRoom>> getAllTripInformation();
+    LiveData<List<TripsObject>> getAllTripInformation();
 }
+

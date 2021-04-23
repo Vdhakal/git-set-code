@@ -1,6 +1,8 @@
 package com.example.git_set_code.fragments;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,12 +26,15 @@ import android.widget.Toast;
 
 import com.example.git_set_code.R;
 import com.example.git_set_code.adapters.TripsAdapter;
+import com.example.git_set_code.adapters.TripsAdapterOnline;
 import com.example.git_set_code.apiHelpers.TripsAPIService;
 import com.example.git_set_code.adapters.TripsSummaryAdapter;
-import com.example.git_set_code.cache.TripsDataRoom;
+import com.example.git_set_code.cache.TripsObject;
+import com.example.git_set_code.networkChecker.CheckNetwork;
+import com.example.git_set_code.networkChecker.Variables;
 import com.example.git_set_code.viewmodels.TripsData;
 import com.example.git_set_code.utils.TripsDecorator;
-import com.example.git_set_code.viewmodels.TripsInformationViewModel;
+import com.example.git_set_code.viewmodels.TripsObjectViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +47,13 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     protected RecyclerView mRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private TripsInformationViewModel tripsInformationViewModel;
     private ProgressBar progressBar;
-
+    private TripsObjectViewModel tripsObjectViewModel;
+    private boolean completed = false;
     List<TripsData> tripsDataList;
     Context thiscontext;
     TripsAdapter adapter;
+    TripsAdapterOnline onlineAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,15 +70,35 @@ public class HomeFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_trips_list);
         tripsDataList = new ArrayList<>();
         progressBar = (ProgressBar)rootView.findViewById(R.id.progress_circular);
-        extractData();
-//        tripsInformationViewModel = ViewModelProviders.of(this).get(TripsInformationViewModel.class);
-//        tripsInformationViewModel.getAllData().observe(getViewLifecycleOwner(), new Observer<List<TripsDataRoom>>() {
-//            @Override
-//            public void onChanged(List<TripsDataRoom> tripsDataRooms) {
-////                Toast.makeText(thiscontext, tripsInformationViewModel.getAllData().toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        tripsObjectViewModel = new ViewModelProvider(requireActivity()).get(TripsObjectViewModel.class);
+        CheckNetwork.checkNetworkInfo(thiscontext, new CheckNetwork.OnConnectionStatusChange() {
+            @Override
+            public void onChange(boolean type) {
+                if(type){
+                    Toast.makeText(thiscontext, "Connection Available", Toast.LENGTH_SHORT).show();
+                    extractData();
+                }else {
+                    Toast.makeText(thiscontext, "NO Connection", Toast.LENGTH_SHORT).show();
+                    setUpUI();
+                }
+            }
+        });
+
         return rootView;
+    }
+
+    private void setUpUI() {
+        tripsObjectViewModel.getGetAlltripObjects().observe(requireActivity(), new Observer<List<TripsObject>>() {
+            @Override
+            public void onChanged(List<TripsObject> tripsObjects) {
+                mLayoutManager = new LinearLayoutManager(getActivity());
+                mRecyclerView.addItemDecoration(new TripsDecorator(20));
+                adapter = new TripsAdapter(getActivity(), tripsObjects);
+                mRecyclerView.setAdapter(adapter);
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                mRecyclerView.scrollToPosition(0);
+            }
+        });
     }
 
 
@@ -84,7 +110,7 @@ public class HomeFragment extends Fragment {
 
     private void extractData(){
         TripsAPIService tripsAPIService = new TripsAPIService();
-        tripsAPIService.getRequestedJson(thiscontext, tripsDataList, new TripsAPIService.VolleyResponseListener() {
+        tripsAPIService.getRequestedJson(tripsObjectViewModel, thiscontext, tripsDataList, new TripsAPIService.VolleyResponseListener() {
             @Override
             public void onError(String message) {
                 Toast.makeText(thiscontext, message, Toast.LENGTH_LONG).show();
@@ -95,12 +121,17 @@ public class HomeFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 mLayoutManager = new LinearLayoutManager(getActivity());
                 mRecyclerView.addItemDecoration(new TripsDecorator(20));
-                adapter = new TripsAdapter(getActivity(), tripsDataList);
-                mRecyclerView.setAdapter(adapter);
+                onlineAdapter = new TripsAdapterOnline(getActivity(), tripsDataList);
+                mRecyclerView.setAdapter(onlineAdapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.scrollToPosition(0);
 
+                for (int i = 0; i < tripsDataList.size(); i++) {
+                    tripsObjectViewModel.insert(new TripsObject(tripsDataList.get(i)), thiscontext);
+                }
+                completed = true;
             }
+
         });
     }
 }
