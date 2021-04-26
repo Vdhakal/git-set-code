@@ -17,9 +17,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
+import com.example.git_set_code.fragments.dialogs.SignatureDialog;
 import com.example.git_set_code.permissions.PermissionsRequestor;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
@@ -95,6 +97,8 @@ public class EditFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ImageView signatureView = getView().findViewById(R.id.signatureView);
+        signatureView.setVisibility(View.GONE);
         handleAndroidPermissions();
 
         initiateSignaturePad();
@@ -117,24 +121,19 @@ public class EditFragment extends Fragment {
     }
 
     private void initiateSignaturePad() {
-        signaturePad = getView().findViewById(R.id.signaturePad1);
-        signaturePad.setOnSignedListener(new SignaturePad.OnSignedListener() {
-            @Override
-            public void onStartSigning() {
-
-            }
-
-            @Override
-            public void onSigned() {
-                //signature saved here
-                signatureBitmap = signaturePad.getSignatureBitmap();
-            }
-
-            @Override
-            public void onClear() {
-
-            }
+        Button captureSignatureButton = getView().findViewById(R.id.captureSignatureButton);
+        captureSignatureButton.setOnClickListener(v -> {
+            SignatureDialog signatureDialog = SignatureDialog.newInstance();
+            signatureDialog.show(getChildFragmentManager(), "signatureDialog");
         });
+    }
+
+    public void captureSignature(Bitmap signatureBitmap){
+        ImageView signatureView = getView().findViewById(R.id.signatureView);
+        signatureView.setImageBitmap(signatureBitmap);
+        signatureView.setVisibility(View.VISIBLE);
+        //saved signature bitmap in this variable
+        this.signatureBitmap = signatureBitmap;
     }
 
     private void initiateBolCapture() {

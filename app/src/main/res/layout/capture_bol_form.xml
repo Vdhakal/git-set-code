@@ -123,16 +123,6 @@
             app:layout_constraintTop_toBottomOf="@+id/gross_gallons" />
 
         <TextView
-            android:id="@+id/textView11"
-            style="@style/playfair_normal_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Signature"
-            app:layout_constraintStart_toStartOf="@+id/scanBillButtonSource"
-            app:layout_constraintTop_toBottomOf="@+id/scanBillButtonSource" />
-
-        <TextView
             android:id="@+id/textView3"
             style="@style/playfair_normal_black"
             android:layout_width="wrap_content"
@@ -266,17 +256,29 @@
             app:layout_constraintStart_toStartOf="@+id/remaining_fuel"
             app:layout_constraintTop_toBottomOf="@+id/remaining_fuel" />
 
-        <com.github.gcacace.signaturepad.views.SignaturePad
-            android:id="@+id/signaturePad1"
+        <ImageView
             android:layout_width="0dp"
-            android:layout_height="100sp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/background_orange"
+            android:layout_height="200dp"
+            android:id="@+id/signatureView"
+            app:layout_constraintTop_toBottomOf="@id/scanBillButtonSource"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView11"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
-            android:orientation="horizontal" />
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            />
+
+
+        <Button
+            android:id="@+id/captureSignatureButton"
+            style="@style/playfair_normal_black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/background_orange"
+            android:padding="4dp"
+            android:text="Capture Signature"
+            app:layout_constraintTop_toBottomOf="@id/signatureView"
+            app:layout_constraintStart_toStartOf="@id/scanBillButtonSource"/>
 
         <Button
             android:id="@+id/save_cont_source"
@@ -295,11 +297,9 @@
             android:text="Save And Continue"
             android:textColor="@color/black"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/signaturePad1"
-            app:layout_constraintStart_toEndOf="@+id/signaturePad1"
-            app:layout_constraintStart_toStartOf="@+id/signaturePad1"
-            app:layout_constraintTop_toBottomOf="@+id/signaturePad1" />
+            app:layout_constraintTop_toBottomOf="@id/captureSignatureButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
