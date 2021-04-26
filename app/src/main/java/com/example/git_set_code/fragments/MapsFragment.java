@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -18,29 +16,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.cronet.CronetHttpStack;
 import com.example.git_set_code.R;
 import com.example.git_set_code.locations.PlatformPositioningProvider;
-import com.example.git_set_code.permissions.PermissionsRequestor;
+import com.example.git_set_code.trip_database.Database.TripDatabase;
 import com.example.git_set_code.viewmodels.MapViewModel;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.here.sdk.core.Color;
-import com.here.sdk.core.GeoBox;
-import com.here.sdk.core.GeoCoordinates;
-import com.here.sdk.core.GeoPolyline;
-import com.here.sdk.core.Location;
-import com.here.sdk.core.errors.InstantiationErrorException;
 import com.here.sdk.mapview.MapCamera;
 import com.here.sdk.mapview.MapError;
 import com.here.sdk.mapview.MapImage;
@@ -50,22 +39,7 @@ import com.here.sdk.mapview.MapPolyline;
 import com.here.sdk.mapview.MapScene;
 import com.here.sdk.mapview.MapScheme;
 import com.here.sdk.mapview.MapView;
-import com.here.sdk.routing.CalculateRouteCallback;
-import com.here.sdk.routing.CarOptions;
-import com.here.sdk.routing.Maneuver;
-import com.here.sdk.routing.ManeuverAction;
-import com.here.sdk.routing.Route;
-import com.here.sdk.routing.RoutingEngine;
-import com.here.sdk.routing.RoutingError;
-import com.here.sdk.routing.Section;
-import com.here.sdk.routing.Waypoint;
-import com.skydoves.powerspinner.IconSpinnerAdapter;
-import com.skydoves.powerspinner.IconSpinnerItem;
 import com.skydoves.powerspinner.PowerSpinnerView;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
   public class MapsFragment extends Fragment implements LifecycleOwner {
 
@@ -80,6 +54,7 @@ import java.util.List;
       private boolean markerAdded = false;
       private boolean mapHasBeenLoaded = false;
       private static final float DEFAULT_ZOOM_LEVEL = 14;
+      private static MapsFragment mapFragment;
 
     private final OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -97,9 +72,17 @@ import java.util.List;
             LatLng sydney = new LatLng(-34, 151);
         }
     };
+     public MapsFragment(){
 
-      public MapsFragment() {
     }
+      public static MapsFragment getInstance() {
+          if (mapFragment == null) {
+              synchronized (TripDatabase.class) {
+                  mapFragment = new MapsFragment();
+              }
+          }
+          return mapFragment;
+      }
 
     @Nullable
     @Override

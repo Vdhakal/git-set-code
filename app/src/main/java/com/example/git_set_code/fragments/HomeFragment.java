@@ -70,10 +70,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChange(boolean type) {
                 if(type){
-                    Toast.makeText(thiscontext, "Connection Available", Toast.LENGTH_SHORT).show();
                     //extractData();
                 }else {
-                    Toast.makeText(thiscontext, "NO Connection", Toast.LENGTH_SHORT).show();
 //                    setUpUI();
                 }
             }
@@ -89,7 +87,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(List<Trip> trips) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(thiscontext, "tripChanged", Toast.LENGTH_SHORT).show();
                 adapter.setTripObjectList(trips);
                 mRecyclerView.setAdapter(adapter);
                 mRecyclerView.setLayoutManager(mLayoutManager);

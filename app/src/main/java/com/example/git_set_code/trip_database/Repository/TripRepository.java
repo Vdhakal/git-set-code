@@ -121,7 +121,6 @@ public class TripRepository {
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertDrivers(driver);
         });
-        Toast.makeText(thisContext, "DB Done", Toast.LENGTH_SHORT).show();
     }
 
     public void insertTrip(Trip trip){

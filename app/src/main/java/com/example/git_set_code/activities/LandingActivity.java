@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -13,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,12 +22,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
+
+import com.example.git_set_code.fragments.EditFragment;
+import com.example.git_set_code.fragments.HomeFragment;
+import com.example.git_set_code.fragments.MapsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.Map;
 
 public class LandingActivity extends AppCompatActivity {
 
@@ -33,6 +42,7 @@ public class LandingActivity extends AppCompatActivity {
     Toolbar toolbar;
     final String TAG="DEBUG";
     private DrawerLayout drawer;
+    View view;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.d(TAG,"On create opt menu works");
@@ -45,7 +55,7 @@ public class LandingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-
+        View view = findViewById(android.R.id.content).getRootView();
         //noinspection SimplifiableIfStatement
         if (id == R.id.notification) {
             Toast.makeText(this, "You clicked on Notifications", Toast.LENGTH_SHORT).show();
@@ -74,12 +84,44 @@ public class LandingActivity extends AppCompatActivity {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
     }
+
+
+
     private void setUpNavigation(){
-        bottomNavigationView =findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavHostFragment navHostFragment =(NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.fragment);
+        NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+//        bottomNavigationView.add(new MeowBottomNavigation.Model(1, R.drawable.ic_baseline_home_24));
+//        bottomNavigationView.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_map_24));
+//        bottomNavigationView.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_edit_24));
+//
+//        Fragment homeFragment = new HomeFragment();
+//        Fragment mapFragment = new MapsFragment();
+//        Fragment editFragment = new EditFragment();
+//        bottomNavigationView.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
+//            @Override
+//            public void onClickItem(MeowBottomNavigation.Model item) {
+//
+//            }
+//        });
+//        bottomNavigationView.setOnShowListener(new MeowBottomNavigation.ShowListener() {
+//            @Override
+//            public void onShowItem(MeowBottomNavigation.Model item) {
+//                if(item.getId() == 1){
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment, homeFragment ).addToBackStack("").commit();
+//                }
+//                if(item.getId() == 2){
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment, mapFragment ).addToBackStack("").commit();
+//                }
+//                if(item.getId() == 3){
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment, editFragment ).addToBackStack("").commit();
+//                }
+//            }
+//        });
+//
+//        bottomNavigationView.show(1, true);
     }
 
     @Override
