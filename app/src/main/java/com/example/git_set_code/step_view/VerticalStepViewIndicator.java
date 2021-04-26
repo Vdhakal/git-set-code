@@ -132,7 +132,7 @@ public class VerticalStepViewIndicator extends View
         mLinePadding = 0.85f * defaultStepIndicatorNum;
 
         mCompleteIcon = ContextCompat.getDrawable(getContext(), R.drawable.complted);//已经完成的icon
-        mAttentionIcon = ContextCompat.getDrawable(getContext(), R.drawable.attention);//正在进行的icon
+        mAttentionIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_baseline_check_circle_24);//正在进行的icon
         mDefaultIcon = ContextCompat.getDrawable(getContext(), R.drawable.default_icon);//未完成的icon
 
         mIsReverseDraw = true;//default draw
@@ -241,21 +241,29 @@ public class VerticalStepViewIndicator extends View
         {
             final float currentComplectedXPosition = mCircleCenterPointPositionList.get(i);
             mRect = new Rect((int) (mCenterX - mCircleRadius), (int) (currentComplectedXPosition - mCircleRadius), (int) (mCenterX + mCircleRadius), (int) (currentComplectedXPosition + mCircleRadius));
+
             if(i < mComplectingPosition)
             {
                 mCompleteIcon.setBounds(mRect);
                 mCompleteIcon.draw(canvas);
-            } else if(i == mComplectingPosition && mCircleCenterPointPositionList.size() != 1)
+            } else if(i == mComplectingPosition && mCircleCenterPointPositionList.size() != 1 && i!=mCircleCenterPointPositionList.size()-1)
+            {
+                mCompletedPaint.setColor(getResources().getColor(R.color.site_pink));
+                canvas.drawCircle(mCenterX, currentComplectedXPosition, mCircleRadius * 1.1f, mCompletedPaint);
+            }
+            else if(i==mCircleCenterPointPositionList.size()-1)
             {
                 mCompletedPaint.setColor(Color.WHITE);
-                canvas.drawCircle(mCenterX, currentComplectedXPosition, mCircleRadius * 1.1f, mCompletedPaint);
+                canvas.drawCircle(mCenterX, currentComplectedXPosition, mCircleRadius * 1.05f, mCompletedPaint);
                 mAttentionIcon.setBounds(mRect);
                 mAttentionIcon.draw(canvas);
-            } else
+            }
+            else
             {
                 mDefaultIcon.setBounds(mRect);
                 mDefaultIcon.draw(canvas);
             }
+
         }
         //----------------------------draw icon-----------------------------------------------
     }

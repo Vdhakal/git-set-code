@@ -1,22 +1,20 @@
 package com.example.git_set_code.apiHelpers;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
-
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.git_set_code.cache.TripsObject;
-import com.example.git_set_code.cache.TripsObjectRepository;
+import com.example.git_set_code.trip_database.Table.Driver;
+import com.example.git_set_code.trip_database.Table.SiteInformation;
+import com.example.git_set_code.trip_database.Table.SourceInformation;
+import com.example.git_set_code.trip_database.Table.Trailer;
+import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.Truck;
 import com.example.git_set_code.viewmodels.TripsData;
 import com.example.git_set_code.singletons.TripsRequestSingleton;
-import com.example.git_set_code.viewmodels.TripsObjectViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,8 +30,8 @@ public class TripsAPIService {
 
         void onResponse();
     }
-
-    public void getRequestedJson( TripsObjectViewModel tripsObjectViewModel, Context thiscontext, List<TripsData> tripsDataList, VolleyResponseListener volleyResponseListener){
+    
+    public void getRequestedJsonForRepo(Context thiscontext, List<Driver> driverObjectList, List<SiteInformation> siteInformationObjectList, List<SourceInformation> sourceInformationObjectList, List<Truck> truckObjectList, List<Trailer> trailerObjectList, List<Trip> tripObjectList, VolleyResponseListener volleyResponseListener){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, JSON_GET_URL, null, new Response.Listener<JSONObject>() {
 
@@ -42,28 +40,27 @@ public class TripsAPIService {
                         try {
                             if(response.getString("status").equals("success")){
                                 JSONObject obj = response.getJSONObject("data");
-                                JSONArray resultSet2 = obj.getJSONArray("resultSet2");
                                 JSONArray resultSet1 = obj.getJSONArray("resultSet1");
-//                                tripsObjectViewModel.delete();
                                 for(int i=0; i<resultSet1.length(); i++){
                                     JSONObject jsonObject = resultSet1.getJSONObject(i);
-                                    TripsData tripsData = new TripsData();
-                                    if(!jsonObject.isNull("ProductDesc")) tripsData.setProductDesc(jsonObject.getString("ProductDesc"));
-                                    else {tripsData.setProductDesc("NONE");}
-                                    tripsData.setDestinationCod(jsonObject.getString("DestinationCode"));
-                                    tripsData.setDestinationName(jsonObject.getString("DestinationName"));
-                                    tripsData.setAddress1(jsonObject.getString("Address1"));
-                                    tripsData.setCity(jsonObject.getString("City"));
-                                    tripsData.setWaypointTypeDescription(jsonObject.getString("WaypointTypeDescription"));
-                                    tripsData.setStateAbbrev(jsonObject.getString("StateAbbrev"));
-                                    tripsData.setStops(resultSet1.length());
-                                    tripsData.setLatitude(jsonObject.getInt("Latitude"));
-                                    tripsData.setLongitude(jsonObject.getInt("Longitude"));
-                                    if(jsonObject.isNull("RequestedQty")) tripsData.setRequestedQty(0);
-                                    else {
-                                        tripsData.setRequestedQty(jsonObject.getInt("RequestedQty"));
+                                    Driver driverObject = new Driver(jsonObject.getString("DriverCode"), jsonObject.getString("DriverName"));
+                                    driverObjectList.add(driverObject);
+                                    Trip tripObject = new Trip(jsonObject.getInt("TripId"), jsonObject.getString("TripName"), jsonObject.getString("TripDate"), jsonObject.getString("DriverCode"));
+                                    tripObjectList.add(tripObject);
+                                    SiteInformation siteInformationObject;
+                                    SourceInformation sourceInformationObject;
+                                    if(jsonObject.getString("WaypointTypeDescription").equals("Site Container")){
+                                        siteInformationObject = new SiteInformation(jsonObject.getString("SiteContainerCode"),jsonObject.getString("SiteContainerDescription"),jsonObject.getInt("DelReqNum"), jsonObject.getInt("DelReqLineNum"),jsonObject.getInt("ProductId"),jsonObject.getString("ProductCode"), jsonObject.getString("ProductDesc"),jsonObject.getInt("RequestedQty"),  jsonObject.getString("UOM"), jsonObject.getString("Fill"), jsonObject.getDouble("Latitude"),jsonObject.getDouble("Longitude"),jsonObject.getString("DestinationCode"),jsonObject.getString("DestinationName"),jsonObject.getString("Address1"), jsonObject.getString("Address2"), jsonObject.getString("City"), jsonObject.getString("StateAbbrev"),jsonObject.getInt("PostalCode"),jsonObject.getInt("SeqNum"),jsonObject.getString("WaypointTypeDescription"),jsonObject.getInt("TripId"));
+                                        siteInformationObjectList.add(siteInformationObject);
                                     }
-                                    tripsDataList.add(tripsData);
+                                    else {
+                                        sourceInformationObject = new SourceInformation(jsonObject.getInt("SeqNum"),jsonObject.getString("WaypointTypeDescription"),jsonObject.getDouble("Latitude"),jsonObject.getDouble("Longitude"),jsonObject.getString("DestinationCode"),jsonObject.getString("DestinationName"),jsonObject.getString("Address1"), jsonObject.getString("Address2"), jsonObject.getString("City"), jsonObject.getString("StateAbbrev"),jsonObject.getInt("PostalCode"), jsonObject.getInt("TripId"));
+                                        sourceInformationObjectList.add(sourceInformationObject);
+                                    }
+                                    Truck truckObject = new Truck(jsonObject.getInt("TruckId"),jsonObject.getString("TruckCode"),jsonObject.getString("TruckDesc"), jsonObject.getString("DriverCode"));
+                                    truckObjectList.add(truckObject);
+                                    Trailer trailerObject = new Trailer(jsonObject.getInt("TrailerId"),jsonObject.getString("TrailerCode"),jsonObject.getString("TrailerDesc"), jsonObject.getInt("TruckId"));
+                                    trailerObjectList.add(trailerObject);
 
                                 }
                             }

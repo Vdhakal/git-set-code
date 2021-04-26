@@ -14,62 +14,69 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.git_set_code.R;
+import com.example.git_set_code.cache.TripsObject;
 import com.example.git_set_code.helperClasses.SlidebarStateHolder;
-import com.example.git_set_code.viewmodels.TripsData;
-
+import com.example.git_set_code.trip_database.Table.Driver;
+import com.example.git_set_code.trip_database.Table.SiteInformation;
+import com.example.git_set_code.trip_database.Table.SourceInformation;
+import com.example.git_set_code.trip_database.Table.Trailer;
+import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.Truck;
 
 import java.util.List;
 
-public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummaryAdapterOnline.ViewHolder> {
+public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdapter.ViewHolder> {
 
-    private  List<TripsData> tripsDataList;
     private boolean expanded;
-    SlidebarStateHolder slidebarStateHolder;
+    List<SourceInformation> sourceInformationList;
     Context context;
-    public TripsSummaryAdapterOnline(Context context, List<TripsData> tripsDataList){
-        this.tripsDataList = tripsDataList;
+    public SourceSummaryAdapter(Context context, List<SourceInformation> sourceInformationList){
+        this.sourceInformationList = sourceInformationList;
         this.context = context;
+        //Toast.makeText(context, tripsDataList.get(2).toString(), Toast.LENGTH_SHORT).show();
 
     }
+
+    public void setSourceInformationList(List<SourceInformation> sourceInformationList) {
+        this.sourceInformationList = sourceInformationList;
+    }
+
+
     @NonNull
     @Override
-    public TripsSummaryAdapterOnline.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.site_item, parent, false);
+    public SourceSummaryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.source_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TripsSummaryAdapterOnline.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SourceSummaryAdapter.ViewHolder holder, int position) {
         holder.getExpandableSummaryLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
-        holder.getWayPointType().setText(tripsDataList.get(position).getWaypointTypeDescription()+" "+position);
-        holder.getProductName().setText(tripsDataList.get(position).getProductDesc());
-        holder.getVendorName().setText(tripsDataList.get(position).getDestinationCod());
-        holder.getTerminalName().setText(tripsDataList.get(position).getDestinationName());
-        holder.getTerminalAddress().setText(tripsDataList.get(position).getAddress1().trim()+", "+tripsDataList.get(position).getCity().trim()+" "+tripsDataList.get(position).getStateAbbrev().trim());
-        holder.getSpecialInstructions().setText("NONE");
-        holder.getQuantities().setText(String.valueOf(tripsDataList.get(position).getRequestedQty()));
-        onSourceSummaryButtonClicked(holder.getFormButton(),tripsDataList.get(position).getWaypointTypeDescription());
+        holder.getWayPointType().setText("Source: "+sourceInformationList.get(position).getDestinationCod());
+        holder.getVendorName().setText(sourceInformationList.get(position).getDestinationCod());
+        holder.getTerminalName().setText(sourceInformationList.get(position).getDestinationName());
+        holder.getTerminalAddress().setText(sourceInformationList.get(position).getAddress1().trim()+", "+sourceInformationList.get(position).getCity().trim()+" "+sourceInformationList.get(position).getStateAbbrev().trim());
+        onSourceSummaryButtonClicked(holder.getFormButton(),sourceInformationList.get(position).getWaypointTypeDescription());
     }
 
     private void onSourceSummaryButtonClicked(Button sourceButton, String wayPointType) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swapFragment(v, wayPointType);
+                swapFragment(v);
             }
         });
     }
-    private void swapFragment(View v, String wayPointType){
-        if(wayPointType.equals("Source"))Navigation.findNavController(v).navigate(R.id.action_tripSummary_to_temporarySource);
-        if(wayPointType.trim().equals("Site Container"))Navigation.findNavController(v).navigate(R.id.action_tripSummary_to_temporarySite);
+    private void swapFragment(View v){
+        Navigation.findNavController(v).navigate(R.id.action_tripSummary_to_temporarySource);
 
     }
     @Override
     public int getItemCount() {
-        return tripsDataList.size();
+        return sourceInformationList.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, wayPointType;
+        private final TextView  vendorName, terminalName, terminalAddress, wayPointType;
         private final ConstraintLayout expandable_summary_layout;
         private final CardView cardView;
         private final Button formButton;
@@ -79,13 +86,9 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
             wayPointType = itemView.findViewById(R.id.trip_summary_title);
             expandable_summary_layout = itemView.findViewById(R.id.expandable_layout_summary);
             cardView = itemView.findViewById(R.id.trip_summary_card_view);
-            productName = itemView.findViewById(R.id.tv_product_name);
             vendorName = itemView.findViewById(R.id.tv_vendor_name);
             terminalName = itemView.findViewById(R.id.tv_terminal_name);
             terminalAddress = itemView.findViewById(R.id.tv_terminal_address);
-
-            specialInstructions = itemView.findViewById(R.id.tv_special_instructions);
-            quantities = itemView.findViewById(R.id.tv_quantities);
             formButton = itemView.findViewById(R.id.enter_information);
             expandOnClick(cardView);
 
@@ -109,9 +112,6 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
             return wayPointType;
         }
 
-        public TextView getProductName() {
-            return productName;
-        }
         public TextView getVendorName() {
             return vendorName;
         }
@@ -126,14 +126,6 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
 
         public Button getFormButton() {
             return formButton;
-        }
-
-        public TextView getSpecialInstructions() {
-            return specialInstructions;
-        }
-
-        public TextView getQuantities() {
-            return quantities;
         }
 
 

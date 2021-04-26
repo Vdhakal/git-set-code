@@ -214,6 +214,17 @@ public class VerticalStepView extends LinearLayout implements VerticalStepViewIn
         }
         return this;
     }
+    /**
+     * set textSize
+     *
+     * @param typeface
+     * @return
+     */
+    public VerticalStepView setFont(Typeface typeface)
+    {
+        mTextView.setTypeface(typeface);
+        return this;
+    }
 
     @Override
     public void ondrawIndicator()
@@ -231,11 +242,10 @@ public class VerticalStepView extends LinearLayout implements VerticalStepViewIn
                     mTextView.setText(mTexts.get(i));
                     mTextView.setY(complectedXPosition.get(i) - mStepsViewIndicator.getCircleRadius() / 2);
                     mTextView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-                    if(i <= mComplectingPosition)
+                    Typeface typeface = getResources().getFont(R.font.ttnorms_medium);
+                    mTextView.setTypeface(typeface);
+                    if(i <= mComplectingPosition-1)
                     {
-                        Typeface typeface = getResources().getFont(R.font.ttnorms_medium);
-                        mTextView.setTypeface(typeface);
                         mTextView.setTextColor(mComplectedTextColor);
                     } else
                     {

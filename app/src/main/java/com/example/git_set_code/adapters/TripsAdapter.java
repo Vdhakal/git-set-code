@@ -23,6 +23,12 @@ import com.example.git_set_code.R;
 import com.example.git_set_code.cache.TripsObject;
 import com.example.git_set_code.helperClasses.SlidebarStateHolder;
 import com.example.git_set_code.step_view.VerticalStepView;
+import com.example.git_set_code.trip_database.Table.Driver;
+import com.example.git_set_code.trip_database.Table.SiteInformation;
+import com.example.git_set_code.trip_database.Table.SourceInformation;
+import com.example.git_set_code.trip_database.Table.Trailer;
+import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.Truck;
 import com.example.git_set_code.viewmodels.TripsData;
 
 import java.util.ArrayList;
@@ -32,13 +38,50 @@ import ng.max.slideview.SlideView;
 
 public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> {
 
-    private List<TripsObject> tripsObjects;
+//    private List<TripsObject> tripsObjects;
+    List<Driver> driverObjectList;
+    List<SiteInformation> siteInformationObjectList;
+    List<SourceInformation> sourceInformationObjectList;
+    List<Truck> truckObjectList;
+    List<Trailer> trailerObjectList;
+    List<Trip> tripObjectList;
     private boolean expanded;
     private Context context;
     private SlidebarStateHolder slidebarStateHolder;
 
-    public TripsAdapter(Context context, List<TripsObject> tripsObjects){
-        this.tripsObjects = tripsObjects;
+    public void setDriverObjectList(List<Driver> driverObjectList) {
+        this.driverObjectList = driverObjectList;
+    }
+
+    public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
+        this.siteInformationObjectList = siteInformationObjectList;
+    }
+
+    public void setSourceInformationObjectList(List<SourceInformation> sourceInformationObjectList) {
+        this.sourceInformationObjectList = sourceInformationObjectList;
+    }
+
+    public void setTruckObjectList(List<Truck> truckObjectList) {
+        this.truckObjectList = truckObjectList;
+    }
+
+    public void setTrailerObjectList(List<Trailer> trailerObjectList) {
+        this.trailerObjectList = trailerObjectList;
+    }
+
+    public void setTripObjectList(List<Trip> tripObjectList) {
+        this.tripObjectList = tripObjectList;
+    }
+
+    public TripsAdapter(Context context,
+                        List<Trip> tripObjectList,
+                        List<SiteInformation> siteInformationObjectList,
+                        List<SourceInformation> sourceInformationObjectList)
+    {
+        this.tripObjectList = tripObjectList;
+        this.siteInformationObjectList = siteInformationObjectList;
+        this.sourceInformationObjectList = sourceInformationObjectList;
+//        this.tripsObjects = tripsObjects;
         this.expanded = false;
         this.context = context;
         //Toast.makeText(context, tripsDataList.get(2).toString(), Toast.LENGTH_SHORT).show();
@@ -54,9 +97,9 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull TripsAdapter.ViewHolder holder, int position) {
         holder.getExpandableLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
-        holder.getTitle().setText("Trip 1");
-        holder.getProductName().setText(tripsObjects.get(1).tripsData.getProductDesc());
-        holder.getStops().setText(String.valueOf(tripsObjects.get(0).tripsData.getStops()));
+        holder.getTitle().setText("Trip: "+tripObjectList.get(position).getTripName());
+        holder.getProductName().setText(siteInformationObjectList.get(position).getProductDesc());
+        holder.getStops().setText("3");
         setUpStepView(holder);
         setUpSlider(holder);
         onSummaryButtonClick(holder.getSummaryButton());
@@ -93,30 +136,34 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
     private void setUpStepView(ViewHolder holder) {
         List<String> stepsBeanList = new ArrayList<>();
-        for (int i=0; i<tripsObjects.size(); i++){
-            String waypointType="";
-            if(tripsObjects.get(i).tripsData.getWaypointTypeDescription().equals("Site Container"))waypointType="SITE";
-            if(tripsObjects.get(i).tripsData.getWaypointTypeDescription().equals("Source"))waypointType="SOURCE";
-            stepsBeanList.add(tripsObjects.get(i).tripsData.getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+tripsObjects.get(i).tripsData.getAddress1().trim().toUpperCase()+" "+tripsObjects.get(i).tripsData.getCity().trim().toUpperCase()+" "+tripsObjects.get(i).tripsData.getStateAbbrev().trim().toUpperCase());
+        for (int i=0; i<sourceInformationObjectList.size(); i++){
+            String waypointType="SOURCE";
+            stepsBeanList.add(sourceInformationObjectList.get(i).getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+sourceInformationObjectList.get(i).getAddress1().trim().toUpperCase()+" "+sourceInformationObjectList.get(i).getCity().trim().toUpperCase()+" "+sourceInformationObjectList.get(i).getStateAbbrev().trim().toUpperCase());
+        }
+        for (int i=0; i<siteInformationObjectList.size(); i++){
+            String waypointType="SITE";
+            stepsBeanList.add(siteInformationObjectList.get(i).getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+siteInformationObjectList.get(i).getAddress1().trim().toUpperCase()+" "+siteInformationObjectList.get(i).getCity().trim().toUpperCase()+" "+siteInformationObjectList.get(i).getStateAbbrev().trim().toUpperCase());
         }
         stepsBeanList.add("");
-        holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-1)
+        holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-siteInformationObjectList.size()-sourceInformationObjectList.size())
                 .reverseDraw(false)
                 .setStepViewTexts(stepsBeanList)
                 .setLinePaddingProportion(1)
                 .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(context, R.color.source_green))
-                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(context, android.R.color.holo_green_light))
+                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(context, R.color.site_color))
                 .setStepViewComplectedTextColor(ContextCompat.getColor(context, R.color.step_indicator))
-                .setStepViewUnComplectedTextColor(ContextCompat.getColor(context,  R.color.background_orange))
+                .setStepViewUnComplectedTextColor(ContextCompat.getColor(context,  R.color.site_color))
                 .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(context, R.drawable.source_circle))
-                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24))
+                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(context, R.drawable.site_circle))
                 .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24)).setTextSize(16);
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return tripObjectList.size();
     }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView  productName, stops, title;
         private final CardView cardView;

@@ -16,58 +16,67 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.git_set_code.R;
 import com.example.git_set_code.cache.TripsObject;
 import com.example.git_set_code.helperClasses.SlidebarStateHolder;
+import com.example.git_set_code.trip_database.Table.Driver;
+import com.example.git_set_code.trip_database.Table.SiteInformation;
+import com.example.git_set_code.trip_database.Table.SourceInformation;
+import com.example.git_set_code.trip_database.Table.Trailer;
+import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.Truck;
 
 
 import java.util.List;
 
-public class TripsSummaryAdapter extends RecyclerView.Adapter<TripsSummaryAdapter.ViewHolder> {
+public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.ViewHolder> {
 
-    List<TripsObject> tripsObjects;
     private boolean expanded;
+    List<SiteInformation> siteInformationObjectList;
     SlidebarStateHolder slidebarStateHolder;
     Context context;
-    public TripsSummaryAdapter(Context context, List<TripsObject> tripsData){
-        this.tripsObjects = tripsData;
+    public SiteSummaryAdapter(Context context, List<SiteInformation> siteInformationObjectList){
+        this.siteInformationObjectList = siteInformationObjectList;
         this.context = context;
-        //Toast.makeText(context, tripsDataList.get(2).toString(), Toast.LENGTH_SHORT).show();
-
     }
+
+    public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
+        this.siteInformationObjectList = siteInformationObjectList;
+    }
+
+
     @NonNull
     @Override
-    public TripsSummaryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trip_item, parent, false);
+    public SiteSummaryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.site_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TripsSummaryAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SiteSummaryAdapter.ViewHolder holder, int position) {
         holder.getExpandableSummaryLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
-        holder.getWayPointType().setText(tripsObjects.get(position).tripsData.getWaypointTypeDescription()+" "+position);
-        holder.getProductName().setText(tripsObjects.get(position).tripsData.getProductDesc());
-        holder.getVendorName().setText(tripsObjects.get(position).tripsData.getDestinationCod());
-        holder.getTerminalName().setText(tripsObjects.get(position).tripsData.getDestinationName());
-        holder.getTerminalAddress().setText(tripsObjects.get(position).tripsData.getAddress1().trim()+", "+tripsObjects.get(position).tripsData.getCity().trim()+" "+tripsObjects.get(position).tripsData.getStateAbbrev().trim());
-        holder.getSpecialInstructions().setText("NONE");
-        holder.getQuantities().setText(String.valueOf(tripsObjects.get(position).tripsData.getRequestedQty()));
-        onSourceSummaryButtonClicked(holder.getFormButton(),tripsObjects.get(position).tripsData.getWaypointTypeDescription());
+        holder.getWayPointType().setText("Site Container: "+siteInformationObjectList.get(position).getSiteContainerDescription());
+        holder.getProductName().setText(siteInformationObjectList.get(position).getProductDesc());
+        holder.getVendorName().setText(siteInformationObjectList.get(position).getDestinationCod());
+        holder.getTerminalName().setText(siteInformationObjectList.get(position).getDestinationName());
+        holder.getTerminalAddress().setText(siteInformationObjectList.get(position).getAddress1().trim()+", "+siteInformationObjectList.get(position).getCity().trim()+" "+siteInformationObjectList.get(position).getStateAbbrev().trim());
+        holder.getSpecialInstructions().setText(siteInformationObjectList.get(position).getFill());
+        holder.getQuantities().setText(String.valueOf(siteInformationObjectList.get(position).getRequestedQty()));
+        onSourceSummaryButtonClicked(holder.getFormButton());
     }
 
-    private void onSourceSummaryButtonClicked(Button sourceButton, String wayPointType) {
+    private void onSourceSummaryButtonClicked(Button sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swapFragment(v, wayPointType);
+                swapFragment(v);
             }
         });
     }
-    private void swapFragment(View v, String wayPointType){
-        if(wayPointType.equals("Source"))Navigation.findNavController(v).navigate(R.id.action_tripSummary_to_temporarySource);
-        if(wayPointType.trim().equals("Site Container"))Navigation.findNavController(v).navigate(R.id.action_tripSummary_to_temporarySite);
+    private void swapFragment(View v){
+        Navigation.findNavController(v).navigate(R.id.action_tripSummary_to_temporarySite);
 
     }
     @Override
     public int getItemCount() {
-        return tripsObjects.size();
+        return siteInformationObjectList.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, wayPointType;

@@ -35,18 +35,23 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="1.0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/source_list"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                />-->
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/trip_summary_list"
+                android:id="@+id/site_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                />
 
             <ng.max.slideview.SlideView
                 android:id="@+id/slideView_summary"
@@ -60,14 +65,14 @@
                 app:sv_slideTextSize="20sp"
                 app:sv_animateSlideText="true"
                 app:sv_reverseSlide="false"
-                app:layout_constraintTop_toBottomOf="@id/trip_summary_list"
+                app:layout_constraintTop_toBottomOf="@id/site_list"
                 app:layout_constraintBottom_toBottomOf="@id/main_layout"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="54dp"
                 android:layout_marginTop="32dp"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </ScrollView>
 

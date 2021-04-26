@@ -11,8 +11,9 @@
     <color name="trip_card">@color/foreground</color>
     <color name="foreground">#f2d5a2</color>
     <color name="blue_100">#951565c0</color>
-    <color name="source_green">#34cb85</color>
-    <color name="site_pink">#cb347a</color>
-    <color name="step_indicator">#2d2d2d</color>
+    <color name="source_green">#2AC631</color>
+    <color name="site_pink">#DF00B4</color>
+    <color name="step_indicator">#004203</color>
+    <color name="site_color">#5e004c</color>
 
 </resources>
