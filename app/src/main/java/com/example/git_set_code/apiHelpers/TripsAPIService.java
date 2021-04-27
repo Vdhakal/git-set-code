@@ -45,7 +45,7 @@ public class TripsAPIService {
                                     JSONObject jsonObject = resultSet1.getJSONObject(i);
                                     Driver driverObject = new Driver(jsonObject.getString("DriverCode"), jsonObject.getString("DriverName"));
                                     driverObjectList.add(driverObject);
-                                    Trip tripObject = new Trip(jsonObject.getInt("TripId"), jsonObject.getString("TripName"), jsonObject.getString("TripDate"), jsonObject.getString("DriverCode"));
+                                    Trip tripObject = new Trip(jsonObject.getInt("TripId"), jsonObject.getString("TripName"), jsonObject.getString("TripDate"), jsonObject.getString("DriverCode"),0);
                                     tripObjectList.add(tripObject);
                                     SiteInformation siteInformationObject;
                                     SourceInformation sourceInformationObject;

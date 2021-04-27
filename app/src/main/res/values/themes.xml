@@ -17,4 +17,8 @@
         <item name="android:windowContentOverlay">@drawable/drop_shadow</item>
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
     </style>
+    <style name = "NeumorphismCard">
+        <item name = "neumorph_cornerFamily">rounded</item>
+    </style>
+
 </resources>

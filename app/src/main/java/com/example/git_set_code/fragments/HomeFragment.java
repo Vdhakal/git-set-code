@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment {
         tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
         setUpUI();
         tripViewModel.extractData();
+        adapter.setActivity(getActivity());
         CheckNetwork.checkNetworkInfo(thiscontext, new CheckNetwork.OnConnectionStatusChange() {
             @Override
             public void onChange(boolean type) {

@@ -242,8 +242,8 @@ public class VerticalStepView extends LinearLayout implements VerticalStepViewIn
                     mTextView.setText(mTexts.get(i));
                     mTextView.setY(complectedXPosition.get(i) - mStepsViewIndicator.getCircleRadius() / 2);
                     mTextView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    Typeface typeface = getResources().getFont(R.font.ttnorms_medium);
-                    mTextView.setTypeface(typeface);
+                    Typeface typeface = getResources().getFont(R.font.quick_regular);
+                    mTextView.setTypeface(typeface, Typeface.BOLD);
                     if(i <= mComplectingPosition-1)
                     {
                         mTextView.setTextColor(mComplectedTextColor);

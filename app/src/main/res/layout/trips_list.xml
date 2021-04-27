@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/trips_card_view"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
@@ -8,72 +8,85 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp"
     android:layout_margin="4dp">
-
+    <soup.neumorphism.NeumorphCardView
+        android:id="@+id/trips_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:neumorph_shadowElevation="5dp"
+        app:neumorph_backgroundColor="@color/cardColor"
+        app:neumorph_shapeType="flat"
+        app:neumorph_inset="12dp"
+        app:neumorph_insetStart="12dp"
+        app:neumorph_insetEnd="12dp"
+        app:neumorph_insetTop="12dp"
+        app:neumorph_insetBottom="12dp"
+        >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/trip_card"
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
         android:paddingBottom="20dp">
 
         <TextView
             android:id="@+id/trip_title"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trip"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:layout_marginBottom="8dp"
-            android:textAlignment="textStart" />
+            android:textAlignment="textStart"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/label_product_name"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/trip_title"
-            android:width="120dp"
-            android:text="Product Types:"
-            android:textSize="16sp" />
+            android:width="140dp"
+            android:text="Product Types:" />
 
         <TextView
             android:id="@+id/tv_product_name"
-            style="@style/playfair_normal_black"
+            style="@style/tv_font"
+            android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/trip_title"
             android:layout_toRightOf="@id/label_product_name"
-            android:text="Gasoline A"
-            android:textSize="16sp" />
+            android:text="Gasoline A"/>
 
         <TextView
             android:id="@+id/label_stops"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label_product_name"
-            android:width="64dp"
-            android:text="Stops:"
-            android:textSize="16sp" />
+            android:text="Stops:" />
 
         <TextView
             android:id="@+id/tv_stops"
-            style="@style/playfair_normal_black"
+            style="@style/tv_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_product_name"
             android:layout_toRightOf="@id/label_stops"
             android:layout_marginStart="5dp"
-            android:width="64dp"
-            android:text="5"
-            android:textSize="16sp" />
+            android:paddingLeft="10dp"
+            android:text="5"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/expandable_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_stops">
+            android:layout_below="@+id/label_stops"
+            android:layout_marginBottom="5dp"
+            android:paddingBottom="5dp">
 
             <View
                 android:id="@+id/divider"
@@ -96,43 +109,48 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/expandable_layout" />
 
-            <ng.max.slideview.SlideView
+            <com.ebanx.swipebtn.SwipeButton
                 android:id="@+id/slideView"
                 style="@style/playfair_normal_black"
-                android:layout_width="match_parent"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                app:sv_buttonBackgroundColor="#e5e5e5"
-                app:sv_slideBackgroundColor="@color/source_green"
-                app:sv_slideText="Select Trip"
-                app:sv_slideTextColor="#f1f1f1"
-                app:sv_slideTextSize="20sp"
-                app:sv_animateSlideText="true"
-                app:sv_reverseSlide="false"
-                app:layout_constraintTop_toBottomOf="@id/summary_button"
+                android:layout_marginEnd="20dp"
+                app:button_background="@drawable/swipe_shape"
+                app:button_bottom_padding="10dp"
+                app:button_image_disabled="@drawable/ic_outline_lock_24"
+                app:button_image_enabled="@drawable/ic_baseline_check_circle_24"
+                app:button_left_padding="20dp"
+                app:button_right_padding="20dp"
+                app:button_top_padding="10dp"
+                app:button_image_height="64dp"
+                app:inner_text="Select Trip"
+                app:inner_text_background="@drawable/rounded_swpie"
+                app:inner_text_bottom_padding="18dp"
+                app:inner_text_color="#1C1C1C"
+                app:inner_text_size="16sp"
+                app:inner_text_top_padding="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="54dp"
-                android:layout_marginTop="32dp"/>
-            <Button
+                app:layout_constraintTop_toBottomOf="@id/summary_button" />
+
+            <soup.neumorphism.NeumorphButton
                 android:id="@+id/summary_button"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                style="@style/Widget.Neumorph.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="View Summary"
-                android:textColor="#292929"
-                android:textSize="16sp"
-                android:background="@drawable/buttonshape"
-                android:shadowColor="#C6C6C6"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:layout_marginLeft="120dp"
-                android:layout_marginRight="124dp"
-                app:layout_constraintTop_toBottomOf="@id/step_view"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/step_view"
+                app:neumorph_shadowColorLight="@color/card_light_shadow"
+                app:neumorph_shadowColorDark="@color/card_dark_shadow"
+                app:neumorph_shapeType="flat"
+                app:neumorph_strokeColor="#B8B8B8"
+                app:neumorph_strokeWidth="1dp"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+    </soup.neumorphism.NeumorphCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

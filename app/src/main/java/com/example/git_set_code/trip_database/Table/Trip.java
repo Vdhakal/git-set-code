@@ -17,14 +17,25 @@ public class Trip {
     private int tripId;
     private String tripName;
     private String tripDate;
+    private int selected;
     @ColumnInfo(name = "driver_id")
     private String driverId;
 
-    public Trip(int tripId, String tripName, String tripDate,String driverId) {
+
+    public Trip(int tripId, String tripName, String tripDate, String driverId, int selected) {
         this.tripId = tripId;
         this.tripName = tripName;
         this.tripDate = tripDate;
         this.driverId = driverId;
+        this.selected = selected;
+    }
+
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int tripSelection) {
+        this.selected = tripSelection;
     }
 
     public int getTripId() {

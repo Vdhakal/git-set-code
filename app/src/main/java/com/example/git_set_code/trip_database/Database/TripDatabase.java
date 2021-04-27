@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Driver.class, Trip.class, Truck.class, Trailer.class, SourceInformation.class, SiteInformation.class},
-        version = 1)
+        version = 2)
 public abstract class TripDatabase extends RoomDatabase {
     public abstract TripDao tripDao();
     private static TripDatabase tripDatabase;
@@ -52,7 +52,7 @@ public abstract class TripDatabase extends RoomDatabase {
 
                 Driver driver = new Driver("N/A","N/A");
                 dao.insertDrivers(driver);
-                Trip trip = new Trip(0,"N/A","N/A","N/A");
+                Trip trip = new Trip(0,"N/A","N/A","N/A",0);
                 dao.insertTrip(trip);
                 SiteInformation siteInformation = new SiteInformation("N/A","N/A",0, 0,0,"N/A", "N/A",0, "N/A", "N/A", 0,0,"N/A","N/A","N/A", "N/A", "N/A", "N/A",0,0,"N/A",0);
                 dao.insertSite(siteInformation);

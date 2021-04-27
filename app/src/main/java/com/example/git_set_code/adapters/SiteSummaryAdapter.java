@@ -1,14 +1,15 @@
 package com.example.git_set_code.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,12 +27,16 @@ import com.example.git_set_code.trip_database.Table.Truck;
 
 import java.util.List;
 
+import soup.neumorphism.NeumorphCardView;
+import soup.neumorphism.ShapeType;
+
 public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.ViewHolder> {
 
     private boolean expanded;
     List<SiteInformation> siteInformationObjectList;
     SlidebarStateHolder slidebarStateHolder;
     Context context;
+    int step;
     public SiteSummaryAdapter(Context context, List<SiteInformation> siteInformationObjectList){
         this.siteInformationObjectList = siteInformationObjectList;
         this.context = context;
@@ -81,14 +86,14 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, wayPointType;
         private final ConstraintLayout expandable_summary_layout;
-        private final CardView cardView;
+        private final NeumorphCardView cardView;
         private final Button formButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             wayPointType = itemView.findViewById(R.id.trip_summary_title);
             expandable_summary_layout = itemView.findViewById(R.id.expandable_layout_summary);
-            cardView = itemView.findViewById(R.id.trip_summary_card_view);
+            cardView = itemView.findViewById(R.id.site_card);
             productName = itemView.findViewById(R.id.tv_product_name);
             vendorName = itemView.findViewById(R.id.tv_vendor_name);
             terminalName = itemView.findViewById(R.id.tv_terminal_name);
@@ -101,11 +106,13 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
 
         }
 
-        private void expandOnClick(CardView cardView) {
+        private void expandOnClick(NeumorphCardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     expanded = !expanded;
+                    cardView.setShapeType(step);
+                    Log.i("expand",""+cardView.getShapeType());
                     notifyItemChanged(getAdapterPosition());
                 }
             });

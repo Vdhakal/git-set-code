@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <soup.neumorphism.NeumorphCardView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:neumorph_backgroundColor="@color/foreground"
+        app:neumorph_strokeColor="#B8B8B8"
+        app:neumorph_strokeWidth="1dp"
+         >
+        <RelativeLayout
+            android:id="@+id/layout_for_toast"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_celebration_24"
+                android:paddingLeft="20dp"/>
+            <TextView
+                android:id="@+id/toast_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trip 1234 has been selected!"
+                android:textSize="12sp"
+                android:paddingLeft="16dp"
+                android:layout_toRightOf="@id/imageView"
+                android:layout_centerVertical="true"
+                style="@style/tv_font"
+                />
+        </RelativeLayout>
+    </soup.neumorphism.NeumorphCardView>
+</RelativeLayout>
