@@ -25,6 +25,8 @@ import com.example.git_set_code.trip_database.Table.Truck;
 
 import java.util.List;
 
+import soup.neumorphism.NeumorphCardView;
+
 public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdapter.ViewHolder> {
 
     private boolean expanded;
@@ -78,14 +80,14 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
     public class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView  vendorName, terminalName, terminalAddress, wayPointType;
         private final ConstraintLayout expandable_summary_layout;
-        private final CardView cardView;
+        private final NeumorphCardView cardView;
         private final Button formButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             wayPointType = itemView.findViewById(R.id.trip_summary_title);
             expandable_summary_layout = itemView.findViewById(R.id.expandable_layout_summary);
-            cardView = itemView.findViewById(R.id.trip_summary_card_view);
+            cardView = itemView.findViewById(R.id.source_card);
             vendorName = itemView.findViewById(R.id.tv_vendor_name);
             terminalName = itemView.findViewById(R.id.tv_terminal_name);
             terminalAddress = itemView.findViewById(R.id.tv_terminal_address);
@@ -94,7 +96,7 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
 
         }
 
-        private void expandOnClick(CardView cardView) {
+        private void expandOnClick(NeumorphCardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

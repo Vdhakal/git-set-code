@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
@@ -53,11 +54,14 @@ public class TripSummary extends Fragment {
     private SlideView slideView;
     private ProgressBar progressBar;
     private TripViewModel tripViewModel;
-
+    ColorStateList def;
     List<TripsData> tripsDataList;
     Context thiscontext;
     SiteSummaryAdapter siteSummaryAdapter;
     SourceSummaryAdapter sourceSummaryAdapter;
+    TextView source_tv;
+    TextView site_tv;
+    TextView select;
 
 
     @Override
@@ -74,13 +78,19 @@ public class TripSummary extends Fragment {
 
         View rootView =  inflater.inflate(R.layout.fragment_trip_summary, container, false);
         siteRecyclerView = (RecyclerView) rootView.findViewById(R.id.site_list);
-//        sourceRecyclerView = (RecyclerView) rootView.findViewById(R.id.source_list);
+        sourceRecyclerView = (RecyclerView) rootView.findViewById(R.id.source_list);
         tripsDataList = new ArrayList<>();
         progressBar= (ProgressBar)rootView.findViewById(R.id.progress_circular);
+        source_tv = rootView.findViewById(R.id.item1);
+        site_tv = rootView.findViewById(R.id.item2);
+        select = rootView.findViewById(R.id.select);
         tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
-        setUpUI();
+        def = site_tv.getTextColors();
+        setUpSourceObservers();
+        navigateSourceSite();
         setUpSlider(rootView);
-        setUpObservers();
+
+
         CheckNetwork.checkNetworkInfo(thiscontext, new CheckNetwork.OnConnectionStatusChange() {
             @Override
             public void onChange(boolean type) {
@@ -94,7 +104,35 @@ public class TripSummary extends Fragment {
 
         return rootView;
     }
-    private void setUpObservers() {
+
+    private void navigateSourceSite() {
+        source_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                select.animate().x(0).setDuration(100);
+                source_tv.setTextColor(Color.WHITE);
+                site_tv.setTextColor(def);
+                sourceRecyclerView.setVisibility(View.VISIBLE);
+                siteRecyclerView.setVisibility(View.GONE);
+                setUpSourceObservers();
+            }
+        });
+        site_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int size = site_tv.getWidth();
+                select.animate().x(size).setDuration(100);
+                site_tv.setTextColor(Color.WHITE);
+                source_tv.setTextColor(def);
+                sourceRecyclerView.setVisibility(View.GONE);
+                siteRecyclerView.setVisibility(View.VISIBLE);
+                setUpSiteObservers();
+            }
+        });
+
+    }
+
+    private void setUpSiteObservers() {
 //
 //        tripViewModel.getAllSource().observe(requireActivity(), new Observer<List<SourceInformation>>() {
 //            @Override
@@ -108,10 +146,28 @@ public class TripSummary extends Fragment {
         tripViewModel.getAllSite().observe(requireActivity(), new Observer<List<SiteInformation>>() {
             @Override
             public void onChanged(List<SiteInformation> siteInformations) {
+                mLayoutManager = new LinearLayoutManager(getActivity());
+//        sourceRecyclerView.addItemDecoration(new TripsDecorator(20));
+                siteSummaryAdapter = new SiteSummaryAdapter(getActivity(), new ArrayList<SiteInformation>());
                 progressBar.setVisibility(View.GONE);
                 siteSummaryAdapter.setSiteInformationObjectList(siteInformations);
                 siteRecyclerView.setAdapter(siteSummaryAdapter);
                 siteRecyclerView.setLayoutManager(mLayoutManager);
+            }
+        });
+
+    }
+    private void setUpSourceObservers() {
+
+        tripViewModel.getAllSource().observe(requireActivity(), new Observer<List<SourceInformation>>() {
+            @Override
+            public void onChanged(List<SourceInformation> sourceInformations) {
+                mLayoutManager = new LinearLayoutManager(getActivity());
+                sourceSummaryAdapter = new SourceSummaryAdapter(getActivity(), new ArrayList<SourceInformation>());
+                progressBar.setVisibility(View.GONE);
+                sourceSummaryAdapter.setSourceInformationList(sourceInformations);
+                sourceRecyclerView.setAdapter(sourceSummaryAdapter);
+                sourceRecyclerView.setLayoutManager(mLayoutManager);
             }
         });
 
@@ -155,12 +211,8 @@ public class TripSummary extends Fragment {
     }
 
     private void setUpUI() {
-        mLayoutManager = new LinearLayoutManager(getActivity());
-//
-//        sourceRecyclerView.addItemDecoration(new TripsDecorator(20));
-        siteSummaryAdapter = new SiteSummaryAdapter(getActivity(), new ArrayList<SiteInformation>());
+//        sourceSummaryAdapter = new SourceSummaryAdapter(getActivity(), new ArrayList<SourceInformation>());
 //        sourceRecyclerView.scrollToPosition(0);
-
 
     }
 

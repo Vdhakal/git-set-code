@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:neumorph_shadowElevation="5dp"
-        app:neumorph_backgroundColor="@color/cardColor"
+        app:neumorph_backgroundColor="@color/card_light_shadow"
         app:neumorph_shapeType="flat"
         app:neumorph_inset="12dp"
         app:neumorph_insetStart="12dp"
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/trip_summary_title"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Source"
