@@ -63,7 +63,6 @@ public class TripSummary extends Fragment {
     TextView site_tv;
     TextView select;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +114,7 @@ public class TripSummary extends Fragment {
                 sourceRecyclerView.setVisibility(View.VISIBLE);
                 siteRecyclerView.setVisibility(View.GONE);
                 setUpSourceObservers();
+                site_tv.setBackground(getResources().getDrawable(R.drawable.back_site_tab));
             }
         });
         site_tv.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +123,7 @@ public class TripSummary extends Fragment {
                 int size = site_tv.getWidth();
                 select.animate().x(size).setDuration(100);
                 site_tv.setTextColor(Color.WHITE);
+                site_tv.setBackground(getResources().getDrawable(R.drawable.back_site_select));
                 source_tv.setTextColor(def);
                 sourceRecyclerView.setVisibility(View.GONE);
                 siteRecyclerView.setVisibility(View.VISIBLE);
@@ -176,10 +177,10 @@ public class TripSummary extends Fragment {
     private void setUpSlider(View slideView) {
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SwipeButton swipeButton = (SwipeButton) slideView.findViewById(R.id.slideView);
-        CustomToast.showToast(getActivity(), "msg: "+sharedPreferences.getInt("selected",0));
 
         if(sharedPreferences.getInt("selected",0)==1){
             swipeButton.setEnabled(false);
+            swipeButton.setHasActivationState(false);
             swipeButton.setText("Trip Selected");
             swipeButton.setDisabledDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_check_circle_24));
         }

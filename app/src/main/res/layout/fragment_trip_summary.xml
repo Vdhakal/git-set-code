@@ -31,59 +31,59 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
     <ScrollView
         android:id="@+id/scroll_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selection"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/selection">
 
         <LinearLayout
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/source_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/site_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
-            <com.ebanx.swipebtn.SwipeButton
-                android:id="@+id/slideView"
-                style="@style/playfair_normal_black"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                app:button_background="@drawable/swipe_shape"
-                app:button_bottom_padding="10dp"
-                app:button_image_disabled="@drawable/ic_outline_lock_24"
-                app:button_image_enabled="@drawable/ic_baseline_check_circle_24"
-                app:button_left_padding="20dp"
-                app:button_right_padding="20dp"
-                app:button_top_padding="10dp"
-                app:button_image_height="64dp"
-                app:inner_text="Select Trip"
-                app:inner_text_background="@drawable/rounded_swpie"
-                app:inner_text_bottom_padding="18dp"
-                app:inner_text_color="#1C1C1C"
-                app:inner_text_size="16sp"
-                app:inner_text_top_padding="18dp"
-                android:gravity="center"
-                android:layout_gravity="center"/>
         </LinearLayout>
 
     </ScrollView>
+
+    <com.ebanx.swipebtn.SwipeButton
+        android:id="@+id/slideView"
+        style="@style/playfair_normal_black"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        app:button_background="@drawable/swipe_shape"
+        app:button_bottom_padding="10dp"
+        app:button_image_disabled="@drawable/ic_outline_lock_24"
+        app:button_image_enabled="@drawable/ic_baseline_check_circle_24"
+        app:button_image_height="64dp"
+        app:button_left_padding="20dp"
+        app:button_right_padding="20dp"
+        app:button_top_padding="10dp"
+        app:inner_text="Select Trip"
+        app:inner_text_background="@drawable/rounded_swpie"
+        app:inner_text_bottom_padding="18dp"
+        app:inner_text_color="#1C1C1C"
+        app:inner_text_size="16sp"
+        app:inner_text_top_padding="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

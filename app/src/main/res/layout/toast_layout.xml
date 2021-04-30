@@ -8,9 +8,8 @@
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:neumorph_backgroundColor="@color/foreground"
+        app:neumorph_backgroundColor="@color/card_light_shadow"
         app:neumorph_strokeColor="#B8B8B8"
-        app:neumorph_strokeWidth="1dp"
          >
         <RelativeLayout
             android:id="@+id/layout_for_toast"

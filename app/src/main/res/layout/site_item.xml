@@ -16,6 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:neumorph_shadowElevation="5dp"
         app:neumorph_backgroundColor="@color/card_light_shadow"
+        app:neumorph_shadowColorLight="@color/button_light_shadow"
+        app:neumorph_shadowColorDark= "@color/card_dark_shadow"
         app:neumorph_shapeType="flat"
         app:neumorph_inset="12dp"
         app:neumorph_insetStart="12dp"
@@ -127,7 +129,7 @@
             android:layout_height="wrap_content"
             android:width="140dp"
             style="@style/label_font"
-            android:text="Quantities:"
+            android:text="Quantity:"
             android:layout_marginBottom="4dp"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/label_special_instructions"
@@ -216,14 +218,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <soup.neumorphism.NeumorphButton
-                android:id="@+id/enter_information"
+                android:id="@+id/enter_information_site"
                 style="@style/Widget.Neumorph.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_gravity="center"
                 app:neumorph_shadowColorLight="@color/card_light_shadow"
-                app:neumorph_shadowColorDark="@color/card_dark_shadow"
+                app:neumorph_shadowColorDark="@color/button_dark_shdow"
                 app:neumorph_shapeType="flat"
                 app:neumorph_strokeColor="#B8B8B8"
                 app:neumorph_strokeWidth="1dp"
@@ -237,7 +239,7 @@
                 app:layout_constraintStart_toStartOf="@+id/expandable_layout_summary"
                 app:layout_constraintTop_toBottomOf="@id/divider" />
             <soup.neumorphism.NeumorphButton
-                android:id="@+id/head_to_source"
+                android:id="@+id/head_to_site"
                 style="@style/Widget.Neumorph.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

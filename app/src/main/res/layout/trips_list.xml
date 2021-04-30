@@ -23,6 +23,8 @@
         app:neumorph_insetEnd="12dp"
         app:neumorph_insetTop="12dp"
         app:neumorph_insetBottom="12dp"
+        app:neumorph_shadowColorLight="@color/button_light_shadow"
+        app:neumorph_shadowColorDark= "@color/card_dark_shadow"
         >
     <RelativeLayout
         android:layout_width="match_parent"

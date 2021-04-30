@@ -25,6 +25,7 @@ import com.example.git_set_code.trip_database.Table.Truck;
 
 import java.util.List;
 
+import soup.neumorphism.NeumorphButton;
 import soup.neumorphism.NeumorphCardView;
 
 public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdapter.ViewHolder> {
@@ -61,7 +62,7 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
         onSourceSummaryButtonClicked(holder.getFormButton(),sourceInformationList.get(position).getWaypointTypeDescription());
     }
 
-    private void onSourceSummaryButtonClicked(Button sourceButton, String wayPointType) {
+    private void onSourceSummaryButtonClicked(NeumorphButton sourceButton, String wayPointType) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +82,7 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
         private final TextView  vendorName, terminalName, terminalAddress, wayPointType;
         private final ConstraintLayout expandable_summary_layout;
         private final NeumorphCardView cardView;
-        private final Button formButton;
+        private final NeumorphButton formButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,8 +92,10 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
             vendorName = itemView.findViewById(R.id.tv_vendor_name);
             terminalName = itemView.findViewById(R.id.tv_terminal_name);
             terminalAddress = itemView.findViewById(R.id.tv_terminal_address);
-            formButton = itemView.findViewById(R.id.enter_information);
+            formButton = itemView.findViewById(R.id.enter_information_source);
             expandOnClick(cardView);
+            if(expanded)cardView.setShapeType(1);
+            else cardView.setShapeType(0);
 
         }
 
@@ -126,7 +129,7 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
             return terminalAddress;
         }
 
-        public Button getFormButton() {
+        public NeumorphButton getFormButton() {
             return formButton;
         }
 

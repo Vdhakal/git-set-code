@@ -16,8 +16,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
+        android:layout_marginBottom="12dip"
+        android:layout_marginStart="4dip"
         android:text="Username"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        style="@style/label_font"
         android:textColor="@color/black" />
 
 </LinearLayout>

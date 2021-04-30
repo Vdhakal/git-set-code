@@ -196,6 +196,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         private final NeumorphButton summaryButton;
         int state;
         SharedPreferences sharedPreferences;
+        SwipeButton swipeButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -208,24 +209,25 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
             summaryButton = (NeumorphButton) itemView.findViewById(R.id.summary_button);
             cardView.setShapeType(state);
             expandOnClick(cardView);
+            swipeButton = (SwipeButton) itemView.findViewById(R.id.slideView);
+
+            sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+            if(sharedPreferences.getInt("selected",0)==1){
+                swipeButton.setEnabled(false);
+                swipeButton.setText("Trip Selected");
+                swipeButton.setDisabledDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24));
+            }
+
+            if(expanded)cardView.setShapeType(1);
+            else cardView.setShapeType(0);
         }
 
         private void expandOnClick(NeumorphCardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
                 expanded = !expanded;
-//                expandState.cardView(expanded);
-                SwipeButton swipeButton = (SwipeButton) v.findViewById(R.id.slideView);
-                CustomToast.showToast(activity, "msg: "+sharedPreferences.getInt("selected",0));
 
-
-                if(sharedPreferences.getInt("selected",0)==1){
-                        swipeButton.setEnabled(false);
-                        swipeButton.setText("Trip Selected");
-                        swipeButton.setDisabledDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24));
-                    }
                     swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
                         @Override
                         public void onStateChange(boolean active) {
@@ -239,10 +241,10 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
                             String msg = "";
                             if (active) {
-                                msg = "Your trip has been selected!" + tripViewModel.getGetSelected();
+                                msg = "Your trip has been selected!";
                                 tripViewModel.setSelection();
                             } else
-                                msg = "Your trip has been selected!";
+                                msg = "Your trip has been deselected!";
                             CustomToast.showToast(activity, msg);
                         }
                     });
