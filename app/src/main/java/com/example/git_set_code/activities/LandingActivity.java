@@ -27,16 +27,15 @@ import android.widget.Toast;
 
 import com.example.git_set_code.R;
 
-import com.example.git_set_code.fragments.EditFragment;
-import com.example.git_set_code.fragments.HomeFragment;
-import com.example.git_set_code.fragments.MapsFragment;
+import com.example.git_set_code.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.Map;
 
-public class LandingActivity extends AppCompatActivity {
+public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
@@ -80,10 +79,20 @@ public class LandingActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         drawer = findViewById(R.id.drawer_layout);
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment,
+                    new ProfileFragment()).commit();
+
+            navigationView.setCheckedItem(R.id.profile);
+        }
     }
 
 
@@ -122,6 +131,20 @@ public class LandingActivity extends AppCompatActivity {
 //        });
 //
 //        bottomNavigationView.show(1, true);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,
+                        new ProfileFragment()).commit();
+                break;
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
     @Override
