@@ -11,7 +11,7 @@ import com.example.git_set_code.R;
 
 public class CustomToast {
     public static void showToast(Activity activity, String toastMsg){
-        Toast toast = new Toast(activity);
+        Toast toast = new Toast(activity.getApplicationContext());
         View view = activity.getLayoutInflater().inflate(R.layout.toast_layout, null);
         TextView textView = view.findViewById(R.id.toast_msg);
         textView.setText(toastMsg);

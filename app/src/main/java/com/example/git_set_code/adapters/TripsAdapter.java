@@ -2,8 +2,10 @@ package com.example.git_set_code.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
@@ -16,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,13 +28,16 @@ import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
 import com.example.git_set_code.R;
 import com.example.git_set_code.cache.TripsObject;
+import com.example.git_set_code.fragments.HomeFragment;
 import com.example.git_set_code.step_view.VerticalStepView;
 import com.example.git_set_code.trip_database.Table.Driver;
 import com.example.git_set_code.trip_database.Table.SiteInformation;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.TripClientData;
 import com.example.git_set_code.trip_database.Table.Truck;
+import com.example.git_set_code.trip_database.ViewModel.TripViewModel;
 import com.example.git_set_code.utils.CustomToast;
 import com.example.git_set_code.viewmodels.TripsData;
 
@@ -48,9 +56,21 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     List<Truck> truckObjectList;
     List<Trailer> trailerObjectList;
     List<Trip> tripObjectList;
+    TripViewModel tripViewModel;
     private boolean expanded, state;
     private Context context;
     private Activity activity;
+    ViewModelStoreOwner owner;
+    List<TripClientData> tripClientData;
+    public expandState expandState;
+
+    public void setOnItemClickListner(TripsAdapter.expandState expandState) {
+        this.expandState = expandState;
+    }
+
+    public interface expandState{
+        public void cardView(boolean expand);//pass your object types.
+    }
 
     public void setDriverObjectList(List<Driver> driverObjectList) {
         this.driverObjectList = driverObjectList;
@@ -58,6 +78,10 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public void setTripViewModel(TripViewModel viewModel) {
+        this.tripViewModel = tripViewModel;
     }
 
     public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
@@ -80,10 +104,14 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         this.tripObjectList = tripObjectList;
     }
 
+    public void setTripClientData(List<TripClientData> tripClientData) {
+        this.tripClientData = tripClientData;
+    }
+
     public TripsAdapter(Context context,
                         List<Trip> tripObjectList,
                         List<SiteInformation> siteInformationObjectList,
-                        List<SourceInformation> sourceInformationObjectList)
+                        List<SourceInformation> sourceInformationObjectList, ViewModelStoreOwner owner)
     {
         this.tripObjectList = tripObjectList;
         this.siteInformationObjectList = siteInformationObjectList;
@@ -91,6 +119,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 //        this.tripsObjects = tripsObjects;
         this.expanded = false;
         this.context = context;
+        this.tripViewModel = new ViewModelProvider(owner).get(TripViewModel.class);
         //Toast.makeText(context, tripsDataList.get(2).toString(), Toast.LENGTH_SHORT).show();
 
     }
@@ -104,11 +133,14 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull TripsAdapter.ViewHolder holder, int position) {
         holder.getExpandableLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
+//        if(expanded){
+//            HomeFragment homeFragment = new HomeFragment();
+//            homeFragment.setUpSlider( tripObjectList, activity);
+//        }
         holder.getTitle().setText("Trip: "+tripObjectList.get(position).getTripName());
         holder.getProductName().setText(siteInformationObjectList.get(position).getProductDesc());
         holder.getStops().setText("3");
         setUpStepView(holder);
-        setUpSlider(holder, position);
         onSummaryButtonClick(holder.getSummaryButton());
     }
     //This is how you'd change fragments
@@ -123,21 +155,8 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     }
     private void swapFragment(View v){
         Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_tripSummary);
+    }
 
-    }
-    private void setUpSlider(ViewHolder holder, int position) {
-        holder.getSlideView().setOnStateChangeListener(new OnStateChangeListener() {
-            @Override
-            public void onStateChange(boolean active) {
-                String msg="";
-                if(active)
-                    msg = "Trip: "+ tripObjectList.get(position).getTripId() +" has been selected!";
-                else
-                    msg = "Trip: "+ tripObjectList.get(position).getTripId() +" has been deselected!";
-                CustomToast.showToast(activity, msg);
-            }
-        });
-    }
 
     private void setUpStepView(ViewHolder holder) {
         List<String> stepsBeanList = new ArrayList<>();
@@ -174,10 +193,9 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         private final NeumorphCardView cardView;
         private final ConstraintLayout expandableLayout;
         private final VerticalStepView stepView;
-        private final SwipeButton slideView;
         private final NeumorphButton summaryButton;
         int state;
-
+        SharedPreferences sharedPreferences;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -187,23 +205,54 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
             stops = itemView.findViewById(R.id.tv_stops);
             expandableLayout = itemView.findViewById(R.id.expandable_layout);
             stepView = (VerticalStepView) itemView.findViewById(R.id.step_view);
-            slideView = (SwipeButton) itemView.findViewById(R.id.slideView);
             summaryButton = (NeumorphButton) itemView.findViewById(R.id.summary_button);
-            state=0;
             cardView.setShapeType(state);
             expandOnClick(cardView);
-            state=1;
         }
 
         private void expandOnClick(NeumorphCardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
                 expanded = !expanded;
-                notifyItemChanged(getAdapterPosition());
-            }
+//                expandState.cardView(expanded);
+                SwipeButton swipeButton = (SwipeButton) v.findViewById(R.id.slideView);
+                CustomToast.showToast(activity, "msg: "+sharedPreferences.getInt("selected",0));
+
+
+                if(sharedPreferences.getInt("selected",0)==1){
+                        swipeButton.setEnabled(false);
+                        swipeButton.setText("Trip Selected");
+                        swipeButton.setDisabledDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24));
+                    }
+                    swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
+                        @Override
+                        public void onStateChange(boolean active) {
+                            TripClientData tripClientData = new TripClientData(1, tripObjectList.get(0).getTripId());
+                            tripViewModel.setInsertTripClient(tripClientData);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("selected", 1);
+                            editor.apply();
+                            swipeButton.setEnabled(false);
+
+
+                            String msg = "";
+                            if (active) {
+                                msg = "Your trip has been selected!" + tripViewModel.getGetSelected();
+                                tripViewModel.setSelection();
+                            } else
+                                msg = "Your trip has been selected!";
+                            CustomToast.showToast(activity, msg);
+                        }
+                    });
+
+                    notifyItemChanged(getAdapterPosition());
+                }
+
         });
         }
+
 
         public NeumorphButton getSummaryButton() {
             return summaryButton;
@@ -221,9 +270,6 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
             return stepView;
         }
 
-        public SwipeButton getSlideView() {
-            return slideView;
-        }
 
         public TextView getTitle() {
             return title;

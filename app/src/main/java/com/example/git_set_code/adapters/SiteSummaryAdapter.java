@@ -27,6 +27,7 @@ import com.example.git_set_code.trip_database.Table.Truck;
 
 import java.util.List;
 
+import soup.neumorphism.NeumorphButton;
 import soup.neumorphism.NeumorphCardView;
 import soup.neumorphism.ShapeType;
 
@@ -87,7 +88,7 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
         private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, wayPointType;
         private final ConstraintLayout expandable_summary_layout;
         private final NeumorphCardView cardView;
-        private final Button formButton;
+        private final NeumorphButton formButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -1,12 +1,14 @@
 package com.example.git_set_code.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,13 +22,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.ebanx.swipebtn.OnStateChangeListener;
+import com.ebanx.swipebtn.SwipeButton;
 import com.example.git_set_code.R;
 import com.example.git_set_code.adapters.SiteSummaryAdapter;
 import com.example.git_set_code.adapters.SourceSummaryAdapter;
 import com.example.git_set_code.networkChecker.CheckNetwork;
 import com.example.git_set_code.trip_database.Table.SiteInformation;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
+import com.example.git_set_code.trip_database.Table.TripClientData;
 import com.example.git_set_code.trip_database.ViewModel.TripViewModel;
+import com.example.git_set_code.utils.CustomToast;
 import com.example.git_set_code.viewmodels.TripsData;
 import com.example.git_set_code.utils.TripsDecorator;
 
@@ -70,10 +76,10 @@ public class TripSummary extends Fragment {
         siteRecyclerView = (RecyclerView) rootView.findViewById(R.id.site_list);
 //        sourceRecyclerView = (RecyclerView) rootView.findViewById(R.id.source_list);
         tripsDataList = new ArrayList<>();
-        slideView = (SlideView) rootView.findViewById(R.id.slideView_summary);
         progressBar= (ProgressBar)rootView.findViewById(R.id.progress_circular);
         tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
         setUpUI();
+        setUpSlider(rootView);
         setUpObservers();
         CheckNetwork.checkNetworkInfo(thiscontext, new CheckNetwork.OnConnectionStatusChange() {
             @Override
@@ -111,17 +117,34 @@ public class TripSummary extends Fragment {
 
     }
 
-    private void setUpSlider(SlideView slideView) {
-        slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
+    private void setUpSlider(View slideView) {
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SwipeButton swipeButton = (SwipeButton) slideView.findViewById(R.id.slideView);
+        CustomToast.showToast(getActivity(), "msg: "+sharedPreferences.getInt("selected",0));
+
+        if(sharedPreferences.getInt("selected",0)==1){
+            swipeButton.setEnabled(false);
+            swipeButton.setText("Trip Selected");
+            swipeButton.setDisabledDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_check_circle_24));
+        }
+        swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
-            public void onSlideComplete(SlideView slideView) {
-                // vibrate the device
-                Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                if(vibrator.hasVibrator()){vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE)); }
-                slideView.setText("Selected");
-                slideView.setButtonBackgroundColor(ColorStateList.valueOf(Color.LTGRAY));
-                slideView.setSlideBackgroundColor(ColorStateList.valueOf(Color.GRAY));
-                slideView.setEnabled(false);
+            public void onStateChange(boolean active) {
+//                TripClientData tripClientData = new TripClientData(1, tripObjectList.get(0).getTripId());
+//                tripViewModel.setInsertTripClient(tripClientData);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("selected", 1);
+                editor.apply();
+                swipeButton.setEnabled(false);
+
+
+                String msg = "";
+                if (active) {
+                    msg = "Your trip has been selected!" + tripViewModel.getGetSelected();
+                    tripViewModel.setSelection();
+                } else
+                    msg = "Your trip has been selected!";
+                CustomToast.showToast(getActivity(), msg);
             }
         });
     }
@@ -135,12 +158,10 @@ public class TripSummary extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
 //
 //        sourceRecyclerView.addItemDecoration(new TripsDecorator(20));
-//        sourceSummaryAdapter = new SourceSummaryAdapter(getActivity(), new ArrayList<SourceInformation>());
+        siteSummaryAdapter = new SiteSummaryAdapter(getActivity(), new ArrayList<SiteInformation>());
 //        sourceRecyclerView.scrollToPosition(0);
 
-        siteRecyclerView.addItemDecoration(new TripsDecorator(20));
-        siteSummaryAdapter = new SiteSummaryAdapter(getActivity(), new ArrayList<SiteInformation>());
-        siteRecyclerView.scrollToPosition(0);
+
     }
 
 }

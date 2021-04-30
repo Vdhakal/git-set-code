@@ -12,6 +12,7 @@ import com.example.git_set_code.trip_database.Table.SiteInformation;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.TripClientData;
 import com.example.git_set_code.trip_database.Table.Truck;
 import com.example.git_set_code.viewmodels.TripsData;
 import com.example.git_set_code.singletons.TripsRequestSingleton;
@@ -31,7 +32,7 @@ public class TripsAPIService {
         void onResponse();
     }
     
-    public void getRequestedJsonForRepo(Context thiscontext, List<Driver> driverObjectList, List<SiteInformation> siteInformationObjectList, List<SourceInformation> sourceInformationObjectList, List<Truck> truckObjectList, List<Trailer> trailerObjectList, List<Trip> tripObjectList, VolleyResponseListener volleyResponseListener){
+    public void getRequestedJsonForRepo(Context thiscontext, List<Driver> driverObjectList, List<SiteInformation> siteInformationObjectList, List<SourceInformation> sourceInformationObjectList, List<Truck> truckObjectList, List<Trailer> trailerObjectList, List<Trip> tripObjectList, List<TripClientData> tripClientDataList, VolleyResponseListener volleyResponseListener){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, JSON_GET_URL, null, new Response.Listener<JSONObject>() {
 
@@ -45,7 +46,7 @@ public class TripsAPIService {
                                     JSONObject jsonObject = resultSet1.getJSONObject(i);
                                     Driver driverObject = new Driver(jsonObject.getString("DriverCode"), jsonObject.getString("DriverName"));
                                     driverObjectList.add(driverObject);
-                                    Trip tripObject = new Trip(jsonObject.getInt("TripId"), jsonObject.getString("TripName"), jsonObject.getString("TripDate"), jsonObject.getString("DriverCode"),0);
+                                    Trip tripObject = new Trip(jsonObject.getInt("TripId"), jsonObject.getString("TripName"), jsonObject.getString("TripDate"), jsonObject.getString("DriverCode"));
                                     tripObjectList.add(tripObject);
                                     SiteInformation siteInformationObject;
                                     SourceInformation sourceInformationObject;

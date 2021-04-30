@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:neumorph_shadowElevation="5dp"
-        app:neumorph_backgroundColor="@color/cardColor"
+        app:neumorph_backgroundColor="@color/card_light_shadow"
         app:neumorph_shapeType="flat"
         app:neumorph_inset="12dp"
         app:neumorph_insetStart="12dp"

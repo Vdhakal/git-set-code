@@ -53,25 +53,28 @@
                 android:layout_height="wrap_content"
                 />
 
-            <ng.max.slideview.SlideView
-                android:id="@+id/slideView_summary"
+            <com.ebanx.swipebtn.SwipeButton
+                android:id="@+id/slideView"
                 style="@style/playfair_normal_black"
-                android:layout_width="match_parent"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                app:sv_buttonBackgroundColor="#e5e5e5"
-                app:sv_slideBackgroundColor="@color/source_green"
-                app:sv_slideText="Select Trip"
-                app:sv_slideTextColor="#f1f1f1"
-                app:sv_slideTextSize="20sp"
-                app:sv_animateSlideText="true"
-                app:sv_reverseSlide="false"
-                app:layout_constraintTop_toBottomOf="@id/site_list"
-                app:layout_constraintBottom_toBottomOf="@id/main_layout"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="54dp"
-                android:layout_marginTop="32dp"/>
-
+                android:layout_marginEnd="20dp"
+                app:button_background="@drawable/swipe_shape"
+                app:button_bottom_padding="10dp"
+                app:button_image_disabled="@drawable/ic_outline_lock_24"
+                app:button_image_enabled="@drawable/ic_baseline_check_circle_24"
+                app:button_left_padding="20dp"
+                app:button_right_padding="20dp"
+                app:button_top_padding="10dp"
+                app:button_image_height="64dp"
+                app:inner_text="Select Trip"
+                app:inner_text_background="@drawable/rounded_swpie"
+                app:inner_text_bottom_padding="18dp"
+                app:inner_text_color="#1C1C1C"
+                app:inner_text_size="16sp"
+                app:inner_text_top_padding="18dp"
+                android:gravity="center"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
     </ScrollView>

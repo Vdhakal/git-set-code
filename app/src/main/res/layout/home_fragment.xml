@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:defaultNavHost="true"
-    android:background="@color/background_orange">
+    android:background="@color/card_light_shadow">
 
   <include
       android:id="@+id/toolbar"

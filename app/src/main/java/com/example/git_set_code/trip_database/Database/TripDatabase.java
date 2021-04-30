@@ -15,12 +15,13 @@ import com.example.git_set_code.trip_database.Table.SiteInformation;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.TripClientData;
 import com.example.git_set_code.trip_database.Table.Truck;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Driver.class, Trip.class, Truck.class, Trailer.class, SourceInformation.class, SiteInformation.class},
+@Database(entities = {Driver.class, Trip.class, Truck.class, Trailer.class, SourceInformation.class, SiteInformation.class, TripClientData.class},
         version = 2)
 public abstract class TripDatabase extends RoomDatabase {
     public abstract TripDao tripDao();
@@ -50,18 +51,18 @@ public abstract class TripDatabase extends RoomDatabase {
                 // If you want to start with more words, just add them.
                 TripDao dao = tripDatabase.tripDao();
 
-                Driver driver = new Driver("N/A","N/A");
-                dao.insertDrivers(driver);
-                Trip trip = new Trip(0,"N/A","N/A","N/A",0);
-                dao.insertTrip(trip);
-                SiteInformation siteInformation = new SiteInformation("N/A","N/A",0, 0,0,"N/A", "N/A",0, "N/A", "N/A", 0,0,"N/A","N/A","N/A", "N/A", "N/A", "N/A",0,0,"N/A",0);
-                dao.insertSite(siteInformation);
-                SourceInformation sourceInformation = new SourceInformation(0,"N/A",0, 0,"N/A","N/A", "N/A","N/A", "N/A", "N/A", 0,0);
-                dao.insertSource(sourceInformation);
-                Truck truck = new Truck(0,"N/A","N/A", "N/A");
-                dao.insertTruck(truck);
-                Trailer trailer = new Trailer(0,"N/A","N/A",0);
-                dao.insertTrailer(trailer);
+//                Driver driver = new Driver("N/A","N/A");
+//                dao.insertDrivers(driver);
+//                Trip trip = new Trip(0,"N/A","N/A","N/A");
+//                dao.insertTrip(trip);
+//                SiteInformation siteInformation = new SiteInformation("N/A","N/A",0, 0,0,"N/A", "N/A",0, "N/A", "N/A", 0,0,"N/A","N/A","N/A", "N/A", "N/A", "N/A",0,0,"N/A",0);
+//                dao.insertSite(siteInformation);
+//                SourceInformation sourceInformation = new SourceInformation(0,"N/A",0, 0,"N/A","N/A", "N/A","N/A", "N/A", "N/A", 0,0);
+//                dao.insertSource(sourceInformation);
+//                Truck truck = new Truck(0,"N/A","N/A", "N/A");
+//                dao.insertTruck(truck);
+//                Trailer trailer = new Trailer(0,"N/A","N/A",0);
+//                dao.insertTrailer(trailer);
             });
         }
     };

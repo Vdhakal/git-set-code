@@ -12,6 +12,7 @@ import com.example.git_set_code.trip_database.Table.SiteInformation;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.TripClientData;
 import com.example.git_set_code.trip_database.Table.Truck;
 
 import java.util.List;
@@ -30,6 +31,8 @@ public interface TripDao {
     public void insertSource(SourceInformation... sourceInformations);
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertSite(SiteInformation... siteInformations);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public void insertTripClientData(TripClientData... tripClientData);
 
     @Delete
     public void deleteDrivers(Driver... drivers);
@@ -44,6 +47,9 @@ public interface TripDao {
     @Delete
     public void deleteSite(SiteInformation... siteInformation);
 
+    @Query("UPDATE trip_client SET selected = 1")
+    public void setSelection();
+
     @Query("SELECT * FROM driver")
     public LiveData<List<Driver>> getAllDrivers();
     @Query("SELECT * FROM site_information")
@@ -56,6 +62,12 @@ public interface TripDao {
     public  LiveData<List<Truck>> getAllTruck();
     @Query("SELECT * FROM trip")
     public  LiveData<List<Trip>> getAllTrip();
+    @Query("SELECT * FROM trip_client")
+    public  LiveData<List<TripClientData>> getAllTripClientData();
     @Query("SELECT DISTINCT productDesc FROM site_information")
     public  LiveData<List<String>> getAllProductTypes();
+    @Query("SELECT selected FROM trip_client")
+    public  LiveData<List<Integer>> getSelected();
+
+
 }

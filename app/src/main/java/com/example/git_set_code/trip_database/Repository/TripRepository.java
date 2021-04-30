@@ -14,7 +14,9 @@ import com.example.git_set_code.trip_database.Table.SiteInformation;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.TripClientData;
 import com.example.git_set_code.trip_database.Table.Truck;
+import com.example.git_set_code.utils.CustomToast;
 import com.example.git_set_code.viewmodels.TripsData;
 
 
@@ -32,12 +34,16 @@ public class TripRepository {
     private  LiveData<List<Trailer>> getAllTrailer;
     private  LiveData<List<Truck>> getAllTruck;
     private  LiveData<List<Trip>> getAllTrip;
+    private  LiveData<List<TripClientData>> getAllTripClient;
+    private int getSelected = 0;
     List<Driver> driverObjectList;
     List<SiteInformation> siteInformationObjectList;
     List<SourceInformation> sourceInformationObjectList;
     List<Truck> truckObjectList;
     List<Trailer> trailerObjectList;
     List<Trip> tripObjectList;
+    List<TripClientData> tripClientData;
+    LiveData<List<Integer>> selections;
 
     public TripRepository(Application application){
         TripDatabase tripDatabase = TripDatabase.getInstance(application);
@@ -48,6 +54,8 @@ public class TripRepository {
         getAllTrailer = tripDao.getAllTrailer();
         getAllTruck = tripDao.getAllTruck();
         getAllTrip = tripDao.getAllTrip();
+        selections = tripDao.getSelected();
+        getAllTripClient = tripDao.getAllTripClientData();
         thisContext = application.getApplicationContext();
         driverObjectList= new ArrayList<>();
         siteInformationObjectList= new ArrayList<>();
@@ -55,6 +63,11 @@ public class TripRepository {
         truckObjectList= new ArrayList<>();
         trailerObjectList= new ArrayList<>();
         tripObjectList= new ArrayList<>();
+        tripClientData= new ArrayList<>();
+    }
+
+    public LiveData<List<Integer>> getGetSelected() {
+        return selections;
     }
 
     public Context getThisContext() {
@@ -84,10 +97,13 @@ public class TripRepository {
     public LiveData<List<Trip>> getGetAllTrip() {
         return getAllTrip;
     }
+    public LiveData<List<TripClientData>> getGetAllTripClient() {
+        return getAllTripClient;
+    }
 
     public void extractData(){
         TripsAPIService tripsAPIService = new TripsAPIService();
-        tripsAPIService.getRequestedJsonForRepo(thisContext, driverObjectList, siteInformationObjectList,  sourceInformationObjectList,truckObjectList, trailerObjectList, tripObjectList, new TripsAPIService.VolleyResponseListener() {
+        tripsAPIService.getRequestedJsonForRepo(thisContext, driverObjectList, siteInformationObjectList,  sourceInformationObjectList,truckObjectList, trailerObjectList, tripObjectList, tripClientData, new TripsAPIService.VolleyResponseListener() {
             @Override
             public void onError(String message) {
             }
@@ -112,11 +128,13 @@ public class TripRepository {
                 for(int i =0; i<sourceInformationObjectList.size(); i++){
                     insertSourceinformation(sourceInformationObjectList.get(i));
                 }
+                for(int i =0; i<tripClientData.size(); i++){
+                    insertTripClientData(tripClientData.get(i));
+                }
             }
 
         });
     }
-
     public void insertDriver(Driver driver){
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertDrivers(driver);
@@ -150,6 +168,16 @@ public class TripRepository {
     public void insertSourceinformation(SourceInformation sourceInformation){
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertSource(sourceInformation);
+        });
+    }
+    public void setSelection(){
+        TripDatabase.databaseWriteExecutor.execute(() -> {
+            tripDao.setSelection();
+        });
+    }
+    public void insertTripClientData(TripClientData tripClientData){
+        TripDatabase.databaseWriteExecutor.execute(() -> {
+            tripDao.insertTripClientData(tripClientData);
         });
     }
 }

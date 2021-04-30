@@ -1,6 +1,7 @@
 package com.example.git_set_code.trip_database.ViewModel;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -12,6 +13,7 @@ import com.example.git_set_code.trip_database.Table.SiteInformation;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
+import com.example.git_set_code.trip_database.Table.TripClientData;
 import com.example.git_set_code.trip_database.Table.Truck;
 
 import java.util.List;
@@ -24,6 +26,10 @@ public class TripViewModel extends AndroidViewModel {
     private LiveData<List<Trailer>> allTrailer;
     private LiveData<List<Truck>> allTruck;
     private LiveData<List<Trip>> allTrip;
+    private LiveData<List<TripClientData>> allTripClientData;
+    private LiveData<List<Integer>> getSelected;
+    private LiveData<List<Integer>> insertTripClient;
+
 
     public TripViewModel(@NonNull Application application) {
         super(application);
@@ -34,6 +40,12 @@ public class TripViewModel extends AndroidViewModel {
         allTrailer = tripRepository.getGetAllTrailer();
         allTruck = tripRepository.getGetAllTruck();
         allTrip = tripRepository.getGetAllTrip();
+        allTripClientData = tripRepository.getGetAllTripClient();
+        getSelected = tripRepository.getGetSelected();
+    }
+
+    public LiveData<List<Integer>> getGetSelected() {
+        return getSelected;
     }
 
     public LiveData<List<Driver>> getAllDrivers() {
@@ -59,8 +71,21 @@ public class TripViewModel extends AndroidViewModel {
     public LiveData<List<Trip>> getAllTrip() {
         return allTrip;
     }
+
+    public LiveData<List<TripClientData>> getAllTripClientData() {
+        return allTripClientData;
+    }
+
+    public LiveData<List<Integer>> getInsertTripClient() {
+        return insertTripClient;
+    }
+
     public void extractData(){
         tripRepository.extractData();
+    }
+
+    public void setInsertTripClient(TripClientData tripClientData) {
+       tripRepository.insertTripClientData(tripClientData);
     }
     public void insertDrivers(Driver allDrivers) {
         tripRepository.insertDriver(allDrivers);
@@ -84,5 +109,9 @@ public class TripViewModel extends AndroidViewModel {
 
     public void insertTrip(Trip trip) {
         tripRepository.insertTrip(trip);
+    }
+
+    public void setSelection() {
+        tripRepository.setSelection();
     }
 }
