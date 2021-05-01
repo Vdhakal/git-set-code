@@ -139,7 +139,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 //        }
         holder.getTitle().setText("Trip: "+tripObjectList.get(position).getTripName());
         holder.getProductName().setText(siteInformationObjectList.get(position).getProductDesc());
-        holder.getStops().setText("3");
+        holder.getStops().setText("7");
         setUpStepView(holder);
         onSummaryButtonClick(holder.getSummaryButton());
     }

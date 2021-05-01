@@ -36,6 +36,7 @@
         android:id="@+id/scroll_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selection">
@@ -43,19 +44,25 @@
         <LinearLayout
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="40dp"
+            android:layout_marginBottom="40dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/source_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingBottom="40dp"
+                android:layout_marginBottom="40dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/site_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:paddingBottom="40dp"
+                android:layout_marginBottom="40dp"/>
 
         </LinearLayout>
 
