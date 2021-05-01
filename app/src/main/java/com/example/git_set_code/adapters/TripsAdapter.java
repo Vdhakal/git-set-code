@@ -169,7 +169,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
             stepsBeanList.add(siteInformationObjectList.get(i).getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+siteInformationObjectList.get(i).getAddress1().trim().toUpperCase()+" "+siteInformationObjectList.get(i).getCity().trim().toUpperCase()+" "+siteInformationObjectList.get(i).getStateAbbrev().trim().toUpperCase());
         }
         stepsBeanList.add("");
-        holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-siteInformationObjectList.size()-sourceInformationObjectList.size())
+        holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-siteInformationObjectList.size()-sourceInformationObjectList.size()+1)
                 .reverseDraw(false)
                 .setStepViewTexts(stepsBeanList)
                 .setLinePaddingProportion(1)
