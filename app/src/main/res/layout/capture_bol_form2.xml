@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/textView5"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/textView6"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -45,7 +45,7 @@
 
         <TextView
             android:id="@+id/textView7"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -55,7 +55,7 @@
 
         <TextView
             android:id="@+id/textView18"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="Time
@@ -65,7 +65,7 @@
 
         <TextView
             android:id="@+id/textView14"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time"
@@ -74,7 +74,7 @@
 
         <TextView
             android:id="@+id/textView8"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -84,7 +84,7 @@
 
         <TextView
             android:id="@+id/textView13"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -94,7 +94,7 @@
 
         <TextView
             android:id="@+id/textView12"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Net Gallons"
@@ -103,14 +103,13 @@
 
         <TextView
             android:id="@+id/textView9"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Remaining Fuel (Post delivery)"
             app:layout_constraintStart_toStartOf="@+id/gross_gallons_site"
             app:layout_constraintTop_toBottomOf="@+id/gross_gallons_site" />
-
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/pre_delivery_rem_site"
@@ -124,6 +123,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/gross_gallons_site"
@@ -221,7 +221,7 @@
 
         <Button
             android:id="@+id/scanBillButtonSite"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -247,7 +247,7 @@
 
         <TextView
             android:id="@+id/notes_edit"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Signature"
@@ -258,7 +258,7 @@
             android:id="@+id/save_cont_site"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/playfair_normal_black"
+            style="@style/label_font"
             android:layout_gravity="center"
             android:layout_marginLeft="82dp"
             android:layout_marginTop="16dp"

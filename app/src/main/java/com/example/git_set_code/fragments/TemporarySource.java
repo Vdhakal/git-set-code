@@ -1,6 +1,10 @@
 package com.example.git_set_code.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.nfc.Tag;
 import android.os.Bundle;
 
@@ -11,10 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +41,9 @@ public class TemporarySource extends Fragment {
     private String mParam1;
     private String mParam2;
     EditText preDelivery, postDelivery, droppedProduct, startDate, startTime, endDate, endTime, grossGallons, netGallons, remainingFuel;
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private Bitmap signatureBitmap = null;
+
     public TemporarySource() {
         // Required empty public constructor
     }
@@ -71,8 +83,39 @@ public class TemporarySource extends Fragment {
         Button sourceButton = rootView.findViewById(R.id.save_cont_source);
         initItems(rootView);
         onSourceButtonClicked(sourceButton);
-
+        dateListener();
         return rootView;
+    }
+    public void captureSignature(Bitmap signatureBitmap){
+        ImageView signatureView = getView().findViewById(R.id.signatureView);
+        signatureView.setImageBitmap(signatureBitmap);
+        signatureView.setVisibility(View.VISIBLE);
+        //saved signature bitmap in this variable
+        this.signatureBitmap = signatureBitmap;
+    }
+    private void dateListener() {
+        startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+                        android.R.style.Widget_Material_ActionBar_Solid,
+                        onDateSetListener,
+                        year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month=month+1;
+                startDate.setText(month+"/"+dayOfMonth+"/"+year);
+            }
+        };
     }
 
     private void initItems(View rootView) {

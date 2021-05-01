@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class TripsAPIService {
-    private static String JSON_GET_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/GetTripListDetailByDriver/D1?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
+    private static String JSON_GET_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/GetTripListDetailByDriver/gitsetcode?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
 
     public interface VolleyResponseListener {
         void onError(String message);

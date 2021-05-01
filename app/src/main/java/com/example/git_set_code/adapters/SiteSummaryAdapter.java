@@ -105,7 +105,8 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
             formButton = itemView.findViewById(R.id.enter_information_site);
             expandOnClick(cardView);
             if(expanded)cardView.setShapeType(1);
-            else cardView.setShapeType(0);
+            else {cardView.setShapeType(0);
+                expanded=false;}
 
         }
 

@@ -219,7 +219,8 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
             }
 
             if(expanded)cardView.setShapeType(1);
-            else cardView.setShapeType(0);
+            else {cardView.setShapeType(0);
+            expanded=false;}
         }
 
         private void expandOnClick(NeumorphCardView cardView) {
@@ -227,7 +228,6 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 expanded = !expanded;
-
                     swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
                         @Override
                         public void onStateChange(boolean active) {
