@@ -84,13 +84,7 @@ public class EditFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.edit_fragment, container, false);
-        scanBill = rootView.findViewById(R.id.scanBillButtonSource);
-        scanBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initiateBolCapture();
-            }
-        });
+
         return rootView;
     }
 

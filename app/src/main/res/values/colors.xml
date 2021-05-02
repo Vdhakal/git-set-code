@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_orange">#FFE7B8</color>
+    <color name="button_color">#FFD688</color>
     <color name="cardColor">#FFE7B8</color>
     <color name="card_light_shadow">#FFEFCB</color>
     <color name="button_light_shadow">#FFF7E8</color>
@@ -8,11 +9,14 @@
     <color name="card_dark_shadow">#D5CAB4</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="save_light_shd">#FFF4DD</color>
+    <color name="save_dark_shd">#B6B6B6</color>
     <color name="tool_bar">#E09C15</color>
     <color name="bottom_navigation_text_color">#FFFFFF</color>
     <color name="option_outline">#2D2D2D</color>
     <color name="status_bar">@color/dark_orange</color>
     <color name="dark_orange">#d3800c</color>
+    <color name="light_orange">#FFC276</color>
     <color name="trip_card">@color/foreground</color>
     <color name="foreground">#f2d5a2</color>
     <color name="blue_100">#951565c0</color>

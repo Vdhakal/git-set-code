@@ -58,10 +58,10 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     @Override
     public void onBindViewHolder(@NonNull SiteSummaryAdapter.ViewHolder holder, int position) {
         holder.getExpandableSummaryLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
-        holder.getWayPointType().setText("Site Container: "+siteInformationObjectList.get(position).getSiteContainerDescription());
+        holder.getWayPointType().setText("Site Container: "+siteInformationObjectList.get(position).getDestinationCod());
         holder.getProductName().setText(siteInformationObjectList.get(position).getProductDesc());
-        holder.getVendorName().setText(siteInformationObjectList.get(position).getDestinationCod());
-        holder.getTerminalName().setText(siteInformationObjectList.get(position).getDestinationName());
+        holder.getVendorName().setText(siteInformationObjectList.get(position).getDestinationName());
+        holder.getTerminalName().setText(siteInformationObjectList.get(position).getSiteContainerDescription());
         holder.getTerminalAddress().setText(siteInformationObjectList.get(position).getAddress1().trim()+", "+siteInformationObjectList.get(position).getCity().trim()+" "+siteInformationObjectList.get(position).getStateAbbrev().trim());
         holder.getSpecialInstructions().setText(siteInformationObjectList.get(position).getFill());
         holder.getQuantities().setText(String.valueOf(siteInformationObjectList.get(position).getRequestedQty()));

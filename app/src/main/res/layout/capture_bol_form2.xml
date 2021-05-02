@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+<soup.neumorphism.NeumorphCardView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    app:cardBackgroundColor="@color/foreground"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:neumorph_shadowElevation="5dp"
+    app:neumorph_backgroundColor="@color/card_light_shadow"
+    app:neumorph_shapeType="flat"
+    app:neumorph_inset="12dp"
+    app:neumorph_insetStart="12dp"
+    app:neumorph_insetEnd="12dp"
+    app:neumorph_insetTop="12dp"
+    app:neumorph_insetBottom="12dp"
+    app:neumorph_shadowColorLight="@color/button_light_shadow"
+    app:neumorph_shadowColorDark= "@color/card_dark_shadow"
+    android:padding="16dp"
+    app:neumorph_strokeColor="@color/card_dark_shadow"
+    app:neumorph_strokeWidth="1dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,31 +31,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Enter Site Information"
+            android:text="Enter Source Information"
             android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView5"
-            style="@style/label_font"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Remaining Fuel (Pre delivery)"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
-
-        <TextView
             android:id="@+id/textView6"
             style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="Product Type"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/pre_delivery_rem_site" />
+            android:layout_marginLeft="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <TextView
             android:id="@+id/textView7"
@@ -50,8 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Load Start Date"
-            app:layout_constraintStart_toStartOf="@+id/product_type_site"
-            app:layout_constraintTop_toBottomOf="@+id/product_type_site" />
+            app:layout_constraintStart_toStartOf="@+id/product_type_source"
+            app:layout_constraintTop_toBottomOf="@+id/product_type_source" />
 
         <TextView
             android:id="@+id/textView18"
@@ -61,7 +65,7 @@
             android:text="Time
 "
             app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
-            app:layout_constraintStart_toStartOf="@+id/drop_end_time_site" />
+            app:layout_constraintStart_toStartOf="@+id/drop_end_time_source" />
 
         <TextView
             android:id="@+id/textView14"
@@ -70,7 +74,7 @@
             android:layout_height="wrap_content"
             android:text="Time"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
-            app:layout_constraintStart_toStartOf="@+id/start_time_site" />
+            app:layout_constraintStart_toStartOf="@+id/start_time_source" />
 
         <TextView
             android:id="@+id/textView8"
@@ -79,8 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Load End Date"
-            app:layout_constraintStart_toStartOf="@+id/start_date_site"
-            app:layout_constraintTop_toBottomOf="@+id/start_date_site" />
+            app:layout_constraintStart_toStartOf="@+id/start_date_source"
+            app:layout_constraintTop_toBottomOf="@+id/start_date_source" />
 
         <TextView
             android:id="@+id/textView13"
@@ -89,8 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Gross Gallons"
-            app:layout_constraintStart_toStartOf="@+id/drop_end_date_site"
-            app:layout_constraintTop_toBottomOf="@+id/drop_end_date_site" />
+            app:layout_constraintStart_toStartOf="@+id/drop_end_date_source"
+            app:layout_constraintTop_toBottomOf="@+id/drop_end_date_source" />
 
         <TextView
             android:id="@+id/textView12"
@@ -99,7 +103,7 @@
             android:layout_height="wrap_content"
             android:text="Net Gallons"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView13"
-            app:layout_constraintStart_toStartOf="@+id/net_gallons_site" />
+            app:layout_constraintStart_toStartOf="@+id/net_gallons_source" />
 
         <TextView
             android:id="@+id/textView9"
@@ -108,132 +112,140 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Remaining Fuel (Post delivery)"
-            app:layout_constraintStart_toStartOf="@+id/gross_gallons_site"
-            app:layout_constraintTop_toBottomOf="@+id/gross_gallons_site" />
-
+            app:layout_constraintStart_toStartOf="@+id/gross_gallons_source"
+            app:layout_constraintTop_toBottomOf="@+id/gross_gallons_source" />
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/pre_delivery_rem_site"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/background_orange"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-        />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/gross_gallons_site"
+            android:id="@+id/gross_gallons_source"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:inputType="number"
             android:background="@color/background_orange"
             app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/product_type_site"
+            android:id="@+id/product_type_source"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@color/background_orange"
-            app:layout_constraintEnd_toEndOf="@+id/net_gallons_site"
+            app:layout_constraintEnd_toEndOf="@+id/net_gallons_source"
             app:layout_constraintStart_toStartOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/remaining_fuel_site"
+            android:id="@+id/remaining_fuel_source"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@color/background_orange"
             android:inputType="number"
-            app:layout_constraintEnd_toEndOf="@+id/net_gallons_site"
+            app:layout_constraintEnd_toEndOf="@+id/net_gallons_source"
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/start_date_site"
+            android:id="@+id/start_date_source"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@color/background_orange"
             android:inputType="date"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             app:layout_constraintStart_toStartOf="@+id/textView7"
             app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/start_time_site"
+            android:id="@+id/start_time_source"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:background="@color/background_orange"
             android:inputType="time"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14">
 
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/drop_end_time_site"
+            android:id="@+id/drop_end_time_source"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:background="@color/background_orange"
             android:inputType="time"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18">
 
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/drop_end_date_site"
+            android:id="@+id/drop_end_date_source"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@color/background_orange"
             android:inputType="date"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             app:layout_constraintStart_toStartOf="@+id/textView8"
             app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         </com.google.android.material.textfield.TextInputEditText>
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/net_gallons_site"
+            android:id="@+id/net_gallons_source"
             android:layout_width="128sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
+            android:inputType="number"
             android:background="@color/background_orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-        <Button
-            android:id="@+id/scanBillButtonSite"
-            style="@style/label_font"
-            android:layout_width="match_parent"
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/scanBillButtonsource"
+            style="@style/Widget.Neumorph.Button"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:textSize="12sp"
+            app:neumorph_insetBottom="15dp"
+            app:neumorph_shadowColorDark="@color/card_dark_shadow"
+            app:neumorph_shadowColorLight="@color/button_light_shadow"
+            app:neumorph_shapeType="flat"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:backgroundTint="@color/background_orange"
             android:padding="4dp"
             android:text="Scan Bill of Lading"
-            app:layout_constraintEnd_toEndOf="@+id/gross_gallons_site"
-            app:layout_constraintStart_toStartOf="@+id/remaining_fuel_site"
-            app:layout_constraintTop_toBottomOf="@+id/remaining_fuel_site" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/remaining_fuel_source" />
 
         <com.github.gcacace.signaturepad.views.SignaturePad
-            android:id="@+id/signaturePadSite"
+            android:id="@+id/signaturePadsource"
             android:layout_width="0dp"
             android:layout_height="100sp"
             android:layout_marginTop="4dp"
@@ -250,32 +262,35 @@
             style="@style/label_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Signature"
+            android:text="Notes"
             app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/scanBillButtonSite" />
+            app:layout_constraintTop_toBottomOf="@+id/scanBillButtonsource" />
 
-        <Button
-            android:id="@+id/save_cont_site"
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/save_cont_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/label_font"
+            style="@style/Widget.Neumorph.Button"
+            android:textColor="@color/design_default_color_on_secondary"
+            app:neumorph_shadowColorLight="@color/save_light_shd"
+            app:neumorph_shadowColorDark="@color/card_dark_shadow"
+            app:neumorph_backgroundColor="@color/light_orange"
+            app:neumorph_shapeType="flat"
             android:layout_gravity="center"
             android:layout_marginLeft="82dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:layout_marginRight="82dp"
-            android:background="@drawable/orange_fill__rounded_color"
             android:gravity="center"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
             android:text="Save And Continue"
-            android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/signaturePadSite"
-            app:layout_constraintStart_toEndOf="@+id/signaturePadSite"
-            app:layout_constraintStart_toStartOf="@+id/signaturePadSite"
-            app:layout_constraintTop_toBottomOf="@+id/signaturePadSite" />
+            app:layout_constraintEnd_toEndOf="@+id/signaturePadsource"
+            app:layout_constraintStart_toEndOf="@+id/signaturePadsource"
+            app:layout_constraintStart_toStartOf="@+id/signaturePadsource"
+            app:layout_constraintTop_toBottomOf="@+id/signaturePadsource" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+</soup.neumorphism.NeumorphCardView>
