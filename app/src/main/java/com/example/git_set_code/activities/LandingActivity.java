@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
@@ -16,7 +17,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +49,8 @@ public class LandingActivity extends AppCompatActivity {
     final String TAG="DEBUG";
     private DrawerLayout drawer;
     View view;
+    boolean active;
+    final FragmentManager fm= getSupportFragmentManager();
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.d(TAG,"On create opt menu works");
@@ -109,16 +111,28 @@ public class LandingActivity extends AppCompatActivity {
         switch(menuItem.getItemId()) {
             case R.id.profile:
                 fragment = new DriverProfile();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment ).addToBackStack("").commit();
+                break;
+            case R.id.logout:
+                Intent intent = new Intent(LandingActivity.this, LoginActivity.class);
+                LandingActivity.this.startActivity(intent);
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment ).addToBackStack("").commit();
 
         // Close the navigation drawer
         drawer.closeDrawers();
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+           if(item.getItemId() == R.id.mapsFragment)
+               active=true;
+            return false;
+        }
+    };
     private void setUpNavigation(){
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavHostFragment navHostFragment =(NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.fragment);
@@ -128,11 +142,11 @@ public class LandingActivity extends AppCompatActivity {
 //                NavOptions.Builder().setLaunchSingleTop(true).build()
 //)
 
-            if (bottomNavigationView.getSelectedItemId() == R.id.mapsFragment) {
+            if (active) {
                 navController.popBackStack(R.id.mapfragment, false);
             }
             else
-                NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+                NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         }
 

@@ -30,6 +30,7 @@ import com.example.git_set_code.R;
 import com.example.git_set_code.helperClasses.ForegroundService;
 import com.example.git_set_code.locations.PlatformPositioningProvider;
 import com.example.git_set_code.trip_database.Database.TripDatabase;
+import com.example.git_set_code.utils.CustomToast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -391,7 +392,7 @@ import java.util.List;
           });
           alertDialogBuilder.setPositiveButton("Simulation",new DialogInterface.OnClickListener() {
               public void onClick(DialogInterface dialoginterface, int i) {
-                  m_navigationManager.simulate(m_route,60);//Simualtion speed is set to 60 m/s
+                  m_navigationManager.simulate(m_route,180);//Simualtion speed is set to 60 m/s
                   map.setTilt(60);
                   startForegroundService();
               };
@@ -449,7 +450,7 @@ import java.util.List;
 
           @Override
           public void onEnded(NavigationManager.NavigationMode navigationMode) {
-              Toast.makeText(getActivity(), navigationMode + " was ended", Toast.LENGTH_SHORT).show();
+              CustomToast.showToast(getActivity(), "Congratulations! You've reached your destination.");
               stopForegroundService();
           }
 
@@ -470,11 +471,6 @@ import java.util.List;
                       Toast.LENGTH_SHORT).show();
           }
       };
-      private void startWaypoint(android.location.Location location) {
-
-
-      }
-
 
     @Override
     public void onPause() {
