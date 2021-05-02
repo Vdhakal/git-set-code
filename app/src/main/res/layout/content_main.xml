@@ -24,12 +24,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text=""
+                android:textColor="@color/design_default_color_on_secondary"
                 android:background="@drawable/back_select"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textColor="@color/design_default_color_on_secondary"
                 android:text="" />
 
         </LinearLayout>

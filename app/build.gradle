@@ -16,6 +16,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 //    splits {
 //            abi {
 //                enable true
@@ -36,7 +41,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude : ['*mock*.jar'])
     implementation 'androidx.navigation:navigation-fragment:2.3.3'
     implementation 'androidx.navigation:navigation-ui:2.3.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -69,7 +73,9 @@ dependencies {
     implementation 'com.ebanx:swipe-button:0.8.3'
 
     implementation 'com.github.fornewid:neumorphism:0.3.0'
+    implementation(name:'HERE-sdk', ext:'aar')
     implementation 'cn.gavinliu:ShapedImageView:0.8.7'
+
 
 
 }

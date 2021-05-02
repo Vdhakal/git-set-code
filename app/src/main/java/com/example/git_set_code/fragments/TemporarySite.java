@@ -1,7 +1,10 @@
 package com.example.git_set_code.fragments;
 
+import android.app.TimePickerDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -10,9 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
+import com.example.git_set_code.fragments.dialogs.SignatureDialog;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
+
+import java.util.Calendar;
+
+import soup.neumorphism.NeumorphButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +39,9 @@ public class TemporarySite extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    EditText preDelivery, prodType, droppedProduct, startDate, startTime, endDate, endTime, grossGallons, netGallons, remainingFuel;
+    EditText preDelivery, postDelivery, prodType, droppedProduct, startDate, startTime, endDate, endTime, grossGallons, netGallons, remainingFuel;
+    int hour, minute;
+    private Bitmap signatureBitmap = null;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -71,22 +87,88 @@ public class TemporarySite extends Fragment {
         Button sourceButton = rootView.findViewById(R.id.save_cont_site);
         initItems(rootView);
         onSourceButtonClicked(sourceButton);
+        initiateSignaturePad(rootView);
+        dateListener();
         return  rootView;
 
     }
     private void initItems(View rootView) {
-        preDelivery = rootView.findViewById(R.id.pre_delivery_rem_site);
-        prodType = rootView.findViewById(R.id.product_type_site);
-        startDate = rootView.findViewById(R.id.start_date_site);
-        startTime = rootView.findViewById(R.id.start_time_site);
-        endDate = rootView.findViewById(R.id.drop_end_date_site);
-        endTime = rootView.findViewById(R.id.drop_end_time_site);
-        grossGallons = rootView.findViewById(R.id.gross_gallons_site);
-        netGallons = rootView.findViewById(R.id.net_gallons_site);
-        remainingFuel = rootView.findViewById(R.id.remaining_fuel_site);
+        preDelivery = rootView.findViewById(R.id.pre_delivery);
+        postDelivery = rootView.findViewById(R.id.post_delivery);
+        prodType = rootView.findViewById(R.id.product_dropped);
+        startDate = rootView.findViewById(R.id.start_date);
+        startTime = rootView.findViewById(R.id.start_time);
+        endDate = rootView.findViewById(R.id.drop_end_date);
+        endTime = rootView.findViewById(R.id.drop_end_time);
+        grossGallons = rootView.findViewById(R.id.gross_gallons);
+        netGallons = rootView.findViewById(R.id.net_gallons);
+        remainingFuel = rootView.findViewById(R.id.remaining_fuel);
+
+    }
+    private void dateListener() {
+
+        startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerInput(startDate);
+            }
+        });
+        endDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerInput(endDate);
+            }
+        });
+        startTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    timePickerInput(startTime);
+                } catch (java.lang.InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        endTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    timePickerInput(endTime);
+                } catch (java.lang.InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
+    private void timePickerInput(EditText inputTime) throws java.lang.InstantiationException, IllegalAccessException {
+         MaterialTimePicker.Builder builder = MaterialTimePicker.Builder.class.newInstance().
+                setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(Calendar.HOUR)
+                .setMinute(Calendar.MINUTE)
+                .setTitleText("Select Appointment time");
+         final MaterialTimePicker materialTimePicker = builder.build();
+        materialTimePicker.show(getParentFragmentManager(), "tag");
+        materialTimePicker.addOnPositiveButtonClickListener(v -> {
+            inputTime.setText(materialTimePicker.getHour() +" : "+materialTimePicker.getMinute());
+        });
+        inputTime.setTextColor(ContextCompat.getColor(getContext(),android.R.color.black));
+    }
+
+    private void datePickerInput(EditText inputDate) {
+        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setSelection(MaterialDatePicker.todayInUtcMilliseconds());
+        builder.setTitleText("SELECT A DATE");
+        builder.setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar);
+        final MaterialDatePicker materialDatePicker = builder.build();
+        materialDatePicker.show(getParentFragmentManager(), "DATE_PICKER");
+        materialDatePicker.addOnPositiveButtonClickListener(selection -> inputDate.setText(materialDatePicker.getHeaderText()));
+        inputDate.setTextColor(ContextCompat.getColor(getContext(),android.R.color.black));
+    }
     private void onSourceButtonClicked(Button sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,5 +190,19 @@ public class TemporarySite extends Fragment {
     private void swapFragment(View v){
         Navigation.findNavController(v).navigate(R.id.action_temporarySite_to_tripSummary);
 
+    }
+    private void initiateSignaturePad(View rootView) {
+        NeumorphButton captureSignatureButton = rootView.findViewById(R.id.captureSignatureButton);
+        captureSignatureButton.setOnClickListener(v -> {
+            SignatureDialog signatureDialog = SignatureDialog.newInstance();
+            signatureDialog.show(getChildFragmentManager(), "signatureDialog");
+        });
+    }
+    public void captureSignature(Bitmap signatureBitmap){
+        ImageView signatureView = getView().findViewById(R.id.signatureView);
+        signatureView.setImageBitmap(signatureBitmap);
+        signatureView.setVisibility(View.VISIBLE);
+        //saved signature bitmap in this variable
+        this.signatureBitmap = signatureBitmap;
     }
 }

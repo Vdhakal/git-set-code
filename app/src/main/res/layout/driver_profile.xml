@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/option_outline"
     >
 
     <LinearLayout
@@ -47,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <cn.gavinliu.android.lib.shapedimageview.ShapedImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentTop="true"
@@ -82,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     style="@style/label_font"
+                    android:textColor="@color/white"
                     android:text="JOHN KLINGBERG"
                     android:textSize="34sp" />
 
@@ -93,7 +95,7 @@
                     style="@style/label_font"
                     android:text="GitSetCode"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@color/button_light_shadow"
                     android:textSize="18sp" />
 
 
@@ -121,7 +123,7 @@
                             android:text="Truck ID"
                             android:textAllCaps="false"
                             android:textSize="14sp"
-                            android:textColor="@android:color/darker_gray" />
+                            android:textColor="@color/button_light_shadow" />
 
                         <TextView
                             android:id="@+id/TV_country"
@@ -133,7 +135,8 @@
                             android:layout_weight="1"
                             style="@style/label_font"
                             android:text="2"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
@@ -155,7 +158,7 @@
                             android:text="Truck Description"
                             android:textAllCaps="false"
                             android:textSize="14sp"
-                            android:textColor="@android:color/darker_gray"/>
+                            android:textColor="@color/button_light_shadow"/>
 
                         <TextView
                             android:id="@+id/TV_username"
@@ -166,7 +169,8 @@
                             android:layout_marginLeft="16dp"
                             style="@style/label_font"
                             android:text="WHSE # 2 PICKUP"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 

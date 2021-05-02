@@ -18,6 +18,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.git_set_code.R;
 import com.example.git_set_code.fragments.EditFragment;
+import com.example.git_set_code.fragments.TemporarySite;
+import com.example.git_set_code.fragments.TemporarySource;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
 public class SignatureDialog extends DialogFragment {
@@ -37,8 +39,8 @@ public class SignatureDialog extends DialogFragment {
         SignaturePad signaturePad = getView().findViewById(R.id.signaturePad);
         saveButton.setOnClickListener(v-> {
             Bitmap signatureBitmap = signaturePad.getSignatureBitmap();
-            EditFragment editFragment = (EditFragment) getParentFragment();
-            editFragment.captureSignature(signatureBitmap);
+            TemporarySite temporarySite = (TemporarySite) getParentFragment();
+            temporarySite.captureSignature(signatureBitmap);
             dismiss();
         });
 

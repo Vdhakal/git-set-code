@@ -15,7 +15,9 @@
             app:destination="@id/tripSummary" />
         <action
             android:id="@+id/action_homeFragment_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
+            app:destination="@id/mapsFragment"
+            app:popUpTo="@id/mapsFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_homeFragment_to_editFragment"
             app:destination="@id/editFragment" />

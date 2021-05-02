@@ -26,7 +26,7 @@ public class PlatformPositioningProvider implements LocationListener {
     private PlatformLocationListener platformLocationListener;
 
     public interface PlatformLocationListener {
-        void onLocationUpdated(Location location);
+        void onLocationUpdated(Location location) throws IllegalAccessException, InstantiationException;
     }
 
     public PlatformPositioningProvider(Context context) {
@@ -36,7 +36,7 @@ public class PlatformPositioningProvider implements LocationListener {
     @Override
     public void onLocationChanged(android.location.Location location) {
         if (platformLocationListener != null) {
-            platformLocationListener.onLocationUpdated(location);
+//            platformLocationListener.onLocationUpdated(location);
         }
     }
 

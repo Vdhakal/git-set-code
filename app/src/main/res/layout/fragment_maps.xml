@@ -8,11 +8,11 @@
     android:layout_height="match_parent"
     tools:context=".fragments.MapsFragment" >
 
-    <com.here.sdk.mapview.MapView
-        android:id="@+id/map_view"
+    <fragment
+        class="com.here.android.mpa.mapping.AndroidXMapFragment"
+        android:id="@+id/mapfragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.here.sdk.mapview.MapView>
+        android:layout_height="match_parent"/>
 
     <include
         layout="@layout/progress_bar"
@@ -55,7 +55,7 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/map_view"
+        app:layout_constraintBottom_toBottomOf="@+id/mapfragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

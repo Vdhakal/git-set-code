@@ -1,5 +1,6 @@
 package com.example.git_set_code.fragments;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.nfc.Tag;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -22,8 +24,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.git_set_code.R;
+import com.example.git_set_code.fragments.dialogs.SignatureDialog;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.Calendar;
+
+import soup.neumorphism.NeumorphButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +49,7 @@ public class TemporarySource extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    EditText preDelivery, postDelivery, droppedProduct, startDate, startTime, endDate, endTime, grossGallons, netGallons, remainingFuel;
+    EditText prodType, startDate, startTime, endDate, endTime, grossGallons, netGallons, remainingFuel;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private Bitmap signatureBitmap = null;
 
@@ -86,49 +95,63 @@ public class TemporarySource extends Fragment {
         dateListener();
         return rootView;
     }
-    public void captureSignature(Bitmap signatureBitmap){
-        ImageView signatureView = getView().findViewById(R.id.signatureView);
-        signatureView.setImageBitmap(signatureBitmap);
-        signatureView.setVisibility(View.VISIBLE);
-        //saved signature bitmap in this variable
-        this.signatureBitmap = signatureBitmap;
-    }
     private void dateListener() {
-        startDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(getActivity(),
-                        android.R.style.Widget_Material_ActionBar_Solid,
-                        onDateSetListener,
-                        year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+
+        startDate.setOnClickListener(v -> datePickerInput(startDate));
+        endDate.setOnClickListener(v -> datePickerInput(endDate));
+        startTime.setOnClickListener(v -> {
+            try {
+                timePickerInput(startTime);
+            } catch (java.lang.InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
         });
-        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month=month+1;
-                startDate.setText(month+"/"+dayOfMonth+"/"+year);
+        endTime.setOnClickListener(v -> {
+            try {
+                timePickerInput(endTime);
+            } catch (java.lang.InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
-        };
+        });
+    }
+
+    private void timePickerInput(EditText inputTime) throws java.lang.InstantiationException, IllegalAccessException {
+        MaterialTimePicker.Builder builder = MaterialTimePicker.Builder.class.newInstance().
+                setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(Calendar.HOUR)
+                .setMinute(Calendar.MINUTE)
+                .setTitleText("Select Appointment time");
+        final MaterialTimePicker materialTimePicker = builder.build();
+        materialTimePicker.show(getParentFragmentManager(), "tag");
+        materialTimePicker.addOnPositiveButtonClickListener(v -> {
+            inputTime.setText(materialTimePicker.getHour() +" : "+materialTimePicker.getMinute());
+        });
+
+        inputTime.setTextColor(ContextCompat.getColor(getContext(),android.R.color.black));
+    }
+    private void datePickerInput(EditText inputDate) {
+        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setSelection(MaterialDatePicker.todayInUtcMilliseconds());
+        builder.setTitleText("SELECT A DATE");
+        builder.setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar);
+        final MaterialDatePicker materialDatePicker = builder.build();
+        materialDatePicker.show(getParentFragmentManager(), "DATE_PICKER");
+        materialDatePicker.addOnPositiveButtonClickListener(selection -> inputDate.setText(materialDatePicker.getHeaderText()));
+        inputDate.setTextColor(ContextCompat.getColor(getContext(),android.R.color.black));
     }
 
     private void initItems(View rootView) {
-        preDelivery = rootView.findViewById(R.id.pre_delivery);
-        postDelivery = rootView.findViewById(R.id.post_delivery);
-        droppedProduct = rootView.findViewById(R.id.product_dropped);
-        startDate = rootView.findViewById(R.id.start_date);
-        startTime = rootView.findViewById(R.id.start_time);
-        endDate = rootView.findViewById(R.id.drop_end_date);
-        endTime = rootView.findViewById(R.id.drop_end_time);
-        grossGallons = rootView.findViewById(R.id.gross_gallons);
-        netGallons = rootView.findViewById(R.id.net_gallons);
-        remainingFuel = rootView.findViewById(R.id.remaining_fuel);
+        prodType = rootView.findViewById(R.id.product_type_source);
+        startDate = rootView.findViewById(R.id.start_date_source);
+        startTime = rootView.findViewById(R.id.start_time_source);
+        endDate = rootView.findViewById(R.id.drop_end_date_source);
+        endTime = rootView.findViewById(R.id.drop_end_time_source);
+        grossGallons = rootView.findViewById(R.id.gross_gallons_source);
+        netGallons = rootView.findViewById(R.id.net_gallons_source);
+        remainingFuel = rootView.findViewById(R.id.remaining_fuel_source);
 
     }
 
@@ -138,9 +161,7 @@ public class TemporarySource extends Fragment {
             public void onClick(View v) {
                 swapFragment(v);
                 Toast.makeText(getContext(), "{" +
-                        "\nPre delivery: "+preDelivery.getText()+
-                        "\nPost delivery: "+postDelivery.getText()+
-                        "\nProduct Dropped: "+droppedProduct.getText()+
+                        "\nProduct Dropped: "+prodType.getText()+
                         "\nStart Date: "+startDate.getText()+
                         "\nStart Time: "+startTime.getText()+
                         "\nEnd Date: "+endDate.getText()+
