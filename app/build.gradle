@@ -69,5 +69,7 @@ dependencies {
     implementation 'com.ebanx:swipe-button:0.8.3'
 
     implementation 'com.github.fornewid:neumorphism:0.3.0'
+    implementation 'cn.gavinliu:ShapedImageView:0.8.7'
+
 
 }
