@@ -1,6 +1,7 @@
 package com.example.git_set_code.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -15,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -28,10 +30,12 @@ import android.widget.Toast;
 
 import com.example.git_set_code.R;
 
+import com.example.git_set_code.fragments.DriverProfile;
 import com.example.git_set_code.fragments.EditFragment;
 import com.example.git_set_code.fragments.HomeFragment;
 import com.example.git_set_code.fragments.MapsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -40,6 +44,7 @@ import java.util.Map;
 public class LandingActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    NavigationView navigationView;
     Toolbar toolbar;
     final String TAG="DEBUG";
     private DrawerLayout drawer;
@@ -71,8 +76,9 @@ public class LandingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
         Intent intent = getIntent();
+        navigationView = findViewById(R.id.nav_view);
         setUpNavigation();
-
+        setupDrawerContent(navigationView);
         // Attaching the layout to the toolbar object
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Setting toolbar as the ActionBar with setSupportActionBar() call
@@ -80,13 +86,37 @@ public class LandingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
         drawer = findViewById(R.id.drawer_layout);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
     }
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
 
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the fragment to show based on nav item clicked
+        Fragment fragment = null;
+        Class fragmentClass = null;
+        switch(menuItem.getItemId()) {
+            case R.id.profile:
+                fragment = new DriverProfile();
+                break;
+        }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment ).addToBackStack("").commit();
+
+        // Close the navigation drawer
+        drawer.closeDrawers();
+    }
 
 
     private void setUpNavigation(){
@@ -103,6 +133,9 @@ public class LandingActivity extends AppCompatActivity {
             }
             else
                 NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+
+        }
+
 //        bottomNavigationView.add(new MeowBottomNavigation.Model(1, R.drawable.ic_baseline_home_24));
 //        bottomNavigationView.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_map_24));
 //        bottomNavigationView.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_edit_24));
@@ -132,7 +165,6 @@ public class LandingActivity extends AppCompatActivity {
 //        });
 //
 //        bottomNavigationView.show(1, true);
-    }
 
     @Override
     public void onBackPressed() {
