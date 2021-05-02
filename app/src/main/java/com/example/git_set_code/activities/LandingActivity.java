@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -92,7 +93,16 @@ public class LandingActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavHostFragment navHostFragment =(NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.fragment);
         NavController navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+//        navController.navigate(
+//                RequestTransferFragmentDirections.actionRequestTransferFragmentToBlankFragment()),
+//                NavOptions.Builder().setLaunchSingleTop(true).build()
+//)
+
+            if (bottomNavigationView.getSelectedItemId() == R.id.mapsFragment) {
+                navController.popBackStack(R.id.mapfragment, false);
+            }
+            else
+                NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
 //        bottomNavigationView.add(new MeowBottomNavigation.Model(1, R.drawable.ic_baseline_home_24));
 //        bottomNavigationView.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_map_24));
 //        bottomNavigationView.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_edit_24));

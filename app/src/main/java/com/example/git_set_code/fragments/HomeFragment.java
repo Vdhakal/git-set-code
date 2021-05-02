@@ -78,7 +78,6 @@ public class HomeFragment extends Fragment {
         progressBar = (ProgressBar)rootView.findViewById(R.id.progress_circular);
         tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
         tripViewModel.extractData();
-        Toast.makeText(thiscontext, ""+tripViewModel.getGetSelected(), Toast.LENGTH_SHORT).show();
         setUpUI();
         adapter.setActivity(getActivity());
         adapter.setTripViewModel(tripViewModel);

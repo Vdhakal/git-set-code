@@ -2,8 +2,8 @@ package com.example.git_set_code.permissions;
 
 import android.content.Context;
 import com.example.git_set_code.locations.PlatformPositioningProvider;
-import com.here.sdk.core.GeoCoordinates;
-import com.here.sdk.core.Location;
+import com.here.android.mpa.common.GeoCoordinate;
+import com.here.android.mpa.mapping.Location;
 
 import java.util.Date;
 
@@ -16,31 +16,21 @@ public class GetGeocoder {
 
         platformPositioningProvider.startLocating(new PlatformPositioningProvider.PlatformLocationListener() {
             @Override
-            public void onLocationUpdated(android.location.Location location) {
+            public void onLocationUpdated(android.location.Location location) throws IllegalAccessException, InstantiationException {
                 convertLocation(location);
             }
         });
     }
 
-    private Location convertLocation(android.location.Location nativeLocation) {
-        GeoCoordinates geoCoordinates = new GeoCoordinates(
+    private Location convertLocation(android.location.Location nativeLocation) throws InstantiationException, IllegalAccessException {
+        GeoCoordinate geoCoordinates = new GeoCoordinate(
                 nativeLocation.getLatitude(),
                 nativeLocation.getLongitude(),
                 nativeLocation.getAltitude());
 
-        Location location = new Location(geoCoordinates, new Date());
+        Location location = Location.class.newInstance();
 
-        if (nativeLocation.hasBearing()) {
-            location.bearingInDegrees = (double) nativeLocation.getBearing();
-        }
 
-        if (nativeLocation.hasSpeed()) {
-            location.speedInMetersPerSecond = (double) nativeLocation.getSpeed();
-        }
-
-        if (nativeLocation.hasAccuracy()) {
-            location.horizontalAccuracyInMeters = (double) nativeLocation.getAccuracy();
-        }
 
         return location;
     }

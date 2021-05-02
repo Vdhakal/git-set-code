@@ -16,6 +16,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE " />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -28,7 +30,6 @@
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -58,9 +59,8 @@
             android:value="@string/google_maps_key" />
 
         <!-- Set your credentials for the HERE SDK. -->
-        <meta-data android:name="com.here.sdk.access_key_id" android:value="vME_nF_MEJCh1FWLe_0epw" />
-        <meta-data android:name="com.here.sdk.access_key_secret" android:value="Z-NxYOOhxXqJI2a6EoWq0-rJtonC3nxH9WeAK3GZH5Er01Sn8alGLdwc2lGm7P19FDd9AY1CqMjTzZFE9MZNjA" />
+        <meta-data android:name="com.here.android.maps.appid" android:value="uGA5SzBvQ9rwPukbxjhg"/>
+        <meta-data android:name="com.here.android.maps.apptoken" android:value="jnHIB-hgwANScWLkcS-VfA"/>
+        <meta-data android:name="com.here.android.maps.license.key" android:value="ZwUmB778ZA95L6tOrJNyrjSylnpMNrkRwSiBvOeYv9JwRGe+e/NegTURE4RVIGJlPGT4uIbwghSWLcrH8s/rYHSFg155hsxtcU7YeUKvG8RxJyCr+BBU6kVJDUgnydDSWecHyU63Ke1qg0VXYrG0vSN9Kq5aDW9fP3vcPRKa1Tz4nbf6XQy1/GPklD6zWlZvUFB7/4/2h0cfTuhKDCanIWViE9AyGSFObQPi23PbkDUK6f2Qc6Gv9d/pSnuVXwwz5uRmxJLY5KWwAzD8GHACuptnRnYRHefeKMJzxzZG6iqFgtwJZ24SHJ9UZZ/4wRijczVm0vJRmb7ku2nMH7xdXHpmHG3AkZPanzlB0pFrIkFkF+OX/CSytaWUpnFdbblAjicetl+ql1cRf4ipfhqzzZumEQGm7WyRTax4AwjdCRZuxrN047aqNShQuiUoUynyKNWzSBvvBd2U668rtZNDkzpyhWmPMDpEjbHK579nuiNflwgKzGz/9+PehP28PVJNUNaq0EqKfYr2KiZrJEiyUA/RABbeGWvUckd+5MPKOdRBQmlfs9ArHKlljqjLwgzTQSRpjxEkDTzz4B1fPkVAOo0FxtZT/eVxZfclPt/598g7T7GzAMvT/vGHTNAKh3/f/4lWKyK1mbJcmylVZXMM8diwZCpOIWa+aLUKwzjwDjQ="/>
     </application>
-
-
 </manifest>
