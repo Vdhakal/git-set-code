@@ -52,9 +52,9 @@ public interface TripDao {
 
     @Query("SELECT * FROM driver")
     public LiveData<List<Driver>> getAllDrivers();
-    @Query("SELECT * FROM site_information")
+    @Query("SELECT * FROM site_information ORDER BY site_id ASC")
     public  LiveData<List<SiteInformation>> getAllSite();
-    @Query("SELECT * FROM source_information")
+    @Query("SELECT * FROM source_information ORDER BY source_id ASC")
     public  LiveData<List<SourceInformation>> getAllSource();
     @Query("SELECT * FROM trailer")
     public  LiveData<List<Trailer>> getAllTrailer();
@@ -68,6 +68,14 @@ public interface TripDao {
     public  LiveData<List<String>> getAllProductTypes();
     @Query("SELECT selected FROM trip_client")
     public  LiveData<List<Integer>> getSelected();
+    @Query("SELECT latitude FROM source_information")
+    public  LiveData<List<Double>> getSourceLatitude();
+    @Query("SELECT longitude FROM source_information")
+    public  LiveData<List<Double>> getSourceLongitude();
+    @Query("SELECT latitude FROM site_information")
+    public  LiveData<List<Double>> getSiteLatitude();
+    @Query("SELECT longitude FROM site_information")
+    public  LiveData<List<Double>> getSiteLongitude();
 
 
 }

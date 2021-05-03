@@ -146,7 +146,7 @@ import java.util.List;
                           GeoPosition geoPosition = posManager.getPosition();
                           // retrieve a reference of the map from the map fragment
                           map = mapFragment.getMap();
-
+                          map.setCenter(new GeoCoordinate(32.52845001220703,-92.07698059082031),Map.Animation.NONE);
                           m_navigationManager = NavigationManager.getInstance();
 //                      Toast.makeText(getContext(), geoPosition.getCoordinate().toString()+"", Toast.LENGTH_SHORT).show();
                           map.setZoomLevel((map.getMaxZoomLevel() + map.getMinZoomLevel()) / 2);
@@ -178,10 +178,10 @@ import java.util.List;
                                         GeoPosition position, boolean isMapMatched) {
               if (!paused) {
                   map.setCenter(position.getCoordinate(),
-                          Map.Animation.BOW);
+                          Map.Animation.LINEAR);
                   loadMapScene();
                   initNaviControlButton(position);
-                  fabonclickListeners(map);
+                  fabonclickListeners(map, position);
               }
 
           }
@@ -195,7 +195,7 @@ import java.util.List;
       }
 
 
-      private void fabonclickListeners(Map map1) {
+      private void fabonclickListeners(Map map1, GeoPosition position) {
         fabMapScene.setOnClickListener(v -> {
             if(map1.getMapScheme().equals(Map.Scheme.HYBRID_DAY))
                 map1.setMapScheme(Map.Scheme.NORMAL_DAY);
@@ -203,7 +203,9 @@ import java.util.List;
                 map1.setMapScheme(Map.Scheme.HYBRID_DAY);
         });
         fabMapLocation.setOnClickListener(v -> {
-
+            map1.setCenter(position.getCoordinate(),
+                    Map.Animation.LINEAR);
+            map1.setZoomLevel(map.getMaxZoomLevel()-2);
         });
     }
     @Override

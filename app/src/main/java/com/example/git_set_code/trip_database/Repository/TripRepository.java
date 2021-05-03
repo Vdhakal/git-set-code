@@ -44,6 +44,8 @@ public class TripRepository {
     List<Trip> tripObjectList;
     List<TripClientData> tripClientData;
     LiveData<List<Integer>> selections;
+    LiveData<List<Double>> latitudes;
+    LiveData<List<Double>> longitudes;
 
     public TripRepository(Application application){
         TripDatabase tripDatabase = TripDatabase.getInstance(application);
