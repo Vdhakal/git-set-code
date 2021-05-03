@@ -111,7 +111,7 @@ public class TemporarySource extends Fragment {
         initItems(rootView);
         onSourceButtonClicked(sourceButton);
         dateListener();
-        addScanBillOfLadingListener(rootView);
+        addScanBillOfLadingListener();
         return rootView;
     }
     private void dateListener() {
@@ -194,7 +194,7 @@ public class TemporarySource extends Fragment {
     private void swapFragment(View v){
         Navigation.findNavController(v).navigate(R.id.action_temporarySource_to_tripSummary);
     }
-    private void addScanBillOfLadingListener(View rootView) {
+    private void addScanBillOfLadingListener() {
         View formLayout = rootView.findViewById(R.id.formLayout);
         NeumorphButton scanBillButton = formLayout.findViewById(R.id.scanBillButtonsource);
         scanBillButton.setOnClickListener(v -> {
@@ -231,9 +231,8 @@ public class TemporarySource extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1888 && resultCode == Activity.RESULT_OK) {
-            //photoUri is the complete absolutepath of saved picture
-            //bolBitmap is the bitmap of captured image
-            bolBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath()); //captured image bitmap saved here
+            //photoUri is the complete absolutepath of saved picture @{photoUri -> contains url for temp image file}
+            /* contains bitmap of the picture clicked */ bolBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath()); //captured image bitmap saved here
             View formLayout = rootView.findViewById(R.id.formLayout);
             ImageView bolView = formLayout.findViewById(R.id.bolImage);
             bolView.setVisibility(View.VISIBLE);

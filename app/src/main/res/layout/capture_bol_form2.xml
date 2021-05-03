@@ -229,20 +229,21 @@
         <soup.neumorphism.NeumorphButton
             android:id="@+id/scanBillButtonsource"
             style="@style/Widget.Neumorph.Button"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="12sp"
-            app:neumorph_insetBottom="15dp"
-            app:neumorph_shadowColorDark="@color/card_dark_shadow"
-            app:neumorph_shadowColorLight="@color/button_light_shadow"
-            app:neumorph_shapeType="flat"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:backgroundTint="@color/background_orange"
             android:padding="4dp"
             android:text="Scan Bill of Lading"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/remaining_fuel_source" />
+            app:layout_constraintTop_toBottomOf="@+id/remaining_fuel_source"
+            app:neumorph_insetBottom="15dp"
+            app:neumorph_shadowColorDark="@color/card_dark_shadow"
+            app:neumorph_shadowColorLight="@color/button_light_shadow"
+            app:neumorph_shapeType="flat" />
 
         <com.github.gcacace.signaturepad.views.SignaturePad
             android:id="@+id/signaturePadsource"
@@ -258,16 +259,15 @@
             app:layout_constraintTop_toBottomOf="@+id/notes_edit" />
 
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@id/scanBillButtonsource"
-            app:layout_constraintTop_toBottomOf="@id/remaining_fuel_source"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/signaturePadsource"
+            android:id="@+id/bolImage"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:visibility="gone"
-            android:id="@+id/bolImage"/>
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scanBillButtonsource" />
+
         <TextView
             android:id="@+id/notes_edit"
             style="@style/label_font"
@@ -275,7 +275,7 @@
             android:layout_height="wrap_content"
             android:text="Notes"
             app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/scanBillButtonsource" />
+            app:layout_constraintTop_toBottomOf="@+id/bolImage" />
 
         <soup.neumorphism.NeumorphButton
             android:id="@+id/save_cont_source"
