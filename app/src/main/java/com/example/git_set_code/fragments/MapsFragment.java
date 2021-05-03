@@ -8,6 +8,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -30,7 +32,9 @@ import com.example.git_set_code.R;
 import com.example.git_set_code.helperClasses.ForegroundService;
 import com.example.git_set_code.locations.PlatformPositioningProvider;
 import com.example.git_set_code.trip_database.Database.TripDatabase;
+import com.example.git_set_code.trip_database.ViewModel.TripViewModel;
 import com.example.git_set_code.utils.CustomToast;
+import com.example.git_set_code.viewmodels.ViewModelMap;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,6 +46,9 @@ import com.here.android.mpa.common.GeoPosition;
 import com.here.android.mpa.common.OnEngineInitListener;
 import com.here.android.mpa.common.PositioningManager;
 import com.here.android.mpa.guidance.NavigationManager;
+import com.here.android.mpa.guidance.VoiceCatalog;
+import com.here.android.mpa.guidance.VoiceGuidanceOptions;
+import com.here.android.mpa.guidance.VoicePackage;
 import com.here.android.mpa.mapping.AndroidXMapFragment;
 import com.here.android.mpa.mapping.Map;
 import com.here.android.mpa.mapping.MapRoute;
@@ -83,29 +90,28 @@ import java.util.List;
       private AndroidXMapFragment mapFragment = null;
       private PositioningManager.OnPositionChangedListener positionListener = null;
       private PositioningManager posManager;
-      private NavigationManager m_navigationManager;
       private GeoBoundingBox m_geoBoundingBox;
       private Route m_route;
       private boolean m_foregroundServiceStarted;
-//      final FragmentManager mFragmentmanager = getChildFragmentManager();
-      private final OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-        }
-
-      };
+      private TripViewModel tripViewModel;
+      private ViewModelMap viewModelMap;
+      private NavigationManager m_navigationManager;
+      VoiceCatalog voiceCatalog;
+      private long id = -1;
       @Nullable
       @Override
       public View onCreateView(@NonNull LayoutInflater inflater,
                                  @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
+
           rootView =  inflater.inflate(R.layout.fragment_maps, container, false);
           progressBar = rootView.findViewById(R.id.progress_circular);
           fabMapScene = rootView.findViewById(R.id.fab_satelite);
           fabMapLocation = rootView.findViewById(R.id.fab_CurrentLocation);
           startNavigationButton = rootView.findViewById(R.id.navigationButton);
+          tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
+          viewModelMap = new ViewModelProvider(this).get(ViewModelMap.class);
+          setUpObservers();
           powerSpinnerView =  rootView.findViewById(R.id.power_spinner);
           startNavigationButton.setVisibility(View.GONE);
           fabMapLocation.setVisibility(View.GONE);
@@ -115,7 +121,23 @@ import java.util.List;
         return rootView;
 
         }
-        private AndroidXMapFragment getInstance(){
+
+      private void setUpObservers() {
+          tripViewModel.getSourceLatitudes().observe(requireActivity(), doubles -> {
+              viewModelMap.setSourceLatitudes(doubles);
+          });
+          tripViewModel.getSourceLongitudes().observe(requireActivity(), doubles -> {
+              viewModelMap.setSourceLongitudes(doubles);
+          });
+          tripViewModel.getSiteLatitudes().observe(requireActivity(), doubles -> {
+              viewModelMap.setSiteLatitudes(doubles);
+          });
+          tripViewModel.getSiteLongitudes().observe(requireActivity(), doubles -> {
+              viewModelMap.setSiteLongitudes(doubles);
+          });
+      }
+
+      private AndroidXMapFragment getInstance(){
           if(mapFragment==null)
               mapFragment = getMapFragment();
           return mapFragment;
@@ -127,7 +149,7 @@ import java.util.List;
       private void initialize() {
 //          PositioningManager.getInstance().addListener(WeakReference<OnPositionChangedListener>);
           // Search for the map fragment to finish setup by calling init().
-          mapFragment = getInstance();
+          mapFragment = viewModelMap.getMapFragment(getInstance());
 
           if(mapFragment!=null) {
               // Set up disk map cache path for this application
@@ -138,6 +160,7 @@ import java.util.List;
                   @Override
                   public void onEngineInitializationCompleted(OnEngineInitListener.Error error) {
                       posManager = PositioningManager.getInstance();
+                      voiceCatalog = VoiceCatalog.getInstance();;
                       MapLoader.getInstance().selectDataGroup(MapPackage.SelectableDataGroup.TruckAttributes);
                       if (error == OnEngineInitListener.Error.NONE) {
                           posManager.start(
@@ -147,14 +170,14 @@ import java.util.List;
                           // retrieve a reference of the map from the map fragment
                           map = mapFragment.getMap();
                           map.setCenter(new GeoCoordinate(32.52845001220703,-92.07698059082031),Map.Animation.NONE);
-                          m_navigationManager = NavigationManager.getInstance();
+                          m_navigationManager = viewModelMap.getM_navigationManager();
 //                      Toast.makeText(getContext(), geoPosition.getCoordinate().toString()+"", Toast.LENGTH_SHORT).show();
                           map.setZoomLevel((map.getMaxZoomLevel() + map.getMinZoomLevel()) / 2);
                           mapFragment.getPositionIndicator().setVisible(true);
                       } else {
                           new AlertDialog.Builder(getActivity()).setMessage(
                                   "Error : " + error.name() + "\n\n" + error.getDetails())
-                                  .setTitle("Her Engine Error")
+                                  .setTitle("Here Engine Error")
                                   .setNegativeButton(android.R.string.cancel,
                                           new DialogInterface.OnClickListener() {
                                               @Override
@@ -169,7 +192,50 @@ import java.util.List;
               });
           }
       }
+      /**
+       * Download catalog
+       */
+      private void downloadCatalog(GeoPosition geoPosition) {
+          /**
+           * First get the voice catalog from the backend that contains all available languages (so called voiceskins) for download
+           */
+          VoiceCatalog.getInstance().downloadCatalog(new VoiceCatalog.OnDownloadDoneListener() {
+              @Override
+              public void onDownloadDone(VoiceCatalog.Error error) {
+                  if (error == VoiceCatalog.Error.NONE) {
+                      // Get the list of voice packages from the voice catalog list
+                      List<VoicePackage> voicePackages = VoiceCatalog.getInstance().getCatalogList();
 
+
+                      if (!voiceCatalog.isLocalVoiceSkin(201))
+                      {
+                          voiceCatalog.downloadVoice(201, new VoiceCatalog.OnDownloadDoneListener() {
+                              @Override
+                              public void onDownloadDone(VoiceCatalog.Error error) {
+                                  if (error == error.NONE){
+                                      //voice skin download successful
+                                      loadMapScene();
+                                      initNaviControlButton(viewModelMap.getGeoPosition());
+
+                                  }else
+                                      Toast.makeText(getContext(), "Failed to download voice", Toast.LENGTH_LONG).show();
+
+
+                              }
+                          });
+                      }else {
+                          loadMapScene();
+                          initNaviControlButton(viewModelMap.getGeoPosition());
+                      }
+
+
+                  } else {
+                      Toast.makeText(getContext(), "Failed to download catalog", Toast.LENGTH_LONG).show();
+                  }
+              }
+          });
+
+      }
       private void setPosition() {
           PositioningManager.OnPositionChangedListener positionListener = new
                   PositioningManager.OnPositionChangedListener() {
@@ -178,10 +244,10 @@ import java.util.List;
                                         GeoPosition position, boolean isMapMatched) {
               if (!paused) {
                   map.setCenter(position.getCoordinate(),
-                          Map.Animation.LINEAR);
-                  loadMapScene();
-                  initNaviControlButton(position);
-                  fabonclickListeners(map, position);
+                          Map.Animation.BOW);
+                  downloadCatalog(position);
+                  viewModelMap.setGeoPosition(position);
+                  fabonclickListeners(map, viewModelMap.getGeoPosition());
               }
 
           }
@@ -204,7 +270,7 @@ import java.util.List;
         });
         fabMapLocation.setOnClickListener(v -> {
             map1.setCenter(position.getCoordinate(),
-                    Map.Animation.LINEAR);
+                    Map.Animation.BOW);
             map1.setZoomLevel(map.getMaxZoomLevel()-2);
         });
     }
@@ -251,12 +317,19 @@ import java.util.List;
           /* Define waypoints for the route */
           /* START: 4350 Still Creek Dr */
           RouteWaypoint startPoint = new RouteWaypoint(position.getCoordinate());
-          /* END: Langley BC */
-          RouteWaypoint destination = new RouteWaypoint(new GeoCoordinate(32.51322, -92.157874));
-
-          /* Add both waypoints to the route plan */
           routePlan.addWaypoint(startPoint);
-          routePlan.addWaypoint(destination);
+          /* END: Langley BC */
+          RouteWaypoint destination;
+          for(GeoCoordinate geoCoordinate: viewModelMap.getSourceGeoCoordinates()) {
+              destination = new RouteWaypoint(geoCoordinate);
+              /* Add both waypoints to the route plan */
+              routePlan.addWaypoint(destination);
+          }
+          for(GeoCoordinate geoCoordinate: viewModelMap.getSiteGeoCoordinates()) {
+              destination = new RouteWaypoint(geoCoordinate);
+              /* Add both waypoints to the route plan */
+              routePlan.addWaypoint(destination);
+          }
 
           /* Trigger the route calculation,results will be called back via the listener */
           coreRouter.calculateRoute(routePlan,
@@ -309,7 +382,6 @@ import java.util.List;
       }
 
       private void initNaviControlButton(GeoPosition position) {
-          startNavigationButton = getActivity().findViewById(R.id.navigationButton);
           startNavigationButton.setText("Start Navigation");
           startNavigationButton.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -327,13 +399,14 @@ import java.util.List;
                    *
                    */
                   if (m_route == null) {
+                      startNavigationButton.setText("Stop Navigation");
                       createRoute(position);
                   } else {
                       m_navigationManager.stop();
                       /*
                        * Restore the map orientation to show entire route on screen
                        */
-                      map.zoomTo(m_geoBoundingBox, Map.Animation.NONE, 0f);
+                      map.zoomTo(m_geoBoundingBox, Map.Animation.BOW, 0f);
                       startNavigationButton.setText("Start Navigation");
                       m_route = null;
                   }
@@ -350,6 +423,7 @@ import java.util.List;
        */
       private void startForegroundService() {
           if (!m_foregroundServiceStarted) {
+              startNavigationButton.setText("Stop Navigation");
               m_foregroundServiceStarted = true;
               Intent startIntent = new Intent(getActivity(), ForegroundService.class);
               startIntent.setAction(ForegroundService.START_ACTION);
@@ -367,10 +441,14 @@ import java.util.List;
       }
 
       private void startNavigation() {
-          startNavigationButton.setText("Stop Navigation");
           /* Configure Navigation manager to launch navigation on current map */
           m_navigationManager.setMap(map);
           // show position indicator
+          VoiceGuidanceOptions voiceGuidanceOptions = m_navigationManager.getVoiceGuidanceOptions();
+
+// set the voice skin for use by navigation manager
+          voiceGuidanceOptions.setVoiceSkin(voiceCatalog.getLocalVoiceSkin(201));
+
           // note, it is also possible to change icon for the position indicator
           mapFragment.getPositionIndicator().setVisible(true);
 
@@ -442,35 +520,27 @@ import java.util.List;
       private NavigationManager.NavigationManagerEventListener m_navigationManagerEventListener = new NavigationManager.NavigationManagerEventListener() {
           @Override
           public void onRunningStateChanged() {
-              Toast.makeText(getActivity(), "Running state changed", Toast.LENGTH_SHORT).show();
           }
 
           @Override
           public void onNavigationModeChanged() {
-              Toast.makeText(getActivity(), "Navigation mode changed", Toast.LENGTH_SHORT).show();
           }
 
           @Override
           public void onEnded(NavigationManager.NavigationMode navigationMode) {
-              CustomToast.showToast(getActivity(), "Congratulations! You've reached your destination.");
               stopForegroundService();
           }
 
           @Override
           public void onMapUpdateModeChanged(NavigationManager.MapUpdateMode mapUpdateMode) {
-              Toast.makeText(getActivity(), "Map update mode is changed to " + mapUpdateMode,
-                      Toast.LENGTH_SHORT).show();
           }
 
           @Override
           public void onRouteUpdated(Route route) {
-              Toast.makeText(getActivity(), "Route updated", Toast.LENGTH_SHORT).show();
           }
 
           @Override
           public void onCountryInfo(String s, String s1) {
-              Toast.makeText(getActivity(), "Country info updated from " + s + " to " + s1,
-                      Toast.LENGTH_SHORT).show();
           }
       };
 
@@ -488,7 +558,6 @@ import java.util.List;
           super.onResume();
           paused = false;
           if (posManager != null) {
-              Toast.makeText(getContext(), "On Resume", Toast.LENGTH_SHORT).show();
               posManager.start(
                       PositioningManager.LocationMethod.GPS_NETWORK);
           }
