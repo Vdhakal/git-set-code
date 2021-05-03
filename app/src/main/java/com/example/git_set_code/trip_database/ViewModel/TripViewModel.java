@@ -29,6 +29,10 @@ public class TripViewModel extends AndroidViewModel {
     private LiveData<List<TripClientData>> allTripClientData;
     private LiveData<List<Integer>> getSelected;
     private LiveData<List<Integer>> insertTripClient;
+    private LiveData<List<Double>> sourceLatitudes;
+    private LiveData<List<Double>> sourceLongitudes;
+    private LiveData<List<Double>> siteLatitudes;
+    private LiveData<List<Double>> siteLongitudes;
 
 
     public TripViewModel(@NonNull Application application) {
@@ -42,6 +46,10 @@ public class TripViewModel extends AndroidViewModel {
         allTrip = tripRepository.getGetAllTrip();
         allTripClientData = tripRepository.getGetAllTripClient();
         getSelected = tripRepository.getGetSelected();
+        sourceLatitudes = tripRepository.getSourceLatitudes();
+        sourceLongitudes = tripRepository.getSourceLongitudes();
+        siteLatitudes = tripRepository.getSiteLatitudes();
+        siteLongitudes = tripRepository.getSiteLongitudes();
     }
 
     public LiveData<List<Integer>> getGetSelected() {
@@ -78,6 +86,22 @@ public class TripViewModel extends AndroidViewModel {
 
     public LiveData<List<Integer>> getInsertTripClient() {
         return insertTripClient;
+    }
+
+    public LiveData<List<Double>> getSourceLatitudes() {
+        return sourceLatitudes;
+    }
+
+    public LiveData<List<Double>> getSourceLongitudes() {
+        return sourceLongitudes;
+    }
+
+    public LiveData<List<Double>> getSiteLatitudes() {
+        return siteLatitudes;
+    }
+
+    public LiveData<List<Double>> getSiteLongitudes() {
+        return siteLongitudes;
     }
 
     public void extractData(){

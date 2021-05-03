@@ -13,7 +13,19 @@
         android:id="@+id/mapfragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/card_light_shadow"
 
+            />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <include
         layout="@layout/progress_bar"
         android:layout_width="wrap_content"
@@ -54,7 +66,7 @@
         android:text="Start Navigation"
         android:textColor="@color/black"
         android:textSize="12sp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/mapfragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

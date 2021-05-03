@@ -78,5 +78,4 @@ dependencies {
     implementation 'cn.gavinliu:ShapedImageView:0.8.7'
 
 
-
 }

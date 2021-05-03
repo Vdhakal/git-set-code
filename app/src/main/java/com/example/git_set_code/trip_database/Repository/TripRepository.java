@@ -35,6 +35,10 @@ public class TripRepository {
     private  LiveData<List<Truck>> getAllTruck;
     private  LiveData<List<Trip>> getAllTrip;
     private  LiveData<List<TripClientData>> getAllTripClient;
+    private LiveData<List<Double>> sourceLatitudes;
+    private LiveData<List<Double>> sourceLongitudes;
+    private LiveData<List<Double>> siteLatitudes;
+    private LiveData<List<Double>> siteLongitudes;
     private int getSelected = 0;
     List<Driver> driverObjectList;
     List<SiteInformation> siteInformationObjectList;
@@ -44,8 +48,6 @@ public class TripRepository {
     List<Trip> tripObjectList;
     List<TripClientData> tripClientData;
     LiveData<List<Integer>> selections;
-    LiveData<List<Double>> latitudes;
-    LiveData<List<Double>> longitudes;
 
     public TripRepository(Application application){
         TripDatabase tripDatabase = TripDatabase.getInstance(application);
@@ -57,6 +59,10 @@ public class TripRepository {
         getAllTruck = tripDao.getAllTruck();
         getAllTrip = tripDao.getAllTrip();
         selections = tripDao.getSelected();
+        sourceLatitudes = tripDao.getSourceLatitude();
+        sourceLongitudes= tripDao.getSourceLongitude();
+        siteLatitudes= tripDao.getSiteLatitude();
+        siteLongitudes= tripDao.getSiteLongitude();
         getAllTripClient = tripDao.getAllTripClientData();
         thisContext = application.getApplicationContext();
         driverObjectList= new ArrayList<>();
@@ -101,6 +107,22 @@ public class TripRepository {
     }
     public LiveData<List<TripClientData>> getGetAllTripClient() {
         return getAllTripClient;
+    }
+
+    public LiveData<List<Double>> getSourceLatitudes() {
+        return sourceLatitudes;
+    }
+
+    public LiveData<List<Double>> getSourceLongitudes() {
+        return sourceLongitudes;
+    }
+
+    public LiveData<List<Double>> getSiteLatitudes() {
+        return siteLatitudes;
+    }
+
+    public LiveData<List<Double>> getSiteLongitudes() {
+        return siteLongitudes;
     }
 
     public void extractData(){
