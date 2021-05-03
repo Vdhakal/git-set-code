@@ -4,13 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,15 +29,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.arthurivanets.bottomsheets.BottomSheet;
 import com.example.git_set_code.R;
+import com.example.git_set_code.adapters.TripsAdapter;
 import com.example.git_set_code.helperClasses.ForegroundService;
 import com.example.git_set_code.locations.PlatformPositioningProvider;
 import com.example.git_set_code.trip_database.Database.TripDatabase;
+import com.example.git_set_code.trip_database.Table.SiteInformation;
+import com.example.git_set_code.trip_database.Table.SourceInformation;
+import com.example.git_set_code.trip_database.Table.Trip;
 import com.example.git_set_code.trip_database.ViewModel.TripViewModel;
 import com.example.git_set_code.utils.CustomToast;
+import com.example.git_set_code.utils.TripsDecorator;
 import com.example.git_set_code.viewmodels.ViewModelMap;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -41,6 +52,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -72,12 +84,16 @@ import com.skydoves.powerspinner.PowerSpinnerView;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
   public class MapsFragment extends Fragment implements LifecycleOwner {
 
       private ProgressBar progressBar;
       private PowerSpinnerView powerSpinnerView;
+      protected RecyclerView mRecyclerView;
+      BottomSheetAdapter adapter;
+      protected RecyclerView.LayoutManager mLayoutManager;
       private View rootView;
       private static final String TAG = "Maps";
       private FloatingActionButton fabMapScene, fabMapLocation;
@@ -100,6 +116,7 @@ import java.util.List;
       private boolean m_foregroundServiceStarted;
       private TripViewModel tripViewModel;
       private ViewModelMap viewModelMap;
+      private BottomSheetBehavior bottomSheetBehavior;
       private NavigationManager m_navigationManager;
       VoiceCatalog voiceCatalog;
       private long id = -1;
@@ -111,6 +128,7 @@ import java.util.List;
 
           rootView =  inflater.inflate(R.layout.fragment_maps, container, false);
           progressBar = rootView.findViewById(R.id.progress_circular);
+          mRecyclerView = rootView.findViewById(R.id.bottom_sheet_adapter);
           fabMapScene = rootView.findViewById(R.id.fab_satelite);
           fabMapLocation = rootView.findViewById(R.id.fab_CurrentLocation);
           startNavigationButton = rootView.findViewById(R.id.navigationButton);
@@ -118,8 +136,12 @@ import java.util.List;
           bottomNavigationView.setVisibility(View.GONE);
           tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
           viewModelMap = new ViewModelProvider(this).get(ViewModelMap.class);
+          View bottomSheet = rootView.findViewById(R.id.bottom_sheet);
+          ViewCompat.setTranslationZ(bottomSheet, 1);
+          bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+          setUpUI();
           setUpObservers();
-          setUpBottomBar(rootView);
+          setUpBottomBar();
           powerSpinnerView =  rootView.findViewById(R.id.power_spinner);
           startNavigationButton.setVisibility(View.GONE);
           fabMapLocation.setVisibility(View.GONE);
@@ -130,18 +152,50 @@ import java.util.List;
 
         }
 
-      private void setUpBottomBar(View view) {//Corner radius
-          float radius = getResources().getDimension(R.dimen.default_corner_radius);
-          BottomAppBar bottomAppBar = view.findViewById(R.id.bottom_bar);
-
-          MaterialShapeDrawable bottomBarBackground = (MaterialShapeDrawable) bottomAppBar.getBackground();
-          bottomBarBackground.setShapeAppearanceModel(
-                  bottomBarBackground.getShapeAppearanceModel()
-                          .toBuilder()
-                          .setTopRightCorner(CornerFamily.ROUNDED,160)
-                          .setTopLeftCorner(CornerFamily.ROUNDED,100)
-                          .build());
+      private void setUpUI() {
+          mLayoutManager = new LinearLayoutManager(getActivity());
+          mRecyclerView.addItemDecoration(new TripsDecorator(20));
+          adapter = new BottomSheetAdapter(getActivity(), new ArrayList<Trip>(), new ArrayList<SiteInformation>(),new ArrayList<SourceInformation>(),requireActivity());
+          mRecyclerView.scrollToPosition(0);
       }
+
+      private void setUpBottomBar() {
+          bottomSheetBehavior.setPeekHeight(100);
+          bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+          bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+              @Override
+              public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                  if(newState == BottomSheetBehavior.STATE_EXPANDED)
+                      setUpStepView();
+              }
+
+              @Override
+              public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+              }
+          });
+      }
+
+      private void setUpStepView() {
+          tripViewModel.getAllSource().observe(requireActivity(), new Observer<List<SourceInformation>>() {
+              @Override
+              public void onChanged(List<SourceInformation> sourceInformations) {
+                  adapter.setSourceInformationObjectList(sourceInformations);
+                  mRecyclerView.setAdapter(adapter);
+                  mRecyclerView.setLayoutManager(mLayoutManager);
+              }
+          });
+
+          tripViewModel.getAllSite().observe(requireActivity(), new Observer<List<SiteInformation>>() {
+              @Override
+              public void onChanged(List<SiteInformation> siteInformations) {
+                  adapter.setSiteInformationObjectList(siteInformations);
+                  mRecyclerView.setAdapter(adapter);
+                  mRecyclerView.setLayoutManager(mLayoutManager);
+              }
+          });
+
+      }
+
 
       private void setUpObservers() {
           tripViewModel.getSourceLatitudes().observe(requireActivity(), doubles -> {
@@ -156,6 +210,7 @@ import java.util.List;
           tripViewModel.getSiteLongitudes().observe(requireActivity(), doubles -> {
               viewModelMap.setSiteLongitudes(doubles);
           });
+
       }
 
       private AndroidXMapFragment getInstance(){

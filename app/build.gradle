@@ -76,6 +76,8 @@ dependencies {
     implementation 'com.github.fornewid:neumorphism:0.3.0'
     implementation(name:'HERE-sdk', ext:'aar')
     implementation 'cn.gavinliu:ShapedImageView:0.8.7'
+    implementation "com.arthurivanets.bottomsheet:bottomsheets-core:1.0.0"
+
 
 
 }
