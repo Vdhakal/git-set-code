@@ -109,6 +109,7 @@ public class LandingActivity extends AppCompatActivity {
         switch(menuItem.getItemId()) {
             case R.id.profile:
                 fragment = new DriverProfile();
+                menuItem.setChecked(false);
                 break;
         }
 
