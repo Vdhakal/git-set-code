@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
@@ -34,12 +36,16 @@ import com.example.git_set_code.fragments.DriverProfile;
 import com.example.git_set_code.fragments.EditFragment;
 import com.example.git_set_code.fragments.HomeFragment;
 import com.example.git_set_code.fragments.MapsFragment;
+import com.example.git_set_code.helperClasses.NavigationExtensions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.List;
 import java.util.Map;
+
+import kotlin.collections.CollectionsKt;
 
 public class LandingActivity extends AppCompatActivity {
 
@@ -49,6 +55,8 @@ public class LandingActivity extends AppCompatActivity {
     final String TAG="DEBUG";
     private DrawerLayout drawer;
     View view;
+    private LiveData currentNavController;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.d(TAG,"On create opt menu works");
@@ -122,12 +130,11 @@ public class LandingActivity extends AppCompatActivity {
 
     private void setUpNavigation(){
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
         NavHostFragment navHostFragment =(NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.fragment);
         NavController navController = navHostFragment.getNavController();
-//        navController.navigate(
-//                RequestTransferFragmentDirections.actionRequestTransferFragmentToBlankFragment()),
-//                NavOptions.Builder().setLaunchSingleTop(true).build()
-//)
+
+
 
             if (bottomNavigationView.getSelectedItemId() == R.id.mapsFragment) {
                 navController.popBackStack(R.id.mapfragment, false);
@@ -136,6 +143,8 @@ public class LandingActivity extends AppCompatActivity {
                 NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
 
         }
+
+
 
 //        bottomNavigationView.add(new MeowBottomNavigation.Model(1, R.drawable.ic_baseline_home_24));
 //        bottomNavigationView.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_map_24));

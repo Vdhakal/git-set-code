@@ -39,7 +39,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.shape.CornerFamily;
+import com.google.android.material.shape.MaterialShapeDrawable;
 import com.here.android.mpa.common.GeoBoundingBox;
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.GeoPosition;
@@ -78,6 +82,7 @@ import java.util.List;
       private static final String TAG = "Maps";
       private FloatingActionButton fabMapScene, fabMapLocation;
       private Button startNavigationButton;
+      private BottomNavigationView bottomNavigationView;
       private MapsFragment mapsFragment;
       private MapView mapView;
       private boolean markerAdded = false;
@@ -109,9 +114,12 @@ import java.util.List;
           fabMapScene = rootView.findViewById(R.id.fab_satelite);
           fabMapLocation = rootView.findViewById(R.id.fab_CurrentLocation);
           startNavigationButton = rootView.findViewById(R.id.navigationButton);
+          bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+          bottomNavigationView.setVisibility(View.GONE);
           tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
           viewModelMap = new ViewModelProvider(this).get(ViewModelMap.class);
           setUpObservers();
+          setUpBottomBar(rootView);
           powerSpinnerView =  rootView.findViewById(R.id.power_spinner);
           startNavigationButton.setVisibility(View.GONE);
           fabMapLocation.setVisibility(View.GONE);
@@ -121,6 +129,19 @@ import java.util.List;
         return rootView;
 
         }
+
+      private void setUpBottomBar(View view) {//Corner radius
+          float radius = getResources().getDimension(R.dimen.default_corner_radius);
+          BottomAppBar bottomAppBar = view.findViewById(R.id.bottom_bar);
+
+          MaterialShapeDrawable bottomBarBackground = (MaterialShapeDrawable) bottomAppBar.getBackground();
+          bottomBarBackground.setShapeAppearanceModel(
+                  bottomBarBackground.getShapeAppearanceModel()
+                          .toBuilder()
+                          .setTopRightCorner(CornerFamily.ROUNDED,160)
+                          .setTopLeftCorner(CornerFamily.ROUNDED,100)
+                          .build());
+      }
 
       private void setUpObservers() {
           tripViewModel.getSourceLatitudes().observe(requireActivity(), doubles -> {
@@ -227,7 +248,6 @@ import java.util.List;
                           loadMapScene();
                           initNaviControlButton(viewModelMap.getGeoPosition());
                       }
-
 
                   } else {
                       Toast.makeText(getContext(), "Failed to download catalog", Toast.LENGTH_LONG).show();
@@ -551,6 +571,7 @@ import java.util.List;
         }
         super.onPause();
         paused = true;
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -561,6 +582,7 @@ import java.util.List;
               posManager.start(
                       PositioningManager.LocationMethod.GPS_NETWORK);
           }
+        bottomNavigationView.setVisibility(View.GONE);
 
     }
 
@@ -573,5 +595,6 @@ import java.util.List;
         }
         map = null;
         super.onDestroy();
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }
