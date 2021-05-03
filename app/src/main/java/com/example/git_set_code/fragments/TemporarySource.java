@@ -1,18 +1,29 @@
 package com.example.git_set_code.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +34,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.git_set_code.R;
 import com.example.git_set_code.fragments.dialogs.SignatureDialog;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -30,6 +42,8 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 import soup.neumorphism.NeumorphButton;
@@ -52,7 +66,11 @@ public class TemporarySource extends Fragment {
     EditText prodType, startDate, startTime, endDate, endTime, grossGallons, netGallons, remainingFuel;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private Bitmap signatureBitmap = null;
-
+    private Bitmap bolBitmap = null;
+    private View rootView = null;
+    private String tempBolPath = null;
+    private Uri photoUri = null;
+    private File photoFile = null;
     public TemporarySource() {
         // Required empty public constructor
     }
@@ -88,11 +106,12 @@ public class TemporarySource extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_source_info, container, false);
+        rootView = inflater.inflate(R.layout.fragment_source_info, container, false);
         Button sourceButton = rootView.findViewById(R.id.save_cont_source);
         initItems(rootView);
         onSourceButtonClicked(sourceButton);
         dateListener();
+        addScanBillOfLadingListener(rootView);
         return rootView;
     }
     private void dateListener() {
@@ -175,4 +194,54 @@ public class TemporarySource extends Fragment {
     private void swapFragment(View v){
         Navigation.findNavController(v).navigate(R.id.action_temporarySource_to_tripSummary);
     }
+    private void addScanBillOfLadingListener(View rootView) {
+        View formLayout = rootView.findViewById(R.id.formLayout);
+        NeumorphButton scanBillButton = formLayout.findViewById(R.id.scanBillButtonsource);
+        scanBillButton.setOnClickListener(v -> {
+            initiateBolCapture();
+        });
+    }
+
+    private void initiateBolCapture() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            photoFile = createTempImageFile();
+            photoUri = FileProvider.getUriForFile(requireContext(), "com.example.git_set_code", photoFile);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            startActivityForResult(cameraIntent, 1888);
+        } catch (Exception e) {
+            Log.i("prativaDebug", "Cannot start camera intent "+e.toString());
+        }
+    }
+
+    private File createTempImageFile() throws IOException {
+        String tempFileName = String.format("%d", System.currentTimeMillis());
+        File storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File tempFile=File.createTempFile(
+                tempFileName,
+                ".png",
+                storageDir
+        );
+        tempFile.deleteOnExit();
+        tempBolPath = tempFile.getAbsolutePath();
+        return tempFile;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1888 && resultCode == Activity.RESULT_OK) {
+            //photoUri is the complete absolutepath of saved picture
+            //bolBitmap is the bitmap of captured image
+            bolBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath()); //captured image bitmap saved here
+            View formLayout = rootView.findViewById(R.id.formLayout);
+            ImageView bolView = formLayout.findViewById(R.id.bolImage);
+            bolView.setVisibility(View.VISIBLE);
+            Glide.with(requireContext())
+                    .load(photoUri)
+                    .into(bolView);
+        }
+    }
+
+
 }

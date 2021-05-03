@@ -58,6 +58,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <provider
+            android:authorities="com.example.git_set_code"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"/>
+        </provider>
         <!-- Set your credentials for the HERE SDK. -->
         <meta-data android:name="com.here.android.maps.appid" android:value="uGA5SzBvQ9rwPukbxjhg"/>
         <meta-data android:name="com.here.android.maps.apptoken" android:value="jnHIB-hgwANScWLkcS-VfA"/>
