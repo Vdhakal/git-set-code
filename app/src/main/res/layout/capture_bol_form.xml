@@ -236,11 +236,11 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
                     android:background="@color/card_dark_shadow"
-                    android:inputType="time"
                     android:clickable="false"
                     android:cursorVisible="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:inputType="time"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView18">
 
@@ -284,15 +284,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
+
                 <ImageView
                     android:id="@+id/signatureView"
-                    android:layout_width="60dp"
+                    android:layout_width="300dp"
                     android:layout_height="100dp"
-                    android:layout_marginStart="32dp"
                     android:rotation="90"
-                    app:layout_constraintStart_toEndOf="@id/captureSignatureButton"
-                    app:layout_constraintTop_toBottomOf="@+id/remaining_fuel" />
-
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/captureSignatureButton" />
 
                 <soup.neumorphism.NeumorphButton
                     android:id="@+id/captureSignatureButton"
@@ -302,24 +303,24 @@
                     android:text="Capture Signature"
                     android:textColor="@color/design_default_color_on_secondary"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/remaining_fuel"
                     app:neumorph_insetBottom="15dp"
                     app:neumorph_shadowColorDark="@color/card_dark_shadow"
                     app:neumorph_shadowColorLight="@color/button_light_shadow"
-                    app:neumorph_shapeType="flat"
-                    app:layout_constraintTop_toBottomOf="@+id/remaining_fuel" />
+                    app:neumorph_shapeType="flat" />
+
 
                 <ImageView
                     android:id="@+id/billOfLadingView"
-                    android:layout_width="60dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
                     android:rotation="90"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/signatureView"
-                    app:layout_constraintTop_toTopOf="@+id/signatureView" />
-
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/scanBillOfLadingButton" />
 
                 <soup.neumorphism.NeumorphButton
                     android:id="@+id/scanBillOfLadingButton"
@@ -329,13 +330,14 @@
                     android:text="Scan Bill of Lading"
                     android:textColor="@color/design_default_color_on_secondary"
                     android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.547"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/signatureView"
                     app:neumorph_insetBottom="15dp"
                     app:neumorph_shadowColorDark="@color/card_dark_shadow"
                     app:neumorph_shadowColorLight="@color/button_light_shadow"
-                    app:neumorph_shapeType="flat"
-                    app:layout_constraintTop_toBottomOf="@+id/captureSignatureButton" />
-
+                    app:neumorph_shapeType="flat" />
 
                 <soup.neumorphism.NeumorphButton
                     android:id="@+id/save_cont_site"
@@ -354,7 +356,7 @@
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/scanBillOfLadingButton"
+                    app:layout_constraintTop_toBottomOf="@+id/billOfLadingView"
                     app:neumorph_backgroundColor="@color/light_orange"
                     app:neumorph_shadowColorDark="@color/card_dark_shadow"
                     app:neumorph_shadowColorLight="@color/save_light_shd"
