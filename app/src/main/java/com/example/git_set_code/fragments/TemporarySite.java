@@ -199,7 +199,7 @@ public class TemporarySite extends Fragment {
         });
     }
     public void captureSignature(Bitmap signatureBitmap){
-        ImageView signatureView = getView().git(R.id.signatureView);
+        ImageView signatureView = getView().findViewById(R.id.signatureView);
         signatureView.setImageBitmap(signatureBitmap);
         signatureView.setVisibility(View.VISIBLE);
         //saved signature bitmap in this variable
