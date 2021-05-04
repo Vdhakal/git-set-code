@@ -50,26 +50,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/trip_title"
-            android:width="140dp"
-            android:text="Product Types:" />
+            android:width="180dp"
+            android:text="Number of Source:" />
 
         <TextView
             android:id="@+id/tv_product_name"
             style="@style/tv_font"
-            android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/trip_title"
             android:layout_toRightOf="@id/label_product_name"
-            android:text="Gasoline A"/>
+            android:text="2"/>
 
         <TextView
             android:id="@+id/label_stops"
             style="@style/label_font"
+            android:width="180dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label_product_name"
-            android:text="Stops:" />
+            android:layout_below="@id/tv_product_name"
+            android:text="Number of Site:" />
 
         <TextView
             android:id="@+id/tv_stops"
@@ -78,8 +78,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_product_name"
             android:layout_toRightOf="@id/label_stops"
-            android:layout_marginStart="5dp"
-            android:paddingLeft="10dp"
             android:text="5"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout

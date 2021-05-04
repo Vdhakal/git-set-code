@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.git_set_code.R;
 import com.example.git_set_code.fragments.MapsFragment;
+import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.ViewModel.TripViewModel;
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.GeoPosition;
@@ -35,6 +36,18 @@ public class ViewModelMap extends ViewModel {
     private GeoPosition geoPosition;
     private Map map = null;
     private AndroidXMapFragment mapFragment = null;
+    private int tripTracker=-1;
+
+
+    public int getTripTracker() {
+        if(tripTracker==-1)
+            setTripTracker();
+        return tripTracker;
+    }
+
+    private void setTripTracker() {
+        tripTracker++;
+    }
 
     public ViewModelMap(){
 
@@ -57,8 +70,10 @@ public class ViewModelMap extends ViewModel {
     }
 
     public List<GeoCoordinate> getSourceGeoCoordinates(){
-        if(sourceGeoCoordinates==null)
-           setSourceGeoCoordinates();
+        if(sourceGeoCoordinates==null) {
+            Log.i("TAG","new geo created.");
+            setSourceGeoCoordinates();
+        }
         return sourceGeoCoordinates;
     }
 

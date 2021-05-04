@@ -184,6 +184,11 @@ public class TripSummary extends Fragment {
             swipeButton.setText("Trip Selected");
             swipeButton.setDisabledDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_check_circle_24));
         }
+        if(sharedPreferences.getInt("selected",0)==2){
+            swipeButton.setEnabled(false);
+            swipeButton.setText("Trip Completed");
+            swipeButton.setDisabledDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_celebration_24));
+        }
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {

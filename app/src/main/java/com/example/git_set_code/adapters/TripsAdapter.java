@@ -138,8 +138,8 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 //            homeFragment.setUpSlider( tripObjectList, activity);
 //        }
         holder.getTitle().setText("Trip: "+tripObjectList.get(position).getTripName());
-        holder.getProductName().setText(siteInformationObjectList.get(position).getProductDesc());
-        holder.getStops().setText("7");
+        holder.getProductName().setText(sourceInformationObjectList.size()+"");
+        holder.getStops().setText(siteInformationObjectList.size()+"");
         setUpStepView(holder);
         onSummaryButtonClick(holder.getSummaryButton());
     }
@@ -216,6 +216,11 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
                 swipeButton.setEnabled(false);
                 swipeButton.setText("Trip Selected");
                 swipeButton.setDisabledDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24));
+            }
+            if(sharedPreferences.getInt("selected",0)==2){
+                swipeButton.setEnabled(false);
+                swipeButton.setText("Trip Completed");
+                swipeButton.setDisabledDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_celebration_24));
             }
 
             if(expanded)cardView.setShapeType(1);

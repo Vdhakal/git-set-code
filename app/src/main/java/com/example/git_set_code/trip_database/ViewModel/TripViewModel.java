@@ -35,6 +35,7 @@ public class TripViewModel extends AndroidViewModel {
     private LiveData<List<Double>> siteLongitudes;
 
 
+
     public TripViewModel(@NonNull Application application) {
         super(application);
         tripRepository = new TripRepository(application);

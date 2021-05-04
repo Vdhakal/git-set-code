@@ -9,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -35,6 +37,7 @@ import android.widget.Toast;
 
 import com.arthurivanets.bottomsheets.BottomSheet;
 import com.example.git_set_code.R;
+import com.example.git_set_code.activities.LandingActivity;
 import com.example.git_set_code.adapters.TripsAdapter;
 import com.example.git_set_code.helperClasses.ForegroundService;
 import com.example.git_set_code.locations.PlatformPositioningProvider;
@@ -104,6 +107,7 @@ import java.util.List;
       private boolean markerAdded = false;
       private boolean mapHasBeenLoaded = false;
       private static final float DEFAULT_ZOOM_LEVEL = 14;
+      MapsFragment mMyFragment;
       boolean paused = false;
       // map embedded in the map fragment
       private Map map = null;
@@ -120,11 +124,19 @@ import java.util.List;
       private NavigationManager m_navigationManager;
       VoiceCatalog voiceCatalog;
       private long id = -1;
+      private int tripTracker=0;
+      boolean sourceCompleted = false;
+      SharedPreferences sharedPreferences;
+      private List<SourceInformation> allSource;
+      private List<SiteInformation> allSite;
+
+
       @Nullable
       @Override
       public View onCreateView(@NonNull LayoutInflater inflater,
                                  @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
+          sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
 
           rootView =  inflater.inflate(R.layout.fragment_maps, container, false);
           progressBar = rootView.findViewById(R.id.progress_circular);
@@ -135,7 +147,7 @@ import java.util.List;
           bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
           bottomNavigationView.setVisibility(View.GONE);
           tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
-          viewModelMap = new ViewModelProvider(this).get(ViewModelMap.class);
+          viewModelMap = new ViewModelProvider(requireActivity()).get(ViewModelMap.class);
           View bottomSheet = rootView.findViewById(R.id.bottom_sheet);
           ViewCompat.setTranslationZ(bottomSheet, 1);
           bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -210,7 +222,12 @@ import java.util.List;
           tripViewModel.getSiteLongitudes().observe(requireActivity(), doubles -> {
               viewModelMap.setSiteLongitudes(doubles);
           });
-
+          tripViewModel.getAllSource().observe(requireActivity(), sourceInformations -> {
+              this.allSource = sourceInformations;
+          });
+          tripViewModel.getAllSite().observe(requireActivity(), siteInformations -> {
+              this.allSite = siteInformations;
+          });
       }
 
       private AndroidXMapFragment getInstance(){
@@ -352,7 +369,8 @@ import java.util.List;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-            initialize();
+
+        initialize();
 
     }
 
@@ -395,16 +413,35 @@ import java.util.List;
           routePlan.addWaypoint(startPoint);
           /* END: Langley BC */
           RouteWaypoint destination;
-          for(GeoCoordinate geoCoordinate: viewModelMap.getSourceGeoCoordinates()) {
-              destination = new RouteWaypoint(geoCoordinate);
-              /* Add both waypoints to the route plan */
-              routePlan.addWaypoint(destination);
+          SharedPreferences.Editor editor = sharedPreferences.edit();
+          sourceCompleted = sharedPreferences.getBoolean("sourceCompleted",false);
+          tripTracker = sharedPreferences.getInt("tripTracker",-1);
+          tripTracker++;
+
+          if(tripTracker>=viewModelMap.getSiteGeoCoordinates().size() && sourceCompleted) {
+              tripTracker = 0;
+              sourceCompleted = false;
+
+          }else if(tripTracker>=viewModelMap.getSourceGeoCoordinates().size() && !sourceCompleted)
+          {
+              sourceCompleted = true;
+              tripTracker = 0;
           }
-          for(GeoCoordinate geoCoordinate: viewModelMap.getSiteGeoCoordinates()) {
-              destination = new RouteWaypoint(geoCoordinate);
-              /* Add both waypoints to the route plan */
-              routePlan.addWaypoint(destination);
+          editor.putInt("tripTracker",tripTracker);
+          editor.putBoolean("sourceCompleted", sourceCompleted);
+          editor.commit();
+          Log.i("Trip"," "+tripTracker+" "+sourceCompleted+"");
+          if(tripTracker<=viewModelMap.getSourceGeoCoordinates().size()-1 && !sourceCompleted) {
+              Toast.makeText(getContext(), "Heading towards: "+allSource.get(tripTracker).getDestinationName(), Toast.LENGTH_SHORT).show();
+              destination = new RouteWaypoint(viewModelMap.getSourceGeoCoordinates().get(tripTracker));
           }
+          /* Add both waypoints to the route plan */
+          else {
+              Toast.makeText(getContext(), "Heading towards: "+allSite.get(tripTracker).getDestinationName(), Toast.LENGTH_SHORT).show();
+              destination = new RouteWaypoint(viewModelMap.getSiteGeoCoordinates().get(tripTracker));
+          }
+
+          routePlan.addWaypoint(destination);
 
           /* Trigger the route calculation,results will be called back via the listener */
           coreRouter.calculateRoute(routePlan,
@@ -547,7 +584,7 @@ import java.util.List;
           });
           alertDialogBuilder.setPositiveButton("Simulation",new DialogInterface.OnClickListener() {
               public void onClick(DialogInterface dialoginterface, int i) {
-                  m_navigationManager.simulate(m_route,180);//Simualtion speed is set to 60 m/s
+                  m_navigationManager.simulate(m_route,100);//Simualtion speed is set to 60 m/s
                   map.setTilt(60);
                   startForegroundService();
               };

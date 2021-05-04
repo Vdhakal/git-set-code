@@ -134,7 +134,6 @@ public class HomeFragment extends Fragment {
             mLayoutManager = new LinearLayoutManager(getActivity());
             mRecyclerView.addItemDecoration(new TripsDecorator(20));
             adapter = new TripsAdapter(getActivity(), new ArrayList<Trip>(), new ArrayList<SiteInformation>(),new ArrayList<SourceInformation>(),requireActivity());
-            mRecyclerView.scrollToPosition(0);
 //            adapter.setOnItemClickListner(new TripsAdapter.expandState() {
 //                @Override
 //                public void cardView(boolean expand) {
