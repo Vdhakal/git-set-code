@@ -24,8 +24,8 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class TripsAPIService {
-    private static String JSON_GET_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/GetTripListDetailByDriver/gitsetcode?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
-
+    private static String JSON_GET_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/GetDetailedTripListByDriver/gitsetcode?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
+//    https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/TripProductPickupPut/gitsetcode/183/24/887/12/2021-05-03%2000:00:00.0000000/2021-05-03%2000:00:00.0000000/10/10?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef
     public interface VolleyResponseListener {
         void onError(String message);
 
@@ -55,7 +55,7 @@ public class TripsAPIService {
                                         siteInformationObjectList.add(siteInformationObject);
                                     }
                                     else {
-                                        sourceInformationObject = new SourceInformation(jsonObject.getInt("SeqNum"),jsonObject.getString("WaypointTypeDescription"),jsonObject.getDouble("Latitude"),jsonObject.getDouble("Longitude"),jsonObject.getString("DestinationCode"),jsonObject.getString("DestinationName"),jsonObject.getString("Address1"), jsonObject.getString("Address2"), jsonObject.getString("City"), jsonObject.getString("StateAbbrev"),jsonObject.getInt("PostalCode"), jsonObject.getInt("TripId"));
+                                        sourceInformationObject = new SourceInformation(jsonObject.getInt("SeqNum"),jsonObject.getString("WaypointTypeDescription"),jsonObject.getDouble("Latitude"),jsonObject.getDouble("Longitude"),jsonObject.getString("DestinationCode"),jsonObject.getString("DestinationName"),jsonObject.getString("Address1"), jsonObject.getString("Address2"), jsonObject.getString("City"), jsonObject.getString("StateAbbrev"),jsonObject.getInt("PostalCode"), jsonObject.getInt("TripId"), jsonObject.getInt("SourceID"));
                                         sourceInformationObjectList.add(sourceInformationObject);
                                     }
                                     Truck truckObject = new Truck(jsonObject.getInt("TruckId"),jsonObject.getString("TruckCode"),jsonObject.getString("TruckDesc"), jsonObject.getString("DriverCode"));

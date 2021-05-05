@@ -33,6 +33,12 @@
         <action
             android:id="@+id/action_mapsFragment_to_editFragment"
             app:destination="@id/editFragment" />
+        <action
+            android:id="@+id/action_mapsFragment_to_temporarySource"
+            app:destination="@id/temporarySource" />
+        <action
+            android:id="@+id/action_mapsFragment_to_temporarySite"
+            app:destination="@id/temporarySite" />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
@@ -65,6 +71,9 @@
         <action
             android:id="@+id/action_temporarySource_to_tripSummary"
             app:destination="@id/tripSummary" />
+        <action
+            android:id="@+id/action_temporarySource_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/temporarySite"
@@ -73,5 +82,8 @@
         <action
             android:id="@+id/action_temporarySite_to_tripSummary"
             app:destination="@id/tripSummary" />
+        <action
+            android:id="@+id/action_temporarySite_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
 </navigation>

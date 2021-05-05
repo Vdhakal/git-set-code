@@ -37,6 +37,13 @@ public class ViewModelMap extends ViewModel {
     private Map map = null;
     private AndroidXMapFragment mapFragment = null;
     private int tripTracker=-1;
+    private int lol= -1;
+
+    public int getLol() {
+        if(lol==-1)
+            lol=lol+1;
+        return lol;
+    }
 
 
     public int getTripTracker() {

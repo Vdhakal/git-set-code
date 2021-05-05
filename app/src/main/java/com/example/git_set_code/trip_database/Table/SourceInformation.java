@@ -28,8 +28,9 @@ public class SourceInformation {
     private  String   city;
     private  String   stateAbbrev;
     private int   postalCode;
+    private int sourceID;
 
-    public SourceInformation(int seqNum, String waypointTypeDescription, double latitude, double longitude, String destinationCod, String destinationName, String address1, String address2, String city, String stateAbbrev, int postalCode, int trip_id) {
+    public SourceInformation(int seqNum, String waypointTypeDescription, double latitude, double longitude, String destinationCod, String destinationName, String address1, String address2, String city, String stateAbbrev, int postalCode, int trip_id, int sourceID) {
         this.seqNum = seqNum;
         this.waypointTypeDescription = waypointTypeDescription;
         this.latitude = latitude;
@@ -42,6 +43,11 @@ public class SourceInformation {
         this.stateAbbrev = stateAbbrev;
         this.postalCode = postalCode;
         this.trip_id = trip_id;
+        this.sourceID = sourceID;
+    }
+
+    public int getSourceID() {
+        return sourceID;
     }
 
     public int getSeqNum() {

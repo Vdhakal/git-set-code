@@ -55,63 +55,107 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/formButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/formButton"
+        style="@style/playfair_normal_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/orange_fill__rounded_color"
+        android:gravity="center"
+        android:text="Enter Information"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/mapfragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.skydoves.powerspinner.PowerSpinnerView
-        android:id="@+id/power_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#BAFFB453"
-        android:gravity="center"
-        android:hint="Monroe Bulk Plant"
-        style="@style/playfair_normal_black"
-        android:padding="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:textColor="@color/black"
-        android:textColorHint="#2D2D2D"
-        android:textSize="14.5sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/directionLayout"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rounded_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:spinner_item_array="@array/spinner_items"
-        app:spinner_arrow_gravity="end"
-        app:spinner_arrow_padding="8dp"
-        app:spinner_divider_color="@color/white"
-        app:spinner_divider_show="true"
-        app:spinner_divider_size="0.4dp"
-        app:spinner_popup_animation="bounce"
-        app:spinner_popup_background="#5BF9A825"
-        app:spinner_popup_elevation="14dp" />
+        android:visibility="invisible"
+        android:elevation="10dp">
+
+        <ImageView
+            android:id="@+id/navIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/direction_continue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nav_text"
+            style="@style/label_font"
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Start Navigation"
+            android:paddingLeft="10dp"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/navIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nav_distance"
+            style="@style/tv_font"
+            android:layout_width="280dp"
+            android:layout_height="20dp"
+            android:text="0.0 mi"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/navIcon"
+            app:layout_constraintTop_toBottomOf="@id/nav_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
         android:translationZ="90dp"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
         <FrameLayout
             android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="450dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
             android:background="@drawable/rounded_sheet"
-            >
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="5dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/shape_rounded"
-                android:scaleType="centerCrop"
                 android:layout_gravity="center|top"
-                />
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shape_rounded" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bottom_sheet_adapter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="15dp"
-                android:layout_gravity="left|top"/>
+                android:layout_gravity="left|top"
+                android:padding="15dp" />
         </FrameLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

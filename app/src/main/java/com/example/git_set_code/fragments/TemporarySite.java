@@ -188,7 +188,7 @@ public class TemporarySite extends Fragment {
         });
     }
     private void swapFragment(View v){
-        Navigation.findNavController(v).navigate(R.id.action_temporarySite_to_tripSummary);
+        Navigation.findNavController(v).navigate(R.id.action_temporarySite_to_mapsFragment);
 
     }
     private void initiateSignaturePad(View rootView) {

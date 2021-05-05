@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Driver.class, Trip.class, Truck.class, Trailer.class, SourceInformation.class, SiteInformation.class, TripClientData.class},
-        version = 2)
+        version = 1)
 public abstract class TripDatabase extends RoomDatabase {
     public abstract TripDao tripDao();
     private static TripDatabase tripDatabase;

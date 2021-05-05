@@ -3,6 +3,8 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -242,7 +244,7 @@ public class VerticalStepView extends LinearLayout implements VerticalStepViewIn
                     mTextView.setText(mTexts.get(i));
                     mTextView.setY(complectedXPosition.get(i) - mStepsViewIndicator.getCircleRadius() / 2);
                     mTextView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    Typeface typeface = getResources().getFont(R.font.quick_regular);
+                    Typeface typeface = ResourcesCompat.getFont(getContext(),R.font.quick_regular);
                     mTextView.setTypeface(typeface, Typeface.BOLD);
                     if(i <= mComplectingPosition-1)
                     {

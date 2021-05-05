@@ -52,10 +52,11 @@ public class LandingActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     NavigationView navigationView;
     Toolbar toolbar;
-    final String TAG="DEBUG";
+    final String TAG="DEBUGSH";
     private DrawerLayout drawer;
     View view;
     private LiveData currentNavController;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,13 +135,18 @@ public class LandingActivity extends AppCompatActivity {
         NavHostFragment navHostFragment =(NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.fragment);
         NavController navController = navHostFragment.getNavController();
 
+        if(navController.popBackStack(R.id.mapfragment, false)) {
+            Log.d(TAG, "SettingsFragment found in backStack");
+        } else {
+            Log.d(TAG, "SettingsFragment not found in backStack, navigate manually");
+            NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+        }
 
-
-            if (bottomNavigationView.getSelectedItemId() == R.id.mapsFragment) {
+           /* if (bottomNavigationView.getSelectedItemId() == R.id.mapsFragment) {
                 navController.popBackStack(R.id.mapfragment, false);
             }
             else
-                NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+                NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());*/
 
         }
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
@@ -14,6 +15,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +34,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arthurivanets.bottomsheets.BottomSheet;
@@ -40,6 +44,7 @@ import com.example.git_set_code.R;
 import com.example.git_set_code.activities.LandingActivity;
 import com.example.git_set_code.adapters.TripsAdapter;
 import com.example.git_set_code.helperClasses.ForegroundService;
+import com.example.git_set_code.helperClasses.ManeuverHelper;
 import com.example.git_set_code.locations.PlatformPositioningProvider;
 import com.example.git_set_code.trip_database.Database.TripDatabase;
 import com.example.git_set_code.trip_database.Table.SiteInformation;
@@ -76,6 +81,7 @@ import com.here.android.mpa.odml.MapLoader;
 import com.here.android.mpa.odml.MapPackage;
 import com.here.android.mpa.prefetcher.MapDataPrefetcher;
 import com.here.android.mpa.routing.CoreRouter;
+import com.here.android.mpa.routing.Maneuver;
 import com.here.android.mpa.routing.Route;
 import com.here.android.mpa.routing.RouteOptions;
 import com.here.android.mpa.routing.RoutePlan;
@@ -101,6 +107,7 @@ import java.util.List;
       private static final String TAG = "Maps";
       private FloatingActionButton fabMapScene, fabMapLocation;
       private Button startNavigationButton;
+      private Button formButton;
       private BottomNavigationView bottomNavigationView;
       private MapsFragment mapsFragment;
       private MapView mapView;
@@ -129,7 +136,11 @@ import java.util.List;
       SharedPreferences sharedPreferences;
       private List<SourceInformation> allSource;
       private List<SiteInformation> allSite;
-
+      public View getRootView;
+      private int tripCounter= 0;
+      private TextView navDistance, navText;
+      private ImageView navIcon;
+      private ConstraintLayout constraintLayout;
 
       @Nullable
       @Override
@@ -144,22 +155,23 @@ import java.util.List;
           fabMapScene = rootView.findViewById(R.id.fab_satelite);
           fabMapLocation = rootView.findViewById(R.id.fab_CurrentLocation);
           startNavigationButton = rootView.findViewById(R.id.navigationButton);
+          formButton = rootView.findViewById(R.id.formButton);
           bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+          constraintLayout = rootView.findViewById(R.id.directionLayout);
           bottomNavigationView.setVisibility(View.GONE);
+          navDistance = rootView.findViewById(R.id.nav_distance);
+          navText = rootView.findViewById(R.id.nav_text);
+          navIcon = rootView.findViewById(R.id.navIcon);
           tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
           viewModelMap = new ViewModelProvider(requireActivity()).get(ViewModelMap.class);
           View bottomSheet = rootView.findViewById(R.id.bottom_sheet);
-          ViewCompat.setTranslationZ(bottomSheet, 1);
           bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
           setUpUI();
           setUpObservers();
           setUpBottomBar();
-          powerSpinnerView =  rootView.findViewById(R.id.power_spinner);
           startNavigationButton.setVisibility(View.GONE);
           fabMapLocation.setVisibility(View.GONE);
           fabMapScene.setVisibility(View.GONE);
-          powerSpinnerView.setVisibility(View.GONE);
-
         return rootView;
 
         }
@@ -167,7 +179,7 @@ import java.util.List;
       private void setUpUI() {
           mLayoutManager = new LinearLayoutManager(getActivity());
           mRecyclerView.addItemDecoration(new TripsDecorator(20));
-          adapter = new BottomSheetAdapter(getActivity(), new ArrayList<Trip>(), new ArrayList<SiteInformation>(),new ArrayList<SourceInformation>(),requireActivity());
+          adapter = new BottomSheetAdapter(getActivity(), new ArrayList<Trip>(), new ArrayList<SiteInformation>(),new ArrayList<SourceInformation>(),requireActivity(), sharedPreferences.getInt("tripCounter",0));
           mRecyclerView.scrollToPosition(0);
       }
 
@@ -240,6 +252,7 @@ import java.util.List;
 
       }
       private void initialize() {
+          Log.i("LOL", viewModelMap.getLol()+" this");
 //          PositioningManager.getInstance().addListener(WeakReference<OnPositionChangedListener>);
           // Search for the map fragment to finish setup by calling init().
           mapFragment = viewModelMap.getMapFragment(getInstance());
@@ -247,8 +260,6 @@ import java.util.List;
           if(mapFragment!=null) {
               // Set up disk map cache path for this application
               // Use path under your application folder for storing the disk cache
-              com.here.android.mpa.common.MapSettings.setDiskCacheRootPath(
-                      getContext().getExternalFilesDir(null) + File.separator + "com.example.git_set_code");
               mapFragment.init(new OnEngineInitListener() {
                   @Override
                   public void onEngineInitializationCompleted(OnEngineInitListener.Error error) {
@@ -377,10 +388,10 @@ import java.util.List;
       private void loadMapScene() {
 
         progressBar.setVisibility(View.GONE);
+          constraintLayout.setVisibility(View.INVISIBLE);
         startNavigationButton.setVisibility(View.VISIBLE);
         fabMapLocation.setVisibility(View.VISIBLE);
         fabMapScene.setVisibility(View.VISIBLE);
-        powerSpinnerView.setVisibility(View.VISIBLE);
 
     }
 
@@ -417,9 +428,11 @@ import java.util.List;
           sourceCompleted = sharedPreferences.getBoolean("sourceCompleted",false);
           tripTracker = sharedPreferences.getInt("tripTracker",-1);
           tripTracker++;
+          tripCounter++;
 
           if(tripTracker>=viewModelMap.getSiteGeoCoordinates().size() && sourceCompleted) {
               tripTracker = 0;
+              tripCounter =0;
               sourceCompleted = false;
 
           }else if(tripTracker>=viewModelMap.getSourceGeoCoordinates().size() && !sourceCompleted)
@@ -429,6 +442,7 @@ import java.util.List;
           }
           editor.putInt("tripTracker",tripTracker);
           editor.putBoolean("sourceCompleted", sourceCompleted);
+          editor.putInt("tripCounter", tripCounter);
           editor.commit();
           Log.i("Trip"," "+tripTracker+" "+sourceCompleted+"");
           if(tripTracker<=viewModelMap.getSourceGeoCoordinates().size()-1 && !sourceCompleted) {
@@ -511,7 +525,6 @@ import java.util.List;
                    *
                    */
                   if (m_route == null) {
-                      startNavigationButton.setText("Stop Navigation");
                       createRoute(position);
                   } else {
                       m_navigationManager.stop();
@@ -553,6 +566,8 @@ import java.util.List;
       }
 
       private void startNavigation() {
+          startNavigationButton.setText("Stop Navigation");
+          constraintLayout.setVisibility(View.VISIBLE);
           /* Configure Navigation manager to launch navigation on current map */
           m_navigationManager.setMap(map);
           // show position indicator
@@ -585,7 +600,7 @@ import java.util.List;
           alertDialogBuilder.setPositiveButton("Simulation",new DialogInterface.OnClickListener() {
               public void onClick(DialogInterface dialoginterface, int i) {
                   m_navigationManager.simulate(m_route,100);//Simualtion speed is set to 60 m/s
-                  map.setTilt(60);
+                  map.setTilt(80);
                   startForegroundService();
               };
           });
@@ -606,6 +621,60 @@ import java.util.List;
            */
           addNavigationListeners();
       }
+      private void goToSite(View v){
+          Navigation.findNavController(v).navigate(R.id.action_mapsFragment_to_temporarySite);
+      }
+      private void goToSource(View v){
+          Navigation.findNavController(v).navigate(R.id.action_mapsFragment_to_temporarySource);
+      }
+      public double round(double value, int places) {
+          if (places < 0) throw new IllegalArgumentException();
+
+          long factor = (long) Math.pow(10, places);
+          value = value * factor;
+          long tmp = Math.round(value);
+          return (double) tmp / factor;
+      }
+      private NavigationManager.NewInstructionEventListener newInstructionEventListener = new NavigationManager.NewInstructionEventListener() {
+          @Override
+          public void onNewInstructionEvent() {
+//            super.onNewInstructionEvent();
+              try{
+                  Maneuver maneuver = m_navigationManager.getNextManeuver();
+                  if (maneuver != null) {
+                      if (maneuver.getAction() == Maneuver.Action.END) {
+                          //notify the user that the route is complete
+                      }
+                      int dis = maneuver.getDistanceFromPreviousManeuver();
+                      dis = (dis / 100) * 100;
+                      double disinkm = dis / 1000;
+                      double disinmiles = disinkm/1.609344;
+                      System.out.println("disimiles before"+String.valueOf(disinmiles));
+
+                      disinmiles = round(disinmiles,2);
+                      System.out.println("disimiles after"+String.valueOf(disinmiles));
+
+                      if(disinmiles == 0.0)
+                      {
+                          navDistance.setText("0.1 mi");
+                      }
+                      else{
+                          if(disinmiles < 1334)
+                              navDistance.setText(disinmiles+" mi");
+                          else
+                              navDistance.setText("0 mi");
+                      }
+
+                      navText.setText(ManeuverHelper.getNextManeuver(maneuver));
+                      navIcon.setImageResource(ManeuverHelper.getManeuverIcon(maneuver));
+                  }
+              }
+              catch (Exception e)
+              {
+                  e.printStackTrace();
+              }
+          }
+      };
 
       private void addNavigationListeners() {
 
@@ -620,7 +689,16 @@ import java.util.List;
           /* Register a PositionListener to monitor the position updates */
           m_navigationManager.addPositionListener(
                   new WeakReference<NavigationManager.PositionListener>(m_positionListener));
+
+          m_navigationManager.addManeuverEventListener(new WeakReference<>(newManeuverEvenListener));
+          m_navigationManager.addNewInstructionEventListener(new WeakReference<>(newInstructionEventListener));
       }
+      NavigationManager.ManeuverEventListener newManeuverEvenListener = new NavigationManager.ManeuverEventListener() {
+          @Override
+          public void onManeuverEvent() {
+              super.onManeuverEvent();
+          }
+      };
 
       private NavigationManager.PositionListener m_positionListener = new NavigationManager.PositionListener() {
           @Override
@@ -641,6 +719,20 @@ import java.util.List;
           @Override
           public void onEnded(NavigationManager.NavigationMode navigationMode) {
               stopForegroundService();
+              formButton.setVisibility(View.VISIBLE);
+              if(!sourceCompleted) {
+                  formButton.setText("Enter Source Information");
+                  formButton.setOnClickListener(v->{
+                      goToSource(v);
+                  });
+
+              }else if(sourceCompleted)
+              {
+                  formButton.setText("Enter Site Information");
+                  formButton.setOnClickListener(v->{
+                      goToSite(v);
+                  });
+              }
           }
 
           @Override

@@ -2,6 +2,7 @@ package com.example.git_set_code.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,15 +36,17 @@ public class BottomSheetAdapter extends  RecyclerView.Adapter<BottomSheetAdapter
     List<SiteInformation> siteInformationObjectList;
     List<SourceInformation> sourceInformationObjectList;
     Context context;
+    int tripTracker;
     public BottomSheetAdapter(
             Context context,
             List<Trip> tripObjectList,
             List<SiteInformation> siteInformationObjectList,
-            List<SourceInformation> sourceInformationObjectList, ViewModelStoreOwner owner){
+            List<SourceInformation> sourceInformationObjectList, ViewModelStoreOwner owner, int tripTracker){
         this.siteInformationObjectList = siteInformationObjectList;
         this.sourceInformationObjectList = sourceInformationObjectList;
         this.context = context;
-
+        this.tripTracker = tripTracker;
+        Log.i("Bottom", ""+tripTracker);
     }
     public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
         this.siteInformationObjectList = siteInformationObjectList;

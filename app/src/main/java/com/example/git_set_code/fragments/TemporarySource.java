@@ -34,6 +34,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.git_set_code.R;
 import com.example.git_set_code.fragments.dialogs.SignatureDialog;
@@ -42,8 +52,12 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 
 import soup.neumorphism.NeumorphButton;
@@ -101,6 +115,7 @@ public class TemporarySource extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+//    https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/TripProductPickupPut/gitsetcode/183/24/887/12/2021-05-03%2000:00:00.0000000/2021-05-03%2000:00:00.0000000/10/10?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -179,6 +194,64 @@ public class TemporarySource extends Fragment {
             @Override
             public void onClick(View v) {
                 swapFragment(v);
+                try {
+                    RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                    String URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/TripProductPickupPut/gitsetcode/183/24/887/12/2021-05-03%2000:00:00.0000000/2021-05-03%2000:00:00.0000000/10/10?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
+                    JSONObject jsonBody = new JSONObject();
+                    jsonBody.put("DriverCode", "GitSetCode");
+                    jsonBody.put("TripID", 183);
+                    jsonBody.put("SourceID", 24);
+                    jsonBody.put("TripWayPointID", 126);
+                    jsonBody.put("id", 220);
+                    jsonBody.put("Productid", 887);
+                    jsonBody.put("ManifestNumber", "12");
+                    jsonBody.put("LoadstartDateTime", "GitSetCode");
+                    jsonBody.put("LoadEndDateTime", "GitSetCode");
+                    jsonBody.put("SourceGrossQuantity", 10);
+                    jsonBody.put("SourceNetQuantity", 10);
+                    final String requestBody = jsonBody.toString();
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.PUT, URL, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i("VOLLEY", response);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("VOLLEY", "NOOOOOO "+error.toString());
+                        }
+                    }) {
+                        @Override
+                        public String getBodyContentType() {
+                            return "application/json; charset=utf-8";
+                        }
+
+                        @Override
+                        public byte[] getBody() throws AuthFailureError {
+                            try {
+                                return requestBody == null ? null : requestBody.getBytes("utf-8");
+                            } catch (UnsupportedEncodingException uee) {
+                                VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                                return null;
+                            }
+                        }
+
+                        @Override
+                        protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                            String responseString = "";
+                            if (response != null) {
+                                responseString = String.valueOf(response.statusCode);
+                                // can get more details such as response.headers
+                            }
+                            return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                        }
+                    };
+
+                    requestQueue.add(stringRequest);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(getContext(), "{" +
                         "\nProduct Dropped: "+prodType.getText()+
                         "\nStart Date: "+startDate.getText()+
@@ -192,7 +265,7 @@ public class TemporarySource extends Fragment {
         });
     }
     private void swapFragment(View v){
-        Navigation.findNavController(v).navigate(R.id.action_temporarySource_to_tripSummary);
+        Navigation.findNavController(v).navigate(R.id.action_temporarySource_to_mapsFragment);
     }
     private void addScanBillOfLadingListener() {
         View formLayout = rootView.findViewById(R.id.formLayout);
