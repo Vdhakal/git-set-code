@@ -56,6 +56,7 @@ import kotlin.collections.CollectionsKt;
  */
 public class LandingActivity extends AppCompatActivity {
 
+    //Declaring variables
     BottomNavigationView bottomNavigationView;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -79,8 +80,9 @@ public class LandingActivity extends AppCompatActivity {
     }
 
     /**
-     * @param item
-     * @return
+     * This method receives an action: a MenuItem object as a parameeter, which when selected displays a text
+     * @param item the menuItem object
+     * @return a boolean
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -97,7 +99,8 @@ public class LandingActivity extends AppCompatActivity {
 
 
     /**
-     * @param savedInstanceState
+     * This method overrides the onCreate method, and when the activity is started it sets up the display for the landing page
+     * @param savedInstanceState Bundle
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +124,8 @@ public class LandingActivity extends AppCompatActivity {
     }
 
     /**
-     * @param navigationView
+     * This method listens for a selected item and sets up drawer accordingly
+     * @param navigationView the navigation view
      */
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
@@ -135,7 +139,8 @@ public class LandingActivity extends AppCompatActivity {
     }
 
     /**
-     * @param menuItem
+     * This method selects the drawer item
+     * @param menuItem the menu item
      */
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
@@ -156,7 +161,7 @@ public class LandingActivity extends AppCompatActivity {
 
 
     /**
-     *
+     *  This method sets up the navigation
      */
     private void setUpNavigation() {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -211,7 +216,7 @@ public class LandingActivity extends AppCompatActivity {
 //        bottomNavigationView.show(1, true);
 
     /**
-     *
+     * This method closes the drawer when the user presses the back key
      */
     @Override
     public void onBackPressed() {
