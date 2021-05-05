@@ -85,6 +85,7 @@ public class TemporarySource extends Fragment {
     private String tempBolPath = null;
     private Uri photoUri = null;
     private File photoFile = null;
+
     public TemporarySource() {
         // Required empty public constructor
     }
@@ -107,6 +108,9 @@ public class TemporarySource extends Fragment {
         return fragment;
     }
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +121,12 @@ public class TemporarySource extends Fragment {
     }
 //    https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/TripProductPickupPut/gitsetcode/183/24/887/12/2021-05-03%2000:00:00.0000000/2021-05-03%2000:00:00.0000000/10/10?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -129,6 +139,10 @@ public class TemporarySource extends Fragment {
         addScanBillOfLadingListener();
         return rootView;
     }
+
+    /**
+     *
+     */
     private void dateListener() {
 
         startDate.setOnClickListener(v -> datePickerInput(startDate));
@@ -153,6 +167,11 @@ public class TemporarySource extends Fragment {
         });
     }
 
+    /**
+     * @param inputTime
+     * @throws java.lang.InstantiationException
+     * @throws IllegalAccessException
+     */
     private void timePickerInput(EditText inputTime) throws java.lang.InstantiationException, IllegalAccessException {
         MaterialTimePicker.Builder builder = MaterialTimePicker.Builder.class.newInstance().
                 setTimeFormat(TimeFormat.CLOCK_12H)
@@ -162,11 +181,15 @@ public class TemporarySource extends Fragment {
         final MaterialTimePicker materialTimePicker = builder.build();
         materialTimePicker.show(getParentFragmentManager(), "tag");
         materialTimePicker.addOnPositiveButtonClickListener(v -> {
-            inputTime.setText(materialTimePicker.getHour() +" : "+materialTimePicker.getMinute());
+            inputTime.setText(materialTimePicker.getHour() + " : " + materialTimePicker.getMinute());
         });
 
-        inputTime.setTextColor(ContextCompat.getColor(getContext(),android.R.color.black));
+        inputTime.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
     }
+
+    /**
+     * @param inputDate
+     */
     private void datePickerInput(EditText inputDate) {
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setSelection(MaterialDatePicker.todayInUtcMilliseconds());
         builder.setTitleText("SELECT A DATE");
@@ -174,9 +197,12 @@ public class TemporarySource extends Fragment {
         final MaterialDatePicker materialDatePicker = builder.build();
         materialDatePicker.show(getParentFragmentManager(), "DATE_PICKER");
         materialDatePicker.addOnPositiveButtonClickListener(selection -> inputDate.setText(materialDatePicker.getHeaderText()));
-        inputDate.setTextColor(ContextCompat.getColor(getContext(),android.R.color.black));
+        inputDate.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
     }
 
+    /**
+     * @param rootView
+     */
     private void initItems(View rootView) {
         prodType = rootView.findViewById(R.id.product_type_source);
         startDate = rootView.findViewById(R.id.start_date_source);
@@ -189,6 +215,9 @@ public class TemporarySource extends Fragment {
 
     }
 
+    /**
+     * @param sourceButton
+     */
     private void onSourceButtonClicked(Button sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,7 +248,7 @@ public class TemporarySource extends Fragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.e("VOLLEY", "NOOOOOO "+error.toString());
+                            Log.e("VOLLEY", "NOOOOOO " + error.toString());
                         }
                     }) {
                         @Override
@@ -253,20 +282,28 @@ public class TemporarySource extends Fragment {
                     e.printStackTrace();
                 }
                 Toast.makeText(getContext(), "{" +
-                        "\nProduct Dropped: "+prodType.getText()+
-                        "\nStart Date: "+startDate.getText()+
-                        "\nStart Time: "+startTime.getText()+
-                        "\nEnd Date: "+endDate.getText()+
-                        "\nEnd Time: "+endTime.getText()+
-                        "\nGross Gallons: "+grossGallons.getText()+
-                        "\nNet Gallons: "+netGallons.getText()+
-                        "\nRemaining Fuel: "+remainingFuel.getText()+"\n}", Toast.LENGTH_LONG).show();
+                        "\nProduct Dropped: " + prodType.getText() +
+                        "\nStart Date: " + startDate.getText() +
+                        "\nStart Time: " + startTime.getText() +
+                        "\nEnd Date: " + endDate.getText() +
+                        "\nEnd Time: " + endTime.getText() +
+                        "\nGross Gallons: " + grossGallons.getText() +
+                        "\nNet Gallons: " + netGallons.getText() +
+                        "\nRemaining Fuel: " + remainingFuel.getText() + "\n}", Toast.LENGTH_LONG).show();
             }
         });
     }
-    private void swapFragment(View v){
+
+    /**
+     * @param v
+     */
+    private void swapFragment(View v) {
         Navigation.findNavController(v).navigate(R.id.action_temporarySource_to_mapsFragment);
     }
+
+    /**
+     *
+     */
     private void addScanBillOfLadingListener() {
         View formLayout = rootView.findViewById(R.id.formLayout);
         NeumorphButton scanBillButton = formLayout.findViewById(R.id.scanBillButtonsource);
@@ -275,6 +312,9 @@ public class TemporarySource extends Fragment {
         });
     }
 
+    /**
+     *
+     */
     private void initiateBolCapture() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
@@ -283,14 +323,18 @@ public class TemporarySource extends Fragment {
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
             startActivityForResult(cameraIntent, 1888);
         } catch (Exception e) {
-            Log.i("prativaDebug", "Cannot start camera intent "+e.toString());
+            Log.i("prativaDebug", "Cannot start camera intent " + e.toString());
         }
     }
 
+    /**
+     * @return
+     * @throws IOException
+     */
     private File createTempImageFile() throws IOException {
         String tempFileName = String.format("%d", System.currentTimeMillis());
         File storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File tempFile=File.createTempFile(
+        File tempFile = File.createTempFile(
                 tempFileName,
                 ".png",
                 storageDir
@@ -300,12 +344,18 @@ public class TemporarySource extends Fragment {
         return tempFile;
     }
 
+    /**
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1888 && resultCode == Activity.RESULT_OK) {
+        if (requestCode == 1888 && resultCode == Activity.RESULT_OK) {
             //photoUri is the complete absolutepath of saved picture @{photoUri -> contains url for temp image file}
-            /* contains bitmap of the picture clicked */ bolBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath()); //captured image bitmap saved here
+            /* contains bitmap of the picture clicked */
+            bolBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath()); //captured image bitmap saved here
             View formLayout = rootView.findViewById(R.id.formLayout);
             ImageView bolView = formLayout.findViewById(R.id.bolImage);
             bolView.setVisibility(View.VISIBLE);

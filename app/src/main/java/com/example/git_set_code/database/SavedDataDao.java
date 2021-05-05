@@ -10,12 +10,26 @@ import com.example.git_set_code.database.SavedData;
 
 import java.util.List;
 
+/**
+ *
+ */
 @Dao
 public interface SavedDataDao {
+    /**
+     * @param savedData
+     */
     @Insert
     void insert(SavedData savedData);
+
+    /**
+     * @param savedData
+     */
     @Delete
     void delete(SavedData savedData);
+
+    /**
+     * @return
+     */
     @Query("SELECT * FROM saved_data ORDER BY id DESC")
     LiveData<List<SavedData>> getAllData();
 }

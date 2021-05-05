@@ -32,29 +32,55 @@ import java.util.List;
 import soup.neumorphism.NeumorphButton;
 import soup.neumorphism.NeumorphCardView;
 
-public class BottomSheetAdapter extends  RecyclerView.Adapter<BottomSheetAdapter.ViewHolder> {
+/**
+ *
+ */
+public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.ViewHolder> {
     List<SiteInformation> siteInformationObjectList;
     List<SourceInformation> sourceInformationObjectList;
     Context context;
     int tripTracker;
+
+    /**
+     * @param context
+     * @param tripObjectList
+     * @param siteInformationObjectList
+     * @param sourceInformationObjectList
+     * @param owner
+     * @param tripTracker
+     */
     public BottomSheetAdapter(
             Context context,
             List<Trip> tripObjectList,
             List<SiteInformation> siteInformationObjectList,
-            List<SourceInformation> sourceInformationObjectList, ViewModelStoreOwner owner, int tripTracker){
+            List<SourceInformation> sourceInformationObjectList, ViewModelStoreOwner owner, int tripTracker) {
         this.siteInformationObjectList = siteInformationObjectList;
         this.sourceInformationObjectList = sourceInformationObjectList;
         this.context = context;
         this.tripTracker = tripTracker;
-        Log.i("Bottom", ""+tripTracker);
+        Log.i("Bottom", "" + tripTracker);
     }
+
+    /**
+     * @param siteInformationObjectList
+     */
     public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
         this.siteInformationObjectList = siteInformationObjectList;
     }
 
+
+    /**
+     * @param sourceInformationObjectList
+     */
     public void setSourceInformationObjectList(List<SourceInformation> sourceInformationObjectList) {
         this.sourceInformationObjectList = sourceInformationObjectList;
     }
+
+    /**
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public BottomSheetAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -62,45 +88,70 @@ public class BottomSheetAdapter extends  RecyclerView.Adapter<BottomSheetAdapter
         return new ViewHolder(view);
     }
 
+
+    /**
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull BottomSheetAdapter.ViewHolder holder, int position) {
         setUpStepView(holder);
     }
+
+    /**
+     * @param holder
+     */
     private void setUpStepView(BottomSheetAdapter.ViewHolder holder) {
         List<String> stepsBeanList = new ArrayList<>();
-        for (int i=0; i<sourceInformationObjectList.size(); i++){
-            String waypointType="SOURCE";
-            stepsBeanList.add(sourceInformationObjectList.get(i).getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+sourceInformationObjectList.get(i).getAddress1().trim().toUpperCase()+" "+sourceInformationObjectList.get(i).getCity().trim().toUpperCase()+" "+sourceInformationObjectList.get(i).getStateAbbrev().trim().toUpperCase());
+        for (int i = 0; i < sourceInformationObjectList.size(); i++) {
+            String waypointType = "SOURCE";
+            stepsBeanList.add(sourceInformationObjectList.get(i).getDestinationName().trim().toUpperCase() + " (" + waypointType + ")" + "\n" + sourceInformationObjectList.get(i).getAddress1().trim().toUpperCase() + " " + sourceInformationObjectList.get(i).getCity().trim().toUpperCase() + " " + sourceInformationObjectList.get(i).getStateAbbrev().trim().toUpperCase());
         }
-        for (int i=0; i<siteInformationObjectList.size(); i++){
-            String waypointType="SITE";
-            stepsBeanList.add(siteInformationObjectList.get(i).getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+siteInformationObjectList.get(i).getAddress1().trim().toUpperCase()+" "+siteInformationObjectList.get(i).getCity().trim().toUpperCase()+" "+siteInformationObjectList.get(i).getStateAbbrev().trim().toUpperCase());
+        for (int i = 0; i < siteInformationObjectList.size(); i++) {
+            String waypointType = "SITE";
+            stepsBeanList.add(siteInformationObjectList.get(i).getDestinationName().trim().toUpperCase() + " (" + waypointType + ")" + "\n" + siteInformationObjectList.get(i).getAddress1().trim().toUpperCase() + " " + siteInformationObjectList.get(i).getCity().trim().toUpperCase() + " " + siteInformationObjectList.get(i).getStateAbbrev().trim().toUpperCase());
         }
         stepsBeanList.add("");
-        holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-siteInformationObjectList.size()-sourceInformationObjectList.size()+1)
+        holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size() - siteInformationObjectList.size() - sourceInformationObjectList.size() + 1)
                 .reverseDraw(false)
                 .setStepViewTexts(stepsBeanList)
                 .setLinePaddingProportion(1)
                 .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(context, R.color.source_green))
                 .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(context, R.color.site_color))
                 .setStepViewComplectedTextColor(ContextCompat.getColor(context, R.color.option_outline))
-                .setStepViewUnComplectedTextColor(ContextCompat.getColor(context,  R.color.option_outline))
+                .setStepViewUnComplectedTextColor(ContextCompat.getColor(context, R.color.option_outline))
                 .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(context, R.drawable.source_circle))
                 .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(context, R.drawable.site_circle))
                 .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24)).setTextSize(16);
     }
+
+    /**
+     * @return
+     */
     @Override
     public int getItemCount() {
         return 1;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+    /**
+     *
+     */
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final VerticalStepView stepView;
 
+
+        /**
+         * @param itemView
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             stepView = (VerticalStepView) itemView.findViewById(R.id.step_view_sheet);
         }
+
+        /**
+         * @return
+         */
         public VerticalStepView getStepView() {
             return stepView;
         }

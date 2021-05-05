@@ -23,18 +23,21 @@ import com.example.git_set_code.viewmodels.TripsData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class TripRepository {
     private TripDao tripDao;
     private Context thisContext;
     private TripsAPIService tripsAPIService;
     private List<TripsData> tripsDataList;
     private LiveData<List<Driver>> getAllDrivers;
-    private  LiveData<List<SiteInformation>> getAllSite;
-    private  LiveData<List<SourceInformation>> getAllSource;
-    private  LiveData<List<Trailer>> getAllTrailer;
-    private  LiveData<List<Truck>> getAllTruck;
-    private  LiveData<List<Trip>> getAllTrip;
-    private  LiveData<List<TripClientData>> getAllTripClient;
+    private LiveData<List<SiteInformation>> getAllSite;
+    private LiveData<List<SourceInformation>> getAllSource;
+    private LiveData<List<Trailer>> getAllTrailer;
+    private LiveData<List<Truck>> getAllTruck;
+    private LiveData<List<Trip>> getAllTrip;
+    private LiveData<List<TripClientData>> getAllTripClient;
     private LiveData<List<Double>> sourceLatitudes;
     private LiveData<List<Double>> sourceLongitudes;
     private LiveData<List<Double>> siteLatitudes;
@@ -49,7 +52,10 @@ public class TripRepository {
     List<TripClientData> tripClientData;
     LiveData<List<Integer>> selections;
 
-    public TripRepository(Application application){
+    /**
+     * @param application
+     */
+    public TripRepository(Application application) {
         TripDatabase tripDatabase = TripDatabase.getInstance(application);
         tripDao = tripDatabase.tripDao();
         getAllDrivers = tripDao.getAllDrivers();
@@ -60,18 +66,18 @@ public class TripRepository {
         getAllTrip = tripDao.getAllTrip();
         selections = tripDao.getSelected();
         sourceLatitudes = tripDao.getSourceLatitude();
-        sourceLongitudes= tripDao.getSourceLongitude();
-        siteLatitudes= tripDao.getSiteLatitude();
-        siteLongitudes= tripDao.getSiteLongitude();
+        sourceLongitudes = tripDao.getSourceLongitude();
+        siteLatitudes = tripDao.getSiteLatitude();
+        siteLongitudes = tripDao.getSiteLongitude();
         getAllTripClient = tripDao.getAllTripClientData();
         thisContext = application.getApplicationContext();
-        driverObjectList= new ArrayList<>();
-        siteInformationObjectList= new ArrayList<>();
-        sourceInformationObjectList= new ArrayList<>();
-        truckObjectList= new ArrayList<>();
-        trailerObjectList= new ArrayList<>();
-        tripObjectList= new ArrayList<>();
-        tripClientData= new ArrayList<>();
+        driverObjectList = new ArrayList<>();
+        siteInformationObjectList = new ArrayList<>();
+        sourceInformationObjectList = new ArrayList<>();
+        truckObjectList = new ArrayList<>();
+        trailerObjectList = new ArrayList<>();
+        tripObjectList = new ArrayList<>();
+        tripClientData = new ArrayList<>();
     }
 
     public LiveData<List<Integer>> getGetSelected() {
@@ -105,6 +111,7 @@ public class TripRepository {
     public LiveData<List<Trip>> getGetAllTrip() {
         return getAllTrip;
     }
+
     public LiveData<List<TripClientData>> getGetAllTripClient() {
         return getAllTripClient;
     }
@@ -125,81 +132,117 @@ public class TripRepository {
         return siteLongitudes;
     }
 
-    public void extractData(){
+    public void extractData() {
         TripsAPIService tripsAPIService = new TripsAPIService();
-        tripsAPIService.getRequestedJsonForRepo(thisContext, driverObjectList, siteInformationObjectList,  sourceInformationObjectList,truckObjectList, trailerObjectList, tripObjectList, tripClientData, new TripsAPIService.VolleyResponseListener() {
+        tripsAPIService.getRequestedJsonForRepo(thisContext, driverObjectList, siteInformationObjectList, sourceInformationObjectList, truckObjectList, trailerObjectList, tripObjectList, tripClientData, new TripsAPIService.VolleyResponseListener() {
+
+            /**
+             *
+             * @param message
+             */
             @Override
             public void onError(String message) {
             }
 
+            /**
+             *
+             */
             @Override
             public void onResponse() {
-                for(int i =0; i<driverObjectList.size(); i++){
+                for (int i = 0; i < driverObjectList.size(); i++) {
                     insertDriver(driverObjectList.get(i));
                 }
-                for(int i =0; i<truckObjectList.size(); i++){
+                for (int i = 0; i < truckObjectList.size(); i++) {
                     insertTruck(truckObjectList.get(i));
                 }
-                for(int i =0; i<trailerObjectList.size(); i++){
+                for (int i = 0; i < trailerObjectList.size(); i++) {
                     insertTrailer(trailerObjectList.get(i));
                 }
-                for(int i =0; i<tripObjectList.size(); i++){
+                for (int i = 0; i < tripObjectList.size(); i++) {
                     insertTrip(tripObjectList.get(i));
                 }
-                for(int i =0; i<siteInformationObjectList.size(); i++){
+                for (int i = 0; i < siteInformationObjectList.size(); i++) {
                     insertSiteInformation(siteInformationObjectList.get(i));
                 }
-                for(int i =0; i<sourceInformationObjectList.size(); i++){
+                for (int i = 0; i < sourceInformationObjectList.size(); i++) {
                     insertSourceinformation(sourceInformationObjectList.get(i));
                 }
-                for(int i =0; i<tripClientData.size(); i++){
+                for (int i = 0; i < tripClientData.size(); i++) {
                     insertTripClientData(tripClientData.get(i));
                 }
             }
 
         });
     }
-    public void insertDriver(Driver driver){
+
+    /**
+     * @param driver
+     */
+    public void insertDriver(Driver driver) {
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertDrivers(driver);
         });
     }
 
-    public void insertTrip(Trip trip){
+
+    /**
+     * @param trip
+     */
+    public void insertTrip(Trip trip) {
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertTrip(trip);
         });
     }
 
-    public void insertTruck(Truck truck){
+    /**
+     * @param truck
+     */
+    public void insertTruck(Truck truck) {
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertTruck(truck);
         });
     }
 
-    public void insertTrailer(Trailer trailer){
+    /**
+     * @param trailer
+     */
+    public void insertTrailer(Trailer trailer) {
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertTrailer(trailer);
         });
     }
 
-    public void insertSiteInformation(SiteInformation siteInformation){
+    /**
+     * @param siteInformation
+     */
+    public void insertSiteInformation(SiteInformation siteInformation) {
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertSite(siteInformation);
         });
     }
 
-    public void insertSourceinformation(SourceInformation sourceInformation){
+    /**
+     * @param sourceInformation
+     */
+    public void insertSourceinformation(SourceInformation sourceInformation) {
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertSource(sourceInformation);
         });
     }
-    public void setSelection(){
+
+    /**
+     *
+     */
+    public void setSelection() {
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.setSelection();
         });
     }
-    public void insertTripClientData(TripClientData tripClientData){
+
+    /**
+     * @param tripClientData
+     */
+    public void insertTripClientData(TripClientData tripClientData) {
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertTripClientData(tripClientData);
         });

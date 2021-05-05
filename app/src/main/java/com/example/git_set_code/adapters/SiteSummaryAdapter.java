@@ -1,5 +1,7 @@
 package com.example.git_set_code.adapters;
 
+//Importing necessary packages
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,9 @@ import soup.neumorphism.NeumorphButton;
 import soup.neumorphism.NeumorphCardView;
 import soup.neumorphism.ShapeType;
 
+/**
+ *
+ */
 public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.ViewHolder> {
 
     private boolean expanded;
@@ -38,7 +43,8 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     SlidebarStateHolder slidebarStateHolder;
     Context context;
     int step;
-    public SiteSummaryAdapter(Context context, List<SiteInformation> siteInformationObjectList){
+
+    public SiteSummaryAdapter(Context context, List<SiteInformation> siteInformationObjectList) {
         this.siteInformationObjectList = siteInformationObjectList;
         this.context = context;
     }
@@ -48,6 +54,11 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     }
 
 
+    /**
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public SiteSummaryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,41 +66,68 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
         return new ViewHolder(view);
     }
 
+    /**
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull SiteSummaryAdapter.ViewHolder holder, int position) {
         holder.getExpandableSummaryLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
-        holder.getWayPointType().setText("Site Container: "+siteInformationObjectList.get(position).getDestinationCod());
+        holder.getWayPointType().setText("Site Container: " + siteInformationObjectList.get(position).getDestinationCod());
         holder.getProductName().setText(siteInformationObjectList.get(position).getProductDesc());
         holder.getVendorName().setText(siteInformationObjectList.get(position).getDestinationName());
         holder.getTerminalName().setText(siteInformationObjectList.get(position).getSiteContainerDescription());
-        holder.getTerminalAddress().setText(siteInformationObjectList.get(position).getAddress1().trim()+", "+siteInformationObjectList.get(position).getCity().trim()+" "+siteInformationObjectList.get(position).getStateAbbrev().trim());
+        holder.getTerminalAddress().setText(siteInformationObjectList.get(position).getAddress1().trim() + ", " + siteInformationObjectList.get(position).getCity().trim() + " " + siteInformationObjectList.get(position).getStateAbbrev().trim());
         holder.getSpecialInstructions().setText(siteInformationObjectList.get(position).getFill());
         holder.getQuantities().setText(String.valueOf(siteInformationObjectList.get(position).getRequestedQty()));
         onSourceSummaryButtonClicked(holder.getFormButton());
     }
 
+    /**
+     * @param sourceButton
+     */
     private void onSourceSummaryButtonClicked(Button sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             *
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 swapFragment(v);
             }
         });
     }
-    private void swapFragment(View v){
+
+    /**
+     * @param v
+     */
+    private void swapFragment(View v) {
         Navigation.findNavController(v).navigate(R.id.action_tripSummary_to_temporarySite);
 
     }
+
+    /**
+     * @return
+     */
     @Override
     public int getItemCount() {
         return siteInformationObjectList.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+    /**
+     *
+     */
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, wayPointType;
         private final ConstraintLayout expandable_summary_layout;
         private final NeumorphCardView cardView;
         private final NeumorphButton formButton;
 
+        /**
+         * @param itemView
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             wayPointType = itemView.findViewById(R.id.trip_summary_title);
@@ -104,60 +142,92 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
             quantities = itemView.findViewById(R.id.tv_quantities);
             formButton = itemView.findViewById(R.id.enter_information_site);
             expandOnClick(cardView);
-            if(expanded)cardView.setShapeType(1);
-            else {cardView.setShapeType(0);
-                expanded=false;}
+            if (expanded) cardView.setShapeType(1);
+            else {
+                cardView.setShapeType(0);
+                expanded = false;
+            }
 
         }
 
+        /**
+         * @param cardView
+         */
         private void expandOnClick(NeumorphCardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     expanded = !expanded;
                     cardView.setShapeType(step);
-                    Log.i("expand",""+cardView.getShapeType());
+                    Log.i("expand", "" + cardView.getShapeType());
                     notifyItemChanged(getAdapterPosition());
                 }
             });
         }
 
+
+        /**
+         * @return
+         */
         public ConstraintLayout getExpandableSummaryLayout() {
             return expandable_summary_layout;
         }
 
+        /**
+         * @return
+         */
         public TextView getWayPointType() {
             return wayPointType;
         }
 
+        /**
+         * @return
+         */
         public TextView getProductName() {
             return productName;
         }
+
+        /**
+         * @return
+         */
         public TextView getVendorName() {
             return vendorName;
         }
 
+        /**
+         * @return
+         */
         public TextView getTerminalName() {
             return terminalName;
         }
 
+        /**
+         * @return
+         */
         public TextView getTerminalAddress() {
             return terminalAddress;
         }
 
+        /**
+         * @return
+         */
         public Button getFormButton() {
             return formButton;
         }
 
+        /**
+         * @return
+         */
         public TextView getSpecialInstructions() {
             return specialInstructions;
         }
 
+        /**
+         * @return
+         */
         public TextView getQuantities() {
             return quantities;
         }
-
-
 
     }
 }

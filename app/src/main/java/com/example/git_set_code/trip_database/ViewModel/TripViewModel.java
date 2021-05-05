@@ -18,6 +18,9 @@ import com.example.git_set_code.trip_database.Table.Truck;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class TripViewModel extends AndroidViewModel {
     private TripRepository tripRepository;
     private LiveData<List<Driver>> allDrivers;
@@ -35,7 +38,9 @@ public class TripViewModel extends AndroidViewModel {
     private LiveData<List<Double>> siteLongitudes;
 
 
-
+    /**
+     * @param application
+     */
     public TripViewModel(@NonNull Application application) {
         super(application);
         tripRepository = new TripRepository(application);
@@ -53,89 +58,156 @@ public class TripViewModel extends AndroidViewModel {
         siteLongitudes = tripRepository.getSiteLongitudes();
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Integer>> getGetSelected() {
         return getSelected;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Driver>> getAllDrivers() {
         return allDrivers;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<SiteInformation>> getAllSite() {
         return allSite;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<SourceInformation>> getAllSource() {
         return allSource;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Trailer>> getAllTrailer() {
         return allTrailer;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Truck>> getAllTruck() {
         return allTruck;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Trip>> getAllTrip() {
         return allTrip;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<TripClientData>> getAllTripClientData() {
         return allTripClientData;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Integer>> getInsertTripClient() {
         return insertTripClient;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Double>> getSourceLatitudes() {
         return sourceLatitudes;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Double>> getSourceLongitudes() {
         return sourceLongitudes;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Double>> getSiteLatitudes() {
         return siteLatitudes;
     }
 
+    /**
+     * @return
+     */
     public LiveData<List<Double>> getSiteLongitudes() {
         return siteLongitudes;
     }
 
-    public void extractData(){
+    /**
+     *
+     */
+    public void extractData() {
         tripRepository.extractData();
     }
 
+    /**
+     * @param tripClientData
+     */
     public void setInsertTripClient(TripClientData tripClientData) {
-       tripRepository.insertTripClientData(tripClientData);
+        tripRepository.insertTripClientData(tripClientData);
     }
+
+    /**
+     * @param allDrivers
+     */
     public void insertDrivers(Driver allDrivers) {
         tripRepository.insertDriver(allDrivers);
     }
 
+    /**
+     * @param siteInformation
+     */
     public void insertSite(SiteInformation siteInformation) {
         tripRepository.insertSiteInformation(siteInformation);
     }
 
+    /**
+     * @param sourceInformation
+     */
     public void insertSource(SourceInformation sourceInformation) {
         tripRepository.insertSourceinformation(sourceInformation);
     }
 
+    /**
+     * @param trailer
+     */
     public void insertTrailer(Trailer trailer) {
         tripRepository.insertTrailer(trailer);
     }
 
+    /**
+     * @param truck
+     */
     public void insertTruck(Truck truck) {
         tripRepository.insertTruck(truck);
     }
 
+    /**
+     * @param trip
+     */
     public void insertTrip(Trip trip) {
         tripRepository.insertTrip(trip);
     }
 
+    /**
+     *
+     */
     public void setSelection() {
         tripRepository.setSelection();
     }

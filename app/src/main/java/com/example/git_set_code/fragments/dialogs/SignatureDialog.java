@@ -22,22 +22,35 @@ import com.example.git_set_code.fragments.TemporarySite;
 import com.example.git_set_code.fragments.TemporarySource;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
+/**
+ *
+ */
 public class SignatureDialog extends DialogFragment {
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View viewRoot =  inflater.inflate(R.layout.signature_pad, container, false);
+        View viewRoot = inflater.inflate(R.layout.signature_pad, container, false);
         return viewRoot;
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button saveButton = getView().findViewById(R.id.saveSignature);
         Button clearButton = getView().findViewById(R.id.clearSignature);
         SignaturePad signaturePad = getView().findViewById(R.id.signaturePad);
-        saveButton.setOnClickListener(v-> {
+        saveButton.setOnClickListener(v -> {
             Bitmap signatureBitmap = signaturePad.getSignatureBitmap();
             TemporarySite temporarySite = (TemporarySite) getParentFragment();
             temporarySite.captureSignature(signatureBitmap);
@@ -49,6 +62,10 @@ public class SignatureDialog extends DialogFragment {
         });
     }
 
+    /**
+     * @param savedInstanceState
+     * @return
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -62,6 +79,9 @@ public class SignatureDialog extends DialogFragment {
         return dialog;
     }
 
+    /**
+     * @return
+     */
     public static SignatureDialog newInstance() {
         return new SignatureDialog();
     }

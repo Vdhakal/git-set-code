@@ -9,7 +9,15 @@ import android.widget.Toast;
 
 import com.example.git_set_code.R;
 
+/**
+ *
+ */
 public class CustomToast {
+    /**
+     *
+     * @param activity
+     * @param toastMsg
+     */
     public static void showToast(Activity activity, String toastMsg){
         Toast toast = new Toast(activity.getApplicationContext());
         View view = activity.getLayoutInflater().inflate(R.layout.toast_layout, null);

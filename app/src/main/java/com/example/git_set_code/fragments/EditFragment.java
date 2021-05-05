@@ -49,9 +49,13 @@ public class EditFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    /**
+     *
+     */
     public EditFragment() {
         // Required empty public constructor
     }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -70,6 +74,10 @@ public class EditFragment extends Fragment {
         return fragment;
     }
 
+
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +87,12 @@ public class EditFragment extends Fragment {
         }
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,6 +102,10 @@ public class EditFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -97,9 +115,13 @@ public class EditFragment extends Fragment {
 
         initiateSignaturePad();
     }
+
+    /**
+     *
+     */
     private void handleAndroidPermissions() {
         permissionsRequestor = new PermissionsRequestor(getActivity());
-        permissionsRequestor.request(new PermissionsRequestor.ResultListener(){
+        permissionsRequestor.request(new PermissionsRequestor.ResultListener() {
 
             @Override
             public void permissionsGranted() {
@@ -114,6 +136,9 @@ public class EditFragment extends Fragment {
 
     }
 
+    /**
+     *
+     */
     private void initiateSignaturePad() {
         Button captureSignatureButton = getView().findViewById(R.id.captureSignatureButton);
         captureSignatureButton.setOnClickListener(v -> {
@@ -122,7 +147,10 @@ public class EditFragment extends Fragment {
         });
     }
 
-    public void captureSignature(Bitmap signatureBitmap){
+    /**
+     * @param signatureBitmap
+     */
+    public void captureSignature(Bitmap signatureBitmap) {
         ImageView signatureView = getView().findViewById(R.id.signatureView);
         signatureView.setImageBitmap(signatureBitmap);
         signatureView.setVisibility(View.VISIBLE);
@@ -130,41 +158,53 @@ public class EditFragment extends Fragment {
         this.signatureBitmap = signatureBitmap;
     }
 
+    /**
+     *
+     */
     private void initiateBolCapture() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, 1888);
     }
 
+    /**
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1888 && resultCode == Activity.RESULT_OK) {
+        if (requestCode == 1888 && resultCode == Activity.RESULT_OK) {
             //photo bitmap saved here
             bolBitmap = (Bitmap) data.getExtras().get("data");
             saveToGallery(bolBitmap);
 
         }
     }
-    public  void  saveToGallery(Bitmap bitmap){
+
+    /**
+     * @param bitmap
+     */
+    public void saveToGallery(Bitmap bitmap) {
         FileOutputStream outputStream = null;
         File file = getContext().getExternalFilesDir(null);
-        File dir = new File(file.getAbsolutePath()+"/BillOfLading");
+        File dir = new File(file.getAbsolutePath() + "/BillOfLading");
         String filename = String.format("%d.png", System.currentTimeMillis());
         File outPutFile = new File(dir, filename);
-        try{
+        try {
             outputStream = new FileOutputStream(outPutFile);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-        try{
+        try {
             outputStream.flush();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             outputStream.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

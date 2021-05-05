@@ -47,6 +47,9 @@ public class TemporarySite extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    /**
+     *
+     */
     public TemporarySite() {
         // Required empty public constructor
     }
@@ -69,6 +72,9 @@ public class TemporarySite extends Fragment {
         return fragment;
     }
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +84,12 @@ public class TemporarySite extends Fragment {
         }
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,9 +101,13 @@ public class TemporarySite extends Fragment {
         onSourceButtonClicked(sourceButton);
         initiateSignaturePad(rootView);
         dateListener();
-        return  rootView;
+        return rootView;
 
     }
+
+    /**
+     * @param rootView
+     */
     private void initItems(View rootView) {
         preDelivery = rootView.findViewById(R.id.pre_delivery);
         postDelivery = rootView.findViewById(R.id.post_delivery);
@@ -105,6 +121,10 @@ public class TemporarySite extends Fragment {
         remainingFuel = rootView.findViewById(R.id.remaining_fuel);
 
     }
+
+    /**
+     *
+     */
     private void dateListener() {
 
         startDate.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +166,11 @@ public class TemporarySite extends Fragment {
 
     }
 
+    /**
+     * @param inputTime
+     * @throws java.lang.InstantiationException
+     * @throws IllegalAccessException
+     */
     private void timePickerInput(EditText inputTime) throws java.lang.InstantiationException, IllegalAccessException {
         MaterialTimePicker.Builder builder = MaterialTimePicker.Builder.class.newInstance().
                 setTimeFormat(TimeFormat.CLOCK_12H)
@@ -155,11 +180,14 @@ public class TemporarySite extends Fragment {
         final MaterialTimePicker materialTimePicker = builder.build();
         materialTimePicker.show(getParentFragmentManager(), "tag");
         materialTimePicker.addOnPositiveButtonClickListener(v -> {
-            inputTime.setText(materialTimePicker.getHour() +" : "+materialTimePicker.getMinute());
+            inputTime.setText(materialTimePicker.getHour() + " : " + materialTimePicker.getMinute());
         });
-        inputTime.setTextColor(ContextCompat.getColor(getContext(),android.R.color.black));
+        inputTime.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
     }
 
+    /**
+     * @param inputDate
+     */
     private void datePickerInput(EditText inputDate) {
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setSelection(MaterialDatePicker.todayInUtcMilliseconds());
         builder.setTitleText("SELECT A DATE");
@@ -167,30 +195,42 @@ public class TemporarySite extends Fragment {
         final MaterialDatePicker materialDatePicker = builder.build();
         materialDatePicker.show(getParentFragmentManager(), "DATE_PICKER");
         materialDatePicker.addOnPositiveButtonClickListener(selection -> inputDate.setText(materialDatePicker.getHeaderText()));
-        inputDate.setTextColor(ContextCompat.getColor(getContext(),android.R.color.black));
+        inputDate.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
     }
+
+    /**
+     * @param sourceButton
+     */
     private void onSourceButtonClicked(Button sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 swapFragment(v);
                 Toast.makeText(getContext(), "{" +
-                        "\nRemaining fuel (Pre delivery): "+preDelivery.getText()+
-                        "\nProduct Type: "+prodType.getText()+
-                        "\nStart Date: "+startDate.getText()+
-                        "\nStart Time: "+startTime.getText()+
-                        "\nEnd Date: "+endDate.getText()+
-                        "\nEnd Time: "+endTime.getText()+
-                        "\nGross Gallons: "+grossGallons.getText()+
-                        "\nNet Gallons: "+netGallons.getText()+
-                        "\nRemaining Fuel: "+remainingFuel.getText()+"\n}", Toast.LENGTH_LONG).show();
+                        "\nRemaining fuel (Pre delivery): " + preDelivery.getText() +
+                        "\nProduct Type: " + prodType.getText() +
+                        "\nStart Date: " + startDate.getText() +
+                        "\nStart Time: " + startTime.getText() +
+                        "\nEnd Date: " + endDate.getText() +
+                        "\nEnd Time: " + endTime.getText() +
+                        "\nGross Gallons: " + grossGallons.getText() +
+                        "\nNet Gallons: " + netGallons.getText() +
+                        "\nRemaining Fuel: " + remainingFuel.getText() + "\n}", Toast.LENGTH_LONG).show();
             }
         });
     }
-    private void swapFragment(View v){
+
+    /**
+     * @param v
+     */
+    private void swapFragment(View v) {
         Navigation.findNavController(v).navigate(R.id.action_temporarySite_to_mapsFragment);
 
     }
+
+    /**
+     * @param rootView
+     */
     private void initiateSignaturePad(View rootView) {
         NeumorphButton captureSignatureButton = rootView.findViewById(R.id.captureSignatureButton);
         captureSignatureButton.setOnClickListener(v -> {
@@ -198,7 +238,11 @@ public class TemporarySite extends Fragment {
             signatureDialog.show(getChildFragmentManager(), "signatureDialog");
         });
     }
-    public void captureSignature(Bitmap signatureBitmap){
+
+    /**
+     * @param signatureBitmap
+     */
+    public void captureSignature(Bitmap signatureBitmap) {
         ImageView signatureView = getView().findViewById(R.id.signatureView);
         signatureView.setImageBitmap(signatureBitmap);
         signatureView.setVisibility(View.VISIBLE);

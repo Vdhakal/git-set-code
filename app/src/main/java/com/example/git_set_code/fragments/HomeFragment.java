@@ -66,11 +66,23 @@ public class HomeFragment extends Fragment {
     View rootView;
     ConstraintLayout constraintLayout;
     List<Integer> expandState;
+
+
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         thiscontext = this.getContext();
     }
+
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,10 +91,10 @@ public class HomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
 
-        rootView =  inflater.inflate(R.layout.home_fragment, container, false);
+        rootView = inflater.inflate(R.layout.home_fragment, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_trips_list);
         tripsDataList = new ArrayList<>();
-        progressBar = (ProgressBar)rootView.findViewById(R.id.progress_circular);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_circular);
         tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
         tripViewModel.extractData();
         setUpUI();
@@ -91,9 +103,9 @@ public class HomeFragment extends Fragment {
         CheckNetwork.checkNetworkInfo(thiscontext, new CheckNetwork.OnConnectionStatusChange() {
             @Override
             public void onChange(boolean type) {
-                if(type){
+                if (type) {
                     //extractData();
-                }else {
+                } else {
 //                    setUpUI();
                 }
             }
@@ -103,28 +115,35 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    private void saveToSdCard() { try {
-        File sd = Environment.getExternalStorageDirectory();
-        File data = Environment.getDataDirectory();
+    /**
+     *
+     */
+    private void saveToSdCard() {
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
 
-        if (sd.canWrite()) {
-            String currentDBPath = getContext().getDatabasePath("saved_data").getAbsolutePath();
-            String backupDBPath = "saved_data";
-            File currentDB = new File(data, currentDBPath);
-            File backupDB = new File(sd, backupDBPath);
+            if (sd.canWrite()) {
+                String currentDBPath = getContext().getDatabasePath("saved_data").getAbsolutePath();
+                String backupDBPath = "saved_data";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDBPath);
 
-            if (currentDB.exists()) {
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-                dst.transferFrom(src, 0, src.size());
-                src.close();
-                dst.close();
+                if (currentDB.exists()) {
+                    FileChannel src = new FileInputStream(currentDB).getChannel();
+                    FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                    dst.transferFrom(src, 0, src.size());
+                    src.close();
+                    dst.close();
+                }
             }
+        } catch (Exception e) {
         }
-    } catch (Exception e) {
-    }
     }
 
+    /**
+     *
+     */
     private void setUpObservers() {
 
         tripViewModel.getAllTrip().observe(requireActivity(), new Observer<List<Trip>>() {
@@ -157,10 +176,13 @@ public class HomeFragment extends Fragment {
 
     }
 
+    /**
+     *
+     */
     private void setUpUI() {
-            mLayoutManager = new LinearLayoutManager(getActivity());
-            mRecyclerView.addItemDecoration(new TripsDecorator(20));
-            adapter = new TripsAdapter(getActivity(), new ArrayList<Trip>(), new ArrayList<SiteInformation>(),new ArrayList<SourceInformation>(),requireActivity());
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.addItemDecoration(new TripsDecorator(20));
+        adapter = new TripsAdapter(getActivity(), new ArrayList<Trip>(), new ArrayList<SiteInformation>(), new ArrayList<SourceInformation>(), requireActivity());
 //            adapter.setOnItemClickListner(new TripsAdapter.expandState() {
 //                @Override
 //                public void cardView(boolean expand) {
@@ -172,11 +194,20 @@ public class HomeFragment extends Fragment {
     }
 
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
     }
+
+    /**
+     * @param tripCbjectList
+     * @param activity
+     */
     public void setUpSlider(List<Trip> tripCbjectList, Activity activity) {
 /*        swipeButton = (SwipeButton) rootView.findViewById(R.id.slideView);
         swipeButton.setText("sdsad");
@@ -196,7 +227,7 @@ public class HomeFragment extends Fragment {
                     CustomToast.showToast(activity, msg);
                 }
             });*/
-        }
+    }
 
 
 }

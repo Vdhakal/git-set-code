@@ -1,5 +1,7 @@
 package com.example.git_set_code.adapters;
 
+//Importing necessary packages
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -30,20 +32,33 @@ import java.util.List;
 
 import ng.max.slideview.SlideView;
 
+/**
+ *
+ */
 public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.ViewHolder> {
 
-    private  List<TripsData> tripsDataList;
+    private List<TripsData> tripsDataList;
     private boolean expanded;
     private Context context;
     private SlidebarStateHolder slidebarStateHolder;
 
-    public TripsAdapterOnline(Context context, List<TripsData> tripsDataList){
+    /**
+     * @param context
+     * @param tripsDataList
+     */
+    public TripsAdapterOnline(Context context, List<TripsData> tripsDataList) {
         this.tripsDataList = tripsDataList;
         this.expanded = false;
         this.context = context;
         //Toast.makeText(context, tripsDataList.get(2).toString(), Toast.LENGTH_SHORT).show();
 
     }
+
+    /**
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public TripsAdapterOnline.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,6 +66,10 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
         return new ViewHolder(view);
     }
 
+    /**
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull TripsAdapterOnline.ViewHolder holder, int position) {
         holder.getExpandableLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
@@ -63,25 +82,43 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
     }
     //This is how you'd change fragments
 
+    /**
+     * @param sourceButton
+     */
     private void onSummaryButtonClick(Button sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             *
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 swapFragment(v);
             }
         });
     }
-    private void swapFragment(View v){
+
+    /**
+     * @param v
+     */
+    private void swapFragment(View v) {
         Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_tripSummary);
 
     }
+
+    /**
+     * @param holder
+     */
     private void setUpSlider(ViewHolder holder) {
         holder.getSlideView().setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
             public void onSlideComplete(SlideView slideView) {
                 // vibrate the device
                 Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                if(vibrator.hasVibrator()){vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE)); }
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+                }
                 holder.getSlideView().setText("Selected");
                 holder.getSlideView().setButtonBackgroundColor(ColorStateList.valueOf(Color.LTGRAY));
                 holder.getSlideView().setSlideBackgroundColor(ColorStateList.valueOf(Color.GRAY));
@@ -91,34 +128,46 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
         });
     }
 
+    /**
+     * @param holder
+     */
     private void setUpStepView(ViewHolder holder) {
         List<String> stepsBeanList = new ArrayList<>();
-        for (int i=0; i<tripsDataList.size(); i++){
-            String waypointType="";
-            if(tripsDataList.get(i).getWaypointTypeDescription().equals("Site Container"))waypointType="SITE";
-            if(tripsDataList.get(i).getWaypointTypeDescription().equals("Source"))waypointType="SOURCE";
-            stepsBeanList.add(tripsDataList.get(i).getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+tripsDataList.get(i).getAddress1().trim().toUpperCase()+" "+tripsDataList.get(i).getCity().trim().toUpperCase()+" "+tripsDataList.get(i).getStateAbbrev().trim().toUpperCase());
+        for (int i = 0; i < tripsDataList.size(); i++) {
+            String waypointType = "";
+            if (tripsDataList.get(i).getWaypointTypeDescription().equals("Site Container"))
+                waypointType = "SITE";
+            if (tripsDataList.get(i).getWaypointTypeDescription().equals("Source"))
+                waypointType = "SOURCE";
+            stepsBeanList.add(tripsDataList.get(i).getDestinationName().trim().toUpperCase() + " (" + waypointType + ")" + "\n" + tripsDataList.get(i).getAddress1().trim().toUpperCase() + " " + tripsDataList.get(i).getCity().trim().toUpperCase() + " " + tripsDataList.get(i).getStateAbbrev().trim().toUpperCase());
         }
         stepsBeanList.add("");
-        holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-1)
+        holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size() - 1)
                 .reverseDraw(false)
                 .setStepViewTexts(stepsBeanList)
                 .setLinePaddingProportion(1)
                 .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(context, R.color.source_green))
                 .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(context, android.R.color.holo_green_light))
                 .setStepViewComplectedTextColor(ContextCompat.getColor(context, R.color.step_indicator))
-                .setStepViewUnComplectedTextColor(ContextCompat.getColor(context,  R.color.background_orange))
+                .setStepViewUnComplectedTextColor(ContextCompat.getColor(context, R.color.background_orange))
                 .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(context, R.drawable.source_circle))
                 .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24))
                 .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24)).setTextSize(16);
     }
 
     @Override
+    /**
+     *
+     */
     public int getItemCount() {
         return 1;
     }
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView  productName, stops, title;
+
+    /**
+     *
+     */
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView productName, stops, title;
         private final CardView cardView;
         private final ConstraintLayout expandableLayout;
         private final VerticalStepView stepView;
@@ -126,6 +175,9 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
         private final Button summaryButton;
 
 
+        /**
+         * @param itemView
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.trips_card_view);
@@ -140,6 +192,9 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
             expandOnClick(cardView);
         }
 
+        /**
+         * @param cardView
+         */
         private void expandOnClick(CardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -150,26 +205,51 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
             });
         }
 
+        /**
+         * @return
+         */
         public Button getSummaryButton() {
             return summaryButton;
         }
 
-        public TextView getProductName() { return productName; }
+        /**
+         * @return
+         */
+        public TextView getProductName() {
+            return productName;
+        }
 
+        /**
+         * @return
+         */
         public TextView getStops() {
             return stops;
         }
 
-        public ConstraintLayout getExpandableLayout(){return expandableLayout;}
+        /**
+         * @return
+         */
+        public ConstraintLayout getExpandableLayout() {
+            return expandableLayout;
+        }
 
+        /**
+         * @return
+         */
         public VerticalStepView getStepView() {
             return stepView;
         }
 
+        /**
+         * @return
+         */
         public SlideView getSlideView() {
             return slideView;
         }
 
+        /**
+         * @return
+         */
         public TextView getTitle() {
             return title;
         }

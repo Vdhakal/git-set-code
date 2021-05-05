@@ -63,23 +63,32 @@ public class TripSummary extends Fragment {
     TextView site_tv;
     TextView select;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         thiscontext = this.getContext();
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
 
-        View rootView =  inflater.inflate(R.layout.fragment_trip_summary, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_trip_summary, container, false);
         siteRecyclerView = (RecyclerView) rootView.findViewById(R.id.site_list);
         sourceRecyclerView = (RecyclerView) rootView.findViewById(R.id.source_list);
         tripsDataList = new ArrayList<>();
-        progressBar= (ProgressBar)rootView.findViewById(R.id.progress_circular);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_circular);
         source_tv = rootView.findViewById(R.id.item1);
         site_tv = rootView.findViewById(R.id.item2);
         select = rootView.findViewById(R.id.select);
@@ -91,11 +100,15 @@ public class TripSummary extends Fragment {
 
 
         CheckNetwork.checkNetworkInfo(thiscontext, new CheckNetwork.OnConnectionStatusChange() {
+            /**
+             *
+             * @param type
+             */
             @Override
             public void onChange(boolean type) {
-                if(type){
+                if (type) {
 //                    extractData();
-                }else {
+                } else {
 //                    setUpUI();
                 }
             }
@@ -104,6 +117,9 @@ public class TripSummary extends Fragment {
         return rootView;
     }
 
+    /**
+     *
+     */
     private void navigateSourceSite() {
         source_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +149,9 @@ public class TripSummary extends Fragment {
 
     }
 
+    /**
+     *
+     */
     private void setUpSiteObservers() {
 //
 //        tripViewModel.getAllSource().observe(requireActivity(), new Observer<List<SourceInformation>>() {
@@ -158,6 +177,10 @@ public class TripSummary extends Fragment {
         });
 
     }
+
+    /**
+     *
+     */
     private void setUpSourceObservers() {
 
         tripViewModel.getAllSource().observe(requireActivity(), new Observer<List<SourceInformation>>() {
@@ -174,17 +197,20 @@ public class TripSummary extends Fragment {
 
     }
 
+    /**
+     * @param slideView
+     */
     private void setUpSlider(View slideView) {
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SwipeButton swipeButton = (SwipeButton) slideView.findViewById(R.id.slideView);
 
-        if(sharedPreferences.getInt("selected",0)==1){
+        if (sharedPreferences.getInt("selected", 0) == 1) {
             swipeButton.setEnabled(false);
             swipeButton.setHasActivationState(false);
             swipeButton.setText("Trip Selected");
             swipeButton.setDisabledDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_check_circle_24));
         }
-        if(sharedPreferences.getInt("selected",0)==2){
+        if (sharedPreferences.getInt("selected", 0) == 2) {
             swipeButton.setEnabled(false);
             swipeButton.setText("Trip Completed");
             swipeButton.setDisabledDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_baseline_celebration_24));
@@ -211,11 +237,18 @@ public class TripSummary extends Fragment {
         });
     }
 
+    /**
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    /**
+     *
+     */
     private void setUpUI() {
 //        sourceSummaryAdapter = new SourceSummaryAdapter(getActivity(), new ArrayList<SourceInformation>());
 //        sourceRecyclerView.scrollToPosition(0);

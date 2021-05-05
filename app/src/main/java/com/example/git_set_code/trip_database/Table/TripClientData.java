@@ -6,10 +6,13 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+/**
+ *
+ */
 @Entity(foreignKeys = @ForeignKey(entity = Trip.class,
         parentColumns = "trip_id",
         childColumns = "trip_id_fk",
-        onDelete = ForeignKey.NO_ACTION),  tableName = "trip_client")
+        onDelete = ForeignKey.NO_ACTION), tableName = "trip_client")
 public class TripClientData {
     @PrimaryKey
     @NonNull
@@ -17,16 +20,25 @@ public class TripClientData {
     private int tripId;
     private int selected;
 
+    /**
+     * @param selected
+     * @param tripId
+     */
     public TripClientData(int selected, int tripId) {
         this.selected = selected;
         this.tripId = tripId;
     }
 
-
+    /**
+     * @return
+     */
     public int getSelected() {
         return selected;
     }
 
+    /**
+     * @return
+     */
     public int getTripId() {
         return tripId;
     }

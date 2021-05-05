@@ -25,6 +25,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class ViewModelMap extends ViewModel {
     private List<Double> sourceLatitudes;
     private List<Double> sourceLongitudes;
@@ -36,111 +39,172 @@ public class ViewModelMap extends ViewModel {
     private GeoPosition geoPosition;
     private Map map = null;
     private AndroidXMapFragment mapFragment = null;
-    private int tripTracker=-1;
-    private int lol= -1;
+    private int tripTracker = -1;
+    private int lol = -1;
 
+    /**
+     * @return
+     */
     public int getLol() {
-        if(lol==-1)
-            lol=lol+1;
+        if (lol == -1)
+            lol = lol + 1;
         return lol;
     }
 
-
+    /**
+     * @return
+     */
     public int getTripTracker() {
-        if(tripTracker==-1)
+        if (tripTracker == -1)
             setTripTracker();
         return tripTracker;
     }
 
+    /**
+     *
+     */
     private void setTripTracker() {
         tripTracker++;
     }
 
-    public ViewModelMap(){
+    /**
+     *
+     */
+    public ViewModelMap() {
 
     }
 
+    /**
+     * @param sourceLatitudes
+     */
     public void setSourceLatitudes(List<Double> sourceLatitudes) {
         this.sourceLatitudes = sourceLatitudes;
     }
 
+    /**
+     * @param sourceLongitudes
+     */
     public void setSourceLongitudes(List<Double> sourceLongitudes) {
         this.sourceLongitudes = sourceLongitudes;
     }
 
+    /**
+     * @param siteLatitudes
+     */
     public void setSiteLatitudes(List<Double> siteLatitudes) {
         this.siteLatitudes = siteLatitudes;
     }
 
+    /**
+     * @param siteLongitudes
+     */
     public void setSiteLongitudes(List<Double> siteLongitudes) {
         this.siteLongitudes = siteLongitudes;
     }
 
-    public List<GeoCoordinate> getSourceGeoCoordinates(){
-        if(sourceGeoCoordinates==null) {
-            Log.i("TAG","new geo created.");
+    /**
+     * @return
+     */
+    public List<GeoCoordinate> getSourceGeoCoordinates() {
+        if (sourceGeoCoordinates == null) {
+            Log.i("TAG", "new geo created.");
             setSourceGeoCoordinates();
         }
         return sourceGeoCoordinates;
     }
 
+    /**
+     *
+     */
     private void setSourceGeoCoordinates() {
         sourceGeoCoordinates = new ArrayList<GeoCoordinate>();
-        for (int i=0; i<sourceLatitudes.size(); i++){
-            sourceGeoCoordinates.add(new GeoCoordinate(sourceLatitudes.get(i),sourceLongitudes.get(i)));
+        for (int i = 0; i < sourceLatitudes.size(); i++) {
+            sourceGeoCoordinates.add(new GeoCoordinate(sourceLatitudes.get(i), sourceLongitudes.get(i)));
         }
     }
 
+    /**
+     * @return
+     */
     public List<GeoCoordinate> getSiteGeoCoordinates() {
-        if(siteGeoCoordinates==null)
+        if (siteGeoCoordinates == null)
             setSiteGeoCoordinates();
         return siteGeoCoordinates;
     }
 
+    /**
+     *
+     */
     private void setSiteGeoCoordinates() {
         siteGeoCoordinates = new ArrayList<GeoCoordinate>();
-        for (int i=0; i<siteLongitudes.size(); i++){
-            Log.i("RVM", ""+siteLongitudes.size());
-            siteGeoCoordinates.add(new GeoCoordinate(siteLatitudes.get(i),siteLongitudes.get(i)));
+        for (int i = 0; i < siteLongitudes.size(); i++) {
+            Log.i("RVM", "" + siteLongitudes.size());
+            siteGeoCoordinates.add(new GeoCoordinate(siteLatitudes.get(i), siteLongitudes.get(i)));
         }
     }
 
+    /**
+     * @return
+     */
     public NavigationManager getM_navigationManager() {
-        if(m_navigationManager==null)
+        if (m_navigationManager == null)
             setM_navigationManager();
         return m_navigationManager;
     }
 
+    /**
+     *
+     */
     private void setM_navigationManager() {
         m_navigationManager = NavigationManager.getInstance();
     }
 
+    /**
+     * @return
+     */
     public GeoPosition getGeoPosition() {
         return geoPosition;
     }
 
+    /**
+     * @param geoPosition
+     */
     public void setGeoPosition(GeoPosition geoPosition) {
         this.geoPosition = geoPosition;
     }
 
+    /**
+     *
+     */
     public void setMap() {
         map = mapFragment.getMap();
     }
 
+    /**
+     * @return
+     */
     public Map getMap() {
-        if(map==null)
+        if (map == null)
             setMap();
         return map;
     }
-    public AndroidXMapFragment getMapFragment(AndroidXMapFragment mapFragment){
-        if(this.mapFragment==null) {
+
+    /**
+     * @param mapFragment
+     * @return
+     */
+    public AndroidXMapFragment getMapFragment(AndroidXMapFragment mapFragment) {
+        if (this.mapFragment == null) {
             Log.i("VMP", "MAP IS NULL ");
             setMapFragment(mapFragment);
-        }else
-            Log.i("VMP", "mapIsNotNull "+mapFragment.toString());
+        } else
+            Log.i("VMP", "mapIsNotNull " + mapFragment.toString());
         return mapFragment;
     }
 
+    /**
+     * @param mapFragment
+     */
     private void setMapFragment(AndroidXMapFragment mapFragment) {
         this.mapFragment = mapFragment;
     }

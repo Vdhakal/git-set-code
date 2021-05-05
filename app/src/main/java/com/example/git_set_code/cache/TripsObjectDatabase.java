@@ -12,6 +12,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import static java.time.chrono.IsoChronology.INSTANCE;
 
+/**
+ *
+ */
 @Database(entities = {TripsObject.class}, version = 1)
 public abstract class TripsObjectDatabase extends RoomDatabase {
 
@@ -19,6 +22,10 @@ public abstract class TripsObjectDatabase extends RoomDatabase {
 
     public abstract TripsObjectDao tripsObjectDao();
 
+    /**
+     * @param context
+     * @return
+     */
     public static TripsObjectDatabase getInstance(final Context context) {
         if (instance == null) {
             synchronized (TripsObjectDatabase.class) {

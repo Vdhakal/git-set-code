@@ -6,7 +6,9 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-
+/**
+ *
+ */
 @Entity(foreignKeys = @ForeignKey(entity = Trip.class,
         parentColumns = "trip_id",
         childColumns = "fk_trip_id",
@@ -18,28 +20,52 @@ public class SiteInformation {
     private int sequenceNum;
     @ColumnInfo(name = "fk_trip_id")
     private int trip_id;
-    private  String   siteContainerCode;
-    private  String   siteContainerDescription;
-    private  int  delReqNum;
-    private   int  delReqLineNum;
-    private  int   productId;
-    private  String   productCode;
-    private  String   productDesc;
-    private   int  requestedQty;
-    private   String  uom;
-    private  String   fill;
+    private String siteContainerCode;
+    private String siteContainerDescription;
+    private int delReqNum;
+    private int delReqLineNum;
+    private int productId;
+    private String productCode;
+    private String productDesc;
+    private int requestedQty;
+    private String uom;
+    private String fill;
     private double latitude;
     private double longitude;
-    private String  destinationCod;
-    private  String  destinationName;
-    private  String   address1;
-    private  String   address2;
-    private  String   city;
-    private  String   stateAbbrev;
+    private String destinationCod;
+    private String destinationName;
+    private String address1;
+    private String address2;
+    private String city;
+    private String stateAbbrev;
     private int postalCode;
     private String waypointTypeDescription;
 
-    public SiteInformation(String siteContainerCode, String siteContainerDescription, int delReqNum, int delReqLineNum, int productId, String productCode, String productDesc, int requestedQty, String uom, String fill, double latitude, double longitude, String destinationCod, String destinationName, String address1, String address2, String city, String stateAbbrev,int postalCode, int sequenceNum, String waypointTypeDescription, int trip_id) {
+    /**
+     * @param siteContainerCode
+     * @param siteContainerDescription
+     * @param delReqNum
+     * @param delReqLineNum
+     * @param productId
+     * @param productCode
+     * @param productDesc
+     * @param requestedQty
+     * @param uom
+     * @param fill
+     * @param latitude
+     * @param longitude
+     * @param destinationCod
+     * @param destinationName
+     * @param address1
+     * @param address2
+     * @param city
+     * @param stateAbbrev
+     * @param postalCode
+     * @param sequenceNum
+     * @param waypointTypeDescription
+     * @param trip_id
+     */
+    public SiteInformation(String siteContainerCode, String siteContainerDescription, int delReqNum, int delReqLineNum, int productId, String productCode, String productDesc, int requestedQty, String uom, String fill, double latitude, double longitude, String destinationCod, String destinationName, String address1, String address2, String city, String stateAbbrev, int postalCode, int sequenceNum, String waypointTypeDescription, int trip_id) {
         this.siteContainerCode = siteContainerCode;
         this.siteContainerDescription = siteContainerDescription;
         this.delReqNum = delReqNum;
@@ -232,18 +258,30 @@ public class SiteInformation {
 //        this.siteId = siteId;
 //    }
 
+    /**
+     * @return
+     */
     public int getTrip_id() {
         return trip_id;
     }
 
+    /**
+     * @param trip_id
+     */
     public void setTrip_id(int trip_id) {
         this.trip_id = trip_id;
     }
 
+    /**
+     * @return
+     */
     public String getWaypointTypeDescription() {
         return waypointTypeDescription;
     }
 
+    /**
+     * @param waypointTypeDescription
+     */
     public void setWaypointTypeDescription(String waypointTypeDescription) {
         this.waypointTypeDescription = waypointTypeDescription;
     }

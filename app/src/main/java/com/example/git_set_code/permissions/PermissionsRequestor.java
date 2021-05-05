@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -21,15 +22,25 @@ public class PermissionsRequestor {
     private ResultListener resultListener;
     private final Activity activity;
 
+    /**
+     * @param activity
+     */
     public PermissionsRequestor(Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     *
+     */
     public interface ResultListener {
         void permissionsGranted();
+
         void permissionsDenied();
     }
 
+    /**
+     * @param resultListener
+     */
     public void request(ResultListener resultListener) {
         this.resultListener = resultListener;
 
@@ -41,6 +52,9 @@ public class PermissionsRequestor {
         }
     }
 
+    /**
+     * @return
+     */
     private String[] getPermissionsToRequest() {
         ArrayList<String> permissionList = new ArrayList<>();
         try {
@@ -72,6 +86,10 @@ public class PermissionsRequestor {
         return permissionList.toArray(new String[0]);
     }
 
+    /**
+     * @param requestCode
+     * @param grantResults
+     */
     public void onRequestPermissionsResult(int requestCode, @NonNull int[] grantResults) {
         if (resultListener == null) {
             return;

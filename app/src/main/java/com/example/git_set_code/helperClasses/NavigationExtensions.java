@@ -16,6 +16,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.List;
 
 
+/**
+ *
+ */
 public class NavigationExtensions {
     private static String selectedItemTag;
     private static boolean isOnFirstFragment;
@@ -23,6 +26,14 @@ public class NavigationExtensions {
     private static int firstFragmentGraphId;
     private static SparseArray<String> graphIdToTagMap;
 
+    /**
+     * @param navView
+     * @param navGraphIds
+     * @param fragmentManager
+     * @param containerId
+     * @param intent
+     * @return
+     */
     public static LiveData<NavController> setupWithNavController(
             final BottomNavigationView navView,
             List<Integer> navGraphIds,
@@ -115,6 +126,13 @@ public class NavigationExtensions {
         return selectedNavController;
     }
 
+    /**
+     * @param fragmentManager
+     * @param fragmentTag
+     * @param navGraphId
+     * @param containerId
+     * @return
+     */
     private static NavHostFragment obtainNavHostFragment(
             FragmentManager fragmentManager,
             String fragmentTag,
@@ -132,6 +150,11 @@ public class NavigationExtensions {
         return navHostFragment;
     }
 
+    /**
+     * @param fragmentManager
+     * @param navHostFragment
+     * @param isPrimaryNavFragment
+     */
     private static void attachNavHostFragment(
             FragmentManager fragmentManager,
             NavHostFragment navHostFragment,
@@ -146,6 +169,10 @@ public class NavigationExtensions {
         fragmentTransaction.commitNow();
     }
 
+    /**
+     * @param fragmentManager
+     * @param navHostFragment
+     */
     private static void detachNavHostFragment(
             FragmentManager fragmentManager,
             NavHostFragment navHostFragment
@@ -155,6 +182,11 @@ public class NavigationExtensions {
                 .commitNow();
     }
 
+    /**
+     * @param fragmentManager
+     * @param backStackName
+     * @return
+     */
     private static boolean isOnBackStack(FragmentManager fragmentManager, String backStackName) {
         int backStackCount = fragmentManager.getBackStackEntryCount();
         for (int i = 0; i < backStackCount; i++) {
@@ -165,6 +197,10 @@ public class NavigationExtensions {
         return false;
     }
 
+    /**
+     * @param index
+     * @return
+     */
     private static String getFragmentTag(int index) {
         return "bottomNavigation#" + index;
     }

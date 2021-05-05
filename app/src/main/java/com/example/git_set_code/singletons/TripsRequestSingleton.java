@@ -6,35 +6,50 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+/**
+ *
+ */
 public class TripsRequestSingleton {
-        private static TripsRequestSingleton instance;
-        private RequestQueue requestQueue;
-        private static Context ctx;
+    private static TripsRequestSingleton instance;
+    private RequestQueue requestQueue;
+    private static Context ctx;
 
-        private TripsRequestSingleton(Context context) {
-            ctx = context;
-            requestQueue = getRequestQueue();
+    /**
+     * @param context
+     */
+    private TripsRequestSingleton(Context context) {
+        ctx = context;
+        requestQueue = getRequestQueue();
+    }
+
+    /**
+     * @param context
+     * @return
+     */
+    public static synchronized TripsRequestSingleton getInstance(Context context) {
+        if (instance == null) {
+            instance = new TripsRequestSingleton(context);
         }
+        return instance;
+    }
 
-        public static synchronized TripsRequestSingleton getInstance(Context context) {
-            if (instance == null) {
-                instance = new TripsRequestSingleton(context);
-            }
-            return instance;
+    /**
+     * @return
+     */
+    public RequestQueue getRequestQueue() {
+        if (requestQueue == null) {
+            // getApplicationContext() is key, it keeps you from leaking the
+            // Activity or BroadcastReceiver if someone passes one in.
+            requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
         }
+        return requestQueue;
+    }
 
-        public RequestQueue getRequestQueue() {
-            if (requestQueue == null) {
-                // getApplicationContext() is key, it keeps you from leaking the
-                // Activity or BroadcastReceiver if someone passes one in.
-                requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
-            }
-            return requestQueue;
-        }
-
-        public <T> void addToRequestQueue(Request<T> req) {
-            getRequestQueue().add(req);
-        }
-
-
+    /**
+     * @param req
+     * @param <T>
+     */
+    public <T> void addToRequestQueue(Request<T> req) {
+        getRequestQueue().add(req);
+    }
 }

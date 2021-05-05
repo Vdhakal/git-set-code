@@ -21,15 +21,23 @@ import com.example.git_set_code.trip_database.Table.Truck;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ *
+ */
 @Database(entities = {Driver.class, Trip.class, Truck.class, Trailer.class, SourceInformation.class, SiteInformation.class, TripClientData.class},
         version = 1)
 public abstract class TripDatabase extends RoomDatabase {
     public abstract TripDao tripDao();
+
     private static TripDatabase tripDatabase;
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
+    /**
+     * @param context
+     * @return
+     */
     public static TripDatabase getInstance(final Context context) {
         if (tripDatabase == null) {
             synchronized (TripDatabase.class) {
@@ -39,6 +47,10 @@ public abstract class TripDatabase extends RoomDatabase {
         }
         return tripDatabase;
     }
+
+    /**
+     *
+     */
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -66,7 +78,11 @@ public abstract class TripDatabase extends RoomDatabase {
             });
         }
     };
-    public void cleanUp(){
+
+    /**
+     *
+     */
+    public void cleanUp() {
         tripDatabase = null;
     }
 }

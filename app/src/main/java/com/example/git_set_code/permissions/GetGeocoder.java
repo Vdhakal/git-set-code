@@ -1,15 +1,22 @@
 package com.example.git_set_code.permissions;
 
 import android.content.Context;
+
 import com.example.git_set_code.locations.PlatformPositioningProvider;
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.mapping.Location;
 
 import java.util.Date;
 
+/**
+ *
+ */
 public class GetGeocoder {
     Context context;
 
+    /**
+     * @param context
+     */
     public GetGeocoder(Context context) {
         this.context = context;
         PlatformPositioningProvider platformPositioningProvider = new PlatformPositioningProvider(context);
@@ -22,6 +29,12 @@ public class GetGeocoder {
         });
     }
 
+    /**
+     * @param nativeLocation
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     private Location convertLocation(android.location.Location nativeLocation) throws InstantiationException, IllegalAccessException {
         GeoCoordinate geoCoordinates = new GeoCoordinate(
                 nativeLocation.getLatitude(),
@@ -29,7 +42,6 @@ public class GetGeocoder {
                 nativeLocation.getAltitude());
 
         Location location = Location.class.newInstance();
-
 
 
         return location;

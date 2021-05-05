@@ -17,6 +17,9 @@ import com.example.git_set_code.activities.LandingActivity;
 import com.example.git_set_code.fragments.MapsFragment;
 
 
+/**
+ *
+ */
 public class ForegroundService extends Service {
 
     public static int FOREGROUND_SERVICE_ID = 101;
@@ -26,12 +29,21 @@ public class ForegroundService extends Service {
 
     private static String CHANNEL = "default";
 
+    /**
+     *
+     */
     @Override
     public void onCreate() {
         super.onCreate();
         initChannels(this.getApplicationContext());
     }
 
+    /**
+     * @param intent
+     * @param flags
+     * @param startId
+     * @return
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction().equals(START_ACTION)) {
@@ -60,6 +72,9 @@ public class ForegroundService extends Service {
         return START_NOT_STICKY;
     }
 
+    /**
+     * @param context
+     */
     public void initChannels(Context context) {
         if (Build.VERSION.SDK_INT < 26) {
             return;
@@ -72,11 +87,18 @@ public class ForegroundService extends Service {
         notificationManager.createNotificationChannel(channel);
     }
 
+    /**
+     *
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
 
+    /**
+     * @param intent
+     * @return
+     */
     @Override
     public IBinder onBind(Intent intent) {
         // Used only in case of bound services.

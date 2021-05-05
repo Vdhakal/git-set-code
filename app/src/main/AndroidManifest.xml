@@ -70,6 +70,7 @@
         <!-- Set your credentials for the HERE SDK. -->
         <meta-data android:name="com.here.android.maps.appid" android:value="uGA5SzBvQ9rwPukbxjhg"/>
         <meta-data android:name="com.here.android.maps.apptoken" android:value="jnHIB-hgwANScWLkcS-VfA"/>
+
         <meta-data android:name="com.here.android.maps.license.key" android:value="ZwUmB778ZA95L6tOrJNyrjSylnpMNrkRwSiBvOeYv9JwRGe+e/NegTURE4RVIGJlPGT4uIbwghSWLcrH8s/rYHSFg155hsxtcU7YeUKvG8RxJyCr+BBU6kVJDUgnydDSWecHyU63Ke1qg0VXYrG0vSN9Kq5aDW9fP3vcPRKa1Tz4nbf6XQy1/GPklD6zWlZvUFB7/4/2h0cfTuhKDCanIWViE9AyGSFObQPi23PbkDUK6f2Qc6Gv9d/pSnuVXwwz5uRmxJLY5KWwAzD8GHACuptnRnYRHefeKMJzxzZG6iqFgtwJZ24SHJ9UZZ/4wRijczVm0vJRmb7ku2nMH7xdXHpmHG3AkZPanzlB0pFrIkFkF+OX/CSytaWUpnFdbblAjicetl+ql1cRf4ipfhqzzZumEQGm7WyRTax4AwjdCRZuxrN047aqNShQuiUoUynyKNWzSBvvBd2U668rtZNDkzpyhWmPMDpEjbHK579nuiNflwgKzGz/9+PehP28PVJNUNaq0EqKfYr2KiZrJEiyUA/RABbeGWvUckd+5MPKOdRBQmlfs9ArHKlljqjLwgzTQSRpjxEkDTzz4B1fPkVAOo0FxtZT/eVxZfclPt/598g7T7GzAMvT/vGHTNAKh3/f/4lWKyK1mbJcmylVZXMM8diwZCpOIWa+aLUKwzjwDjQ="/>
     </application>
 </manifest>

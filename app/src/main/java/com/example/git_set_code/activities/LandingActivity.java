@@ -1,5 +1,9 @@
 package com.example.git_set_code.activities;
 
+/**
+ * Importing necessary packages
+ */
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -47,25 +51,37 @@ import java.util.Map;
 
 import kotlin.collections.CollectionsKt;
 
+/**
+ * The landing activity after the user is logged in
+ */
 public class LandingActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     NavigationView navigationView;
     Toolbar toolbar;
-    final String TAG="DEBUGSH";
+    final String TAG = "DEBUGSH";
     private DrawerLayout drawer;
     View view;
     private LiveData currentNavController;
 
-
+    /**
+     * Initializes the contents of the Activity's standard options menu
+     *
+     * @param menu the Menu object
+     * @return a boolean value after adding items to the action bar
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d(TAG,"On create opt menu works");
+        Log.d(TAG, "On create opt menu works");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav_menu, menu);
         return true;
     }
 
+    /**
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -80,6 +96,9 @@ public class LandingActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +119,10 @@ public class LandingActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
     }
+
+    /**
+     * @param navigationView
+     */
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -111,31 +134,37 @@ public class LandingActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * @param menuItem
+     */
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass = null;
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.profile:
                 fragment = new DriverProfile();
                 menuItem.setChecked(false);
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment ).addToBackStack("").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).addToBackStack("").commit();
 
         // Close the navigation drawer
         drawer.closeDrawers();
     }
 
 
-    private void setUpNavigation(){
+    /**
+     *
+     */
+    private void setUpNavigation() {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        NavHostFragment navHostFragment =(NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.fragment);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         NavController navController = navHostFragment.getNavController();
 
-        if(navController.popBackStack(R.id.mapfragment, false)) {
+        if (navController.popBackStack(R.id.mapfragment, false)) {
             Log.d(TAG, "SettingsFragment found in backStack");
         } else {
             Log.d(TAG, "SettingsFragment not found in backStack, navigate manually");
@@ -148,8 +177,7 @@ public class LandingActivity extends AppCompatActivity {
             else
                 NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());*/
 
-        }
-
+    }
 
 
 //        bottomNavigationView.add(new MeowBottomNavigation.Model(1, R.drawable.ic_baseline_home_24));
@@ -182,6 +210,9 @@ public class LandingActivity extends AppCompatActivity {
 //
 //        bottomNavigationView.show(1, true);
 
+    /**
+     *
+     */
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {

@@ -1,4 +1,5 @@
 package com.example.git_set_code.locations;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -22,17 +23,32 @@ public class PlatformPositioningProvider implements LocationListener {
 
     private Context context;
     private LocationManager locationManager;
+
+    /**
+     *
+     */
     @Nullable
     private PlatformLocationListener platformLocationListener;
 
+    /**
+     *
+     */
     public interface PlatformLocationListener {
         void onLocationUpdated(Location location) throws IllegalAccessException, InstantiationException;
     }
 
+    /**
+     *
+     * @param context
+     */
     public PlatformPositioningProvider(Context context) {
         this.context = context;
     }
 
+    /**
+     *
+     * @param location
+     */
     @Override
     public void onLocationChanged(android.location.Location location) {
         if (platformLocationListener != null) {
@@ -40,6 +56,12 @@ public class PlatformPositioningProvider implements LocationListener {
         }
     }
 
+    /**
+     *
+     * @param provider
+     * @param status
+     * @param extras
+     */
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         switch(status){
@@ -57,16 +79,28 @@ public class PlatformPositioningProvider implements LocationListener {
         }
     }
 
+    /**
+     *
+     * @param provider
+     */
     @Override
     public void onProviderEnabled(String provider) {
         Log.d(LOG_TAG, "PlatformPositioningProvider enabled.");
     }
 
+    /**
+     *
+     * @param provider
+     */
     @Override
     public void onProviderDisabled(String provider) {
         Log.d(LOG_TAG, "PlatformPositioningProvider disabled.");
     }
 
+    /**
+     *
+     * @param locationCallback
+     */
     public void startLocating(PlatformLocationListener locationCallback) {
         if (this.platformLocationListener != null) {
             throw new RuntimeException("Please stop locating before starting again.");
@@ -94,6 +128,9 @@ public class PlatformPositioningProvider implements LocationListener {
         }
     }
 
+    /**
+     *
+     */
     public void stopLocating() {
         if (locationManager == null) {
             return;
