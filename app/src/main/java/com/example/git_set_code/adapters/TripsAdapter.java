@@ -70,88 +70,110 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     public expandState expandState;
 
     /**
-     * @param expandState
+     * This method listens to items when clicked
+     *
+     * @param expandState, a TripsAdapter.expandState object
      */
-    public void setOnItemClickListner(TripsAdapter.expandState expandState) {
+    public void setOnItemClickListener(TripsAdapter.expandState expandState) {
         this.expandState = expandState;
     }
 
     /**
-     *
+     * This is an Interface for expandState which is implemented by classes to expand the state acording to their needs
      */
     public interface expandState {
         public void cardView(boolean expand);//pass your object types.
     }
 
     /**
-     * @param driverObjectList
+     * Setter for driverObjectList
+     *
+     * @param driverObjectList, a list of Driver objects
      */
     public void setDriverObjectList(List<Driver> driverObjectList) {
         this.driverObjectList = driverObjectList;
     }
 
     /**
-     * @param activity
+     * Setter for Activity
+     *
+     * @param activity, an Activity object
      */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
 
     /**
-     * @param viewModel
+     * Setter for tripModelView
+     *
+     * @param viewModel, a TripViewModel object
      */
     public void setTripViewModel(TripViewModel viewModel) {
         this.tripViewModel = tripViewModel;
     }
 
     /**
-     * @param siteInformationObjectList
+     * Setter for siteInformationObjectList
+     *
+     * @param siteInformationObjectList, a list of SiteInformation objects
      */
     public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
         this.siteInformationObjectList = siteInformationObjectList;
     }
 
     /**
-     * @param sourceInformationObjectList
+     * Setter for sourceInformationObjectList
+     *
+     * @param sourceInformationObjectList, a list of SourceInformation objects
      */
     public void setSourceInformationObjectList(List<SourceInformation> sourceInformationObjectList) {
         this.sourceInformationObjectList = sourceInformationObjectList;
     }
 
     /**
-     * @param truckObjectList
+     * Setter for truckObjectList
+     *
+     * @param truckObjectList, a list of Truck objects
      */
     public void setTruckObjectList(List<Truck> truckObjectList) {
         this.truckObjectList = truckObjectList;
     }
 
     /**
-     * @param trailerObjectList
+     * Setter for trailerObjectList
+     *
+     * @param trailerObjectList, a list of Trailer objects
      */
     public void setTrailerObjectList(List<Trailer> trailerObjectList) {
         this.trailerObjectList = trailerObjectList;
     }
 
     /**
-     * @param tripObjectList
+     * Setter for tripObjectList
+     *
+     * @param tripObjectList, a list of Trip objects
      */
     public void setTripObjectList(List<Trip> tripObjectList) {
         this.tripObjectList = tripObjectList;
     }
 
     /**
-     * @param tripClientData
+     * Setter for TripClientData
+     *
+     * @param tripClientData, a list of TripClientData
      */
     public void setTripClientData(List<TripClientData> tripClientData) {
         this.tripClientData = tripClientData;
     }
 
     /**
-     * @param context
-     * @param tripObjectList
-     * @param siteInformationObjectList
-     * @param sourceInformationObjectList
-     * @param owner
+     * Constructor for TripsAdapter
+     *
+     * @param context,                    a Context object
+     * @param tripObjectList,             a List of tripObjects
+     * @param siteInformationObjectList   a list of SiteInformation objects
+     * @param sourceInformationObjectList a list of sourceInformation objects
+     * @param owner,                      a ViewModelStoreOwner object
      */
     public TripsAdapter(Context context,
                         List<Trip> tripObjectList,
@@ -169,9 +191,11 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     }
 
     /**
-     * @param parent
-     * @param viewType
-     * @return
+     * This method creates a ViewHolder when the activity gets loaded
+     *
+     * @param parent,   a ViewGroup object
+     * @param viewType, an integer value representing the type of the view
+     * @return a TripsAdapter.ViewHolder object
      */
     @NonNull
     @Override
@@ -181,8 +205,10 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     }
 
     /**
-     * @param holder
-     * @param position
+     * This method updates the RecyclerView.ViewHolder contents with the item at the given position
+     *
+     * @param holder,   a TripsAdapter.ViewHolder object representing the holder for the trips adapter
+     * @param position, an integer value representing the position of the item
      */
     @Override
     public void onBindViewHolder(@NonNull TripsAdapter.ViewHolder holder, int position) {
@@ -200,7 +226,9 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     //This is how you'd change fragments
 
     /**
-     * @param sourceButton
+     * This method displays a new view when the summary button is clicked
+     *
+     * @param sourceButton, a NeumorphButton object
      */
     private void onSummaryButtonClick(NeumorphButton sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
@@ -212,7 +240,9 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     }
 
     /**
-     * @param v
+     * This method swaps the current fragment with the new View object
+     *
+     * @param v, the View object
      */
     private void swapFragment(View v) {
         Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_tripSummary);
@@ -220,7 +250,9 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
 
     /**
-     * @param holder
+     * This method sets up the new step View
+     *
+     * @param holder, a ViewHolder object
      */
     private void setUpStepView(ViewHolder holder) {
         List<String> stepsBeanList = new ArrayList<>();
@@ -247,7 +279,9 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
     }
 
     /**
-     * @return
+     * Getter for item count
+     *
+     * @return an int representing the size of the list of trip objects
      */
     @Override
     public int getItemCount() {
@@ -256,7 +290,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
 
     /**
-     *
+     * The ViewHolder class extends the RecyclerView.ViewHolder and caches views associated with the default preference layouts
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView productName, stops, title;
@@ -269,7 +303,9 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         SwipeButton swipeButton;
 
         /**
-         * @param itemView
+         * Constructor for the ViewHolder class
+         *
+         * @param itemView, a View object
          */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -304,14 +340,16 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         }
 
         /**
-         * @param cardView
+         * This method listens to the click and expands the new cardView
+         *
+         * @param cardView, a NeumorphCardView object
          */
         private void expandOnClick(NeumorphCardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
 
                 /**
-                 *
-                 * @param v
+                 *This method listens to the click and expands the new cardView
+                 * @param v, the View object
                  */
                 @Override
                 public void onClick(View v) {
@@ -319,8 +357,8 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
                     swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
 
                         /**
-                         *
-                         * @param active
+                         *This method displays message when the state is changed
+                         * @param active a boolean value
                          */
                         @Override
                         public void onStateChange(boolean active) {
@@ -350,35 +388,45 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
 
         /**
-         * @return
+         * Getter for summaryButton
+         *
+         * @return summaryButton, a NeumorphButton object
          */
         public NeumorphButton getSummaryButton() {
             return summaryButton;
         }
 
         /**
-         * @return
+         * Getter for productName
+         *
+         * @return productName, the TextView object
          */
         public TextView getProductName() {
             return productName;
         }
 
         /**
-         * @return
+         * Getter for the stops
+         *
+         * @return stops, a TextView object
          */
         public TextView getStops() {
             return stops;
         }
 
         /**
-         * @return
+         * Getter for the expandableLayout
+         *
+         * @return expandableLayout, a ConstraintLayout object
          */
         public ConstraintLayout getExpandableLayout() {
             return expandableLayout;
         }
 
         /**
-         * @return
+         * Getter for the stepView
+         *
+         * @return stepView, a VerticalStepView object
          */
         public VerticalStepView getStepView() {
             return stepView;
@@ -386,7 +434,9 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
 
 
         /**
-         * @return
+         * Getter for the title
+         *
+         * @return title, a TextView object
          */
         public TextView getTitle() {
             return title;
