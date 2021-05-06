@@ -2,6 +2,7 @@ package com.example.git_set_code.trip_database.Repository;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -10,7 +11,9 @@ import com.example.git_set_code.apiHelpers.TripsAPIService;
 import com.example.git_set_code.trip_database.Dao.TripDao;
 import com.example.git_set_code.trip_database.Database.TripDatabase;
 import com.example.git_set_code.trip_database.Table.Driver;
+import com.example.git_set_code.trip_database.Table.SiteForm;
 import com.example.git_set_code.trip_database.Table.SiteInformation;
+import com.example.git_set_code.trip_database.Table.SourceForm;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
@@ -39,6 +42,8 @@ public class TripRepository {
     private LiveData<List<Double>> sourceLongitudes;
     private LiveData<List<Double>> siteLatitudes;
     private LiveData<List<Double>> siteLongitudes;
+    private LiveData<List<SourceForm>> sourceForms;
+    private LiveData<List<SiteForm>> siteForms;
     private int getSelected = 0;
     List<Driver> driverObjectList;
     List<SiteInformation> siteInformationObjectList;
@@ -72,6 +77,14 @@ public class TripRepository {
         trailerObjectList= new ArrayList<>();
         tripObjectList= new ArrayList<>();
         tripClientData= new ArrayList<>();
+    }
+
+    public LiveData<List<SourceForm>> getSourceForms() {
+        return sourceForms;
+    }
+
+    public LiveData<List<SiteForm>> getSiteForms() {
+        return siteForms;
     }
 
     public LiveData<List<Integer>> getGetSelected() {
@@ -202,6 +215,19 @@ public class TripRepository {
     public void insertTripClientData(TripClientData tripClientData){
         TripDatabase.databaseWriteExecutor.execute(() -> {
             tripDao.insertTripClientData(tripClientData);
+        });
+    }
+
+    public void insetSourceForms(SourceForm sourceForms) {
+        Log.i("Reposit", "reached repo");
+        TripDatabase.databaseWriteExecutor.execute(() -> {
+            tripDao.insertSourceForm(sourceForms);
+        });
+    }
+
+    public void insertSiteForms(SiteForm siteForms) {
+        TripDatabase.databaseWriteExecutor.execute(() -> {
+            tripDao.insertSiteForm(siteForms);
         });
     }
 }

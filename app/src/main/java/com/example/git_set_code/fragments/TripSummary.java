@@ -202,7 +202,7 @@ public class TripSummary extends Fragment {
 
                 String msg = "";
                 if (active) {
-                    msg = "Your trip has been selected!" + tripViewModel.getGetSelected();
+                    msg = "Your trip has been selected!";
                     tripViewModel.setSelection();
                 } else
                     msg = "Your trip has been selected!";

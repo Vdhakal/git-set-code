@@ -1,5 +1,6 @@
 package com.example.git_set_code.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -35,17 +36,16 @@ import soup.neumorphism.NeumorphCardView;
 public class BottomSheetAdapter extends  RecyclerView.Adapter<BottomSheetAdapter.ViewHolder> {
     List<SiteInformation> siteInformationObjectList;
     List<SourceInformation> sourceInformationObjectList;
-    Context context;
+    Activity activity;
     int tripTracker;
     public BottomSheetAdapter(
-            Context context,
+            Activity activity,
             List<Trip> tripObjectList,
             List<SiteInformation> siteInformationObjectList,
-            List<SourceInformation> sourceInformationObjectList, ViewModelStoreOwner owner, int tripTracker){
+            List<SourceInformation> sourceInformationObjectList, ViewModelStoreOwner owner){
         this.siteInformationObjectList = siteInformationObjectList;
         this.sourceInformationObjectList = sourceInformationObjectList;
-        this.context = context;
-        this.tripTracker = tripTracker;
+        this.activity = activity;
         Log.i("Bottom", ""+tripTracker);
     }
     public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
@@ -76,18 +76,23 @@ public class BottomSheetAdapter extends  RecyclerView.Adapter<BottomSheetAdapter
             String waypointType="SITE";
             stepsBeanList.add(siteInformationObjectList.get(i).getDestinationName().trim().toUpperCase()+" ("+waypointType+")"+"\n"+siteInformationObjectList.get(i).getAddress1().trim().toUpperCase()+" "+siteInformationObjectList.get(i).getCity().trim().toUpperCase()+" "+siteInformationObjectList.get(i).getStateAbbrev().trim().toUpperCase());
         }
+
+        SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+        tripTracker = sharedPreferences.getInt("tripCounter",0);
+        Log.i("bottomAd",""+tripTracker);
         stepsBeanList.add("");
-        holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-siteInformationObjectList.size()-sourceInformationObjectList.size()+1)
+        holder.getStepView().setStepsViewIndicatorComplectingPosition(tripTracker)
                 .reverseDraw(false)
                 .setStepViewTexts(stepsBeanList)
-                .setLinePaddingProportion(1)
-                .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(context, R.color.source_green))
-                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(context, R.color.site_color))
-                .setStepViewComplectedTextColor(ContextCompat.getColor(context, R.color.option_outline))
-                .setStepViewUnComplectedTextColor(ContextCompat.getColor(context,  R.color.option_outline))
-                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(context, R.drawable.source_circle))
-                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(context, R.drawable.site_circle))
-                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_24)).setTextSize(16);
+                .setLinePaddingProportion(2)
+                .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(activity, R.color.source_green))
+                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(activity, R.color.site_color))
+                .setStepViewUnComplectedTextColor(R.color.source_green)
+                .setStepViewComplectedTextColor(ContextCompat.getColor(activity, R.color.option_outline))
+                .setStepViewUnComplectedTextColor(ContextCompat.getColor(activity,  R.color.option_outline))
+                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(activity, R.drawable.ic_baseline_check_circle_24))
+                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(activity, R.drawable.uncompleted))
+                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(activity, R.drawable.ic_baseline_check_circle_24)).setTextSize(16);
     }
     @Override
     public int getItemCount() {

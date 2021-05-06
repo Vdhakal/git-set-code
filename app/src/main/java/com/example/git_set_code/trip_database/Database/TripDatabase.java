@@ -11,7 +11,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.git_set_code.cache.TripsObjectDatabase;
 import com.example.git_set_code.trip_database.Dao.TripDao;
 import com.example.git_set_code.trip_database.Table.Driver;
+import com.example.git_set_code.trip_database.Table.SiteForm;
 import com.example.git_set_code.trip_database.Table.SiteInformation;
+import com.example.git_set_code.trip_database.Table.SourceForm;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
@@ -21,8 +23,8 @@ import com.example.git_set_code.trip_database.Table.Truck;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Driver.class, Trip.class, Truck.class, Trailer.class, SourceInformation.class, SiteInformation.class, TripClientData.class},
-        version = 1)
+@Database(entities = {Driver.class, Trip.class, Truck.class, Trailer.class, SourceInformation.class, SiteInformation.class, TripClientData.class, SourceForm.class, SiteForm.class},
+        version = 2)
 public abstract class TripDatabase extends RoomDatabase {
     public abstract TripDao tripDao();
     private static TripDatabase tripDatabase;

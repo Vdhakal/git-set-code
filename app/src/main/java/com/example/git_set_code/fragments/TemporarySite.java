@@ -1,6 +1,8 @@
 package com.example.git_set_code.fragments;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -25,6 +27,7 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import soup.neumorphism.NeumorphButton;
 
@@ -103,6 +106,11 @@ public class TemporarySite extends Fragment {
         grossGallons = rootView.findViewById(R.id.gross_gallons);
         netGallons = rootView.findViewById(R.id.net_gallons);
         remainingFuel = rootView.findViewById(R.id.remaining_fuel);
+        Date currentTime = Calendar.getInstance().getTime();
+        startDate.setText(currentTime.toString().substring(0,10));
+        endDate.setText(currentTime.toString().substring(0,10));
+        startTime.setText(currentTime.toString().substring(10,16));
+        endTime.setText(currentTime.toString().substring(10,16));
 
     }
     private void dateListener() {
@@ -173,17 +181,18 @@ public class TemporarySite extends Fragment {
         sourceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 swapFragment(v);
-                Toast.makeText(getContext(), "{" +
-                        "\nRemaining fuel (Pre delivery): "+preDelivery.getText()+
-                        "\nProduct Type: "+prodType.getText()+
-                        "\nStart Date: "+startDate.getText()+
-                        "\nStart Time: "+startTime.getText()+
-                        "\nEnd Date: "+endDate.getText()+
-                        "\nEnd Time: "+endTime.getText()+
-                        "\nGross Gallons: "+grossGallons.getText()+
-                        "\nNet Gallons: "+netGallons.getText()+
-                        "\nRemaining Fuel: "+remainingFuel.getText()+"\n}", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(), "{" +
+//                        "\nRemaining fuel (Pre delivery): "+preDelivery.getText()+
+//                        "\nProduct Type: "+prodType.getText()+
+//                        "\nStart Date: "+startDate.getText()+
+//                        "\nStart Time: "+startTime.getText()+
+//                        "\nEnd Date: "+endDate.getText()+
+//                        "\nEnd Time: "+endTime.getText()+
+//                        "\nGross Gallons: "+grossGallons.getText()+
+//                        "\nNet Gallons: "+netGallons.getText()+
+//                        "\nRemaining Fuel: "+remainingFuel.getText()+"\n}", Toast.LENGTH_LONG).show();
             }
         });
     }

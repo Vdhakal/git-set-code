@@ -8,7 +8,9 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.git_set_code.trip_database.Table.Driver;
+import com.example.git_set_code.trip_database.Table.SiteForm;
 import com.example.git_set_code.trip_database.Table.SiteInformation;
+import com.example.git_set_code.trip_database.Table.SourceForm;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
@@ -33,6 +35,10 @@ public interface TripDao {
     public void insertSite(SiteInformation... siteInformations);
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertTripClientData(TripClientData... tripClientData);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public void insertSourceForm(SourceForm... sourceForms);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public void insertSiteForm(SiteForm... siteForms);
 
     @Delete
     public void deleteDrivers(Driver... drivers);
@@ -76,6 +82,10 @@ public interface TripDao {
     public  LiveData<List<Double>> getSiteLatitude();
     @Query("SELECT longitude FROM site_information")
     public  LiveData<List<Double>> getSiteLongitude();
+    @Query("SELECT * FROM sourceForm")
+    public  LiveData<List<SourceForm>> getSourceForm();
+    @Query("SELECT * FROM siteForm")
+    public  LiveData<List<SiteForm>> getSiteForm();
 
 
 }

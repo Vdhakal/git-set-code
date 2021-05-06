@@ -179,7 +179,8 @@ import java.util.List;
       private void setUpUI() {
           mLayoutManager = new LinearLayoutManager(getActivity());
           mRecyclerView.addItemDecoration(new TripsDecorator(20));
-          adapter = new BottomSheetAdapter(getActivity(), new ArrayList<Trip>(), new ArrayList<SiteInformation>(),new ArrayList<SourceInformation>(),requireActivity(), sharedPreferences.getInt("tripCounter",0));
+          Log.i("SourceSumm",""+sharedPreferences.getInt("tripCounter",-1));
+          adapter = new BottomSheetAdapter(getActivity(), new ArrayList<Trip>(), new ArrayList<SiteInformation>(),new ArrayList<SourceInformation>(),requireActivity());
           mRecyclerView.scrollToPosition(0);
       }
 
@@ -252,7 +253,6 @@ import java.util.List;
 
       }
       private void initialize() {
-          Log.i("LOL", viewModelMap.getLol()+" this");
 //          PositioningManager.getInstance().addListener(WeakReference<OnPositionChangedListener>);
           // Search for the map fragment to finish setup by calling init().
           mapFragment = viewModelMap.getMapFragment(getInstance());
@@ -388,7 +388,6 @@ import java.util.List;
       private void loadMapScene() {
 
         progressBar.setVisibility(View.GONE);
-          constraintLayout.setVisibility(View.INVISIBLE);
         startNavigationButton.setVisibility(View.VISIBLE);
         fabMapLocation.setVisibility(View.VISIBLE);
         fabMapScene.setVisibility(View.VISIBLE);
@@ -427,6 +426,7 @@ import java.util.List;
           SharedPreferences.Editor editor = sharedPreferences.edit();
           sourceCompleted = sharedPreferences.getBoolean("sourceCompleted",false);
           tripTracker = sharedPreferences.getInt("tripTracker",-1);
+          tripCounter = sharedPreferences.getInt("tripCounter",-1);
           tripTracker++;
           tripCounter++;
 

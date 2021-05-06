@@ -33,6 +33,15 @@
         android:paddingLeft="10dp"
         android:paddingBottom="20dp">
 
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/route_truck_trip" />
+
         <TextView
             android:id="@+id/trip_title"
             style="@style/label_font"

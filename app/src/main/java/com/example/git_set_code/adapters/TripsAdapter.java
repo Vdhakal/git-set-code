@@ -172,7 +172,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> 
         holder.getStepView().setStepsViewIndicatorComplectingPosition(stepsBeanList.size()-siteInformationObjectList.size()-sourceInformationObjectList.size()+1)
                 .reverseDraw(false)
                 .setStepViewTexts(stepsBeanList)
-                .setLinePaddingProportion(1)
+                .setLinePaddingProportion(1.3f)
                 .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(context, R.color.source_green))
                 .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(context, R.color.site_color))
                 .setStepViewComplectedTextColor(ContextCompat.getColor(context, R.color.option_outline))

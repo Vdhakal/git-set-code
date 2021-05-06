@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/trip_summary_card_view"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
@@ -34,6 +35,14 @@
         app:layout_constraintStart_toStartOf="parent"
         >
 
+        <ImageView
+            android:id="@+id/compted"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible"
+            android:src="@drawable/ic_baseline_celebration_24"/>
         <TextView
             android:id="@+id/trip_summary_title"
             android:layout_width="wrap_content"
@@ -222,37 +231,19 @@
                 style="@style/Widget.Neumorph.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_gravity="center"
-                app:neumorph_shadowColorLight="@color/button_light_shadow"
-                app:neumorph_shadowColorDark="@color/card_dark_shadow"
-                app:neumorph_shapeType="flat"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="Enter Infromation"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/expandable_layout_summary"
-                app:layout_constraintEnd_toStartOf="@+id/head_to_source"
-                app:layout_constraintStart_toStartOf="@+id/expandable_layout_summary"
-                app:layout_constraintTop_toBottomOf="@id/divider" />
-            <soup.neumorphism.NeumorphButton
-                android:id="@+id/head_to_site"
-                style="@style/Widget.Neumorph.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_gravity="center"
-                app:neumorph_shadowColorLight="@color/button_light_shadow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider"
                 app:neumorph_shadowColorDark="@color/card_dark_shadow"
-                app:neumorph_shapeType="flat"
-                android:text="Head To Site"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/expandable_layout_summary"
-                app:layout_constraintStart_toEndOf="@+id/enter_information"
-                app:layout_constraintTop_toBottomOf="@id/divider" />
+                app:neumorph_shadowColorLight="@color/button_light_shadow"
+                app:neumorph_shapeType="flat" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

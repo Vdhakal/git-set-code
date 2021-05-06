@@ -86,7 +86,7 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
 
             specialInstructions = itemView.findViewById(R.id.tv_special_instructions);
             quantities = itemView.findViewById(R.id.tv_quantities);
-            formButton = itemView.findViewById(R.id.enter_information);
+            formButton = itemView.findViewById(R.id.enter_information_site);
             expandOnClick(cardView);
 
         }

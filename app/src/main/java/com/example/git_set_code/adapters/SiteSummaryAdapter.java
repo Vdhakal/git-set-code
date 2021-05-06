@@ -1,11 +1,15 @@
 package com.example.git_set_code.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +40,12 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     private boolean expanded;
     List<SiteInformation> siteInformationObjectList;
     SlidebarStateHolder slidebarStateHolder;
-    Context context;
+    Activity activity;
+    SharedPreferences sharedPreferences;
     int step;
-    public SiteSummaryAdapter(Context context, List<SiteInformation> siteInformationObjectList){
+    public SiteSummaryAdapter(Activity activity, List<SiteInformation> siteInformationObjectList){
         this.siteInformationObjectList = siteInformationObjectList;
-        this.context = context;
+        this.activity = activity;
     }
 
     public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
@@ -57,6 +62,12 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SiteSummaryAdapter.ViewHolder holder, int position) {
+        sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+        Log.i("SourceSumm",""+sharedPreferences.getInt("tripTracker",-1) );
+        if(sharedPreferences.getInt("tripTracker",-1)>=position && sharedPreferences.getBoolean("sourceCompleted",false)) {
+            holder.getCardView().setBackgroundColor(Color.LTGRAY);
+            holder.getTickMark().setVisibility(View.VISIBLE);
+        }
         holder.getExpandableSummaryLayout().setVisibility(expanded ? View.VISIBLE : View.GONE);
         holder.getWayPointType().setText("Site Container: "+siteInformationObjectList.get(position).getDestinationCod());
         holder.getProductName().setText(siteInformationObjectList.get(position).getProductDesc());
@@ -89,6 +100,7 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
         private final ConstraintLayout expandable_summary_layout;
         private final NeumorphCardView cardView;
         private final NeumorphButton formButton;
+        private final ImageView tickMark;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,7 +111,7 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
             vendorName = itemView.findViewById(R.id.tv_vendor_name);
             terminalName = itemView.findViewById(R.id.tv_terminal_name);
             terminalAddress = itemView.findViewById(R.id.tv_terminal_address);
-
+            tickMark = itemView.findViewById(R.id.compted);
             specialInstructions = itemView.findViewById(R.id.tv_special_instructions);
             quantities = itemView.findViewById(R.id.tv_quantities);
             formButton = itemView.findViewById(R.id.enter_information_site);
@@ -120,6 +132,14 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
                     notifyItemChanged(getAdapterPosition());
                 }
             });
+        }
+
+        public NeumorphCardView getCardView() {
+            return cardView;
+        }
+
+        public ImageView getTickMark() {
+            return tickMark;
         }
 
         public ConstraintLayout getExpandableSummaryLayout() {

@@ -9,7 +9,9 @@ import androidx.lifecycle.LiveData;
 
 import com.example.git_set_code.trip_database.Repository.TripRepository;
 import com.example.git_set_code.trip_database.Table.Driver;
+import com.example.git_set_code.trip_database.Table.SiteForm;
 import com.example.git_set_code.trip_database.Table.SiteInformation;
+import com.example.git_set_code.trip_database.Table.SourceForm;
 import com.example.git_set_code.trip_database.Table.SourceInformation;
 import com.example.git_set_code.trip_database.Table.Trailer;
 import com.example.git_set_code.trip_database.Table.Trip;
@@ -33,7 +35,8 @@ public class TripViewModel extends AndroidViewModel {
     private LiveData<List<Double>> sourceLongitudes;
     private LiveData<List<Double>> siteLatitudes;
     private LiveData<List<Double>> siteLongitudes;
-
+    private LiveData<List<SourceForm>> sourceForms;
+    private LiveData<List<SiteForm>> siteForms;
 
 
     public TripViewModel(@NonNull Application application) {
@@ -51,6 +54,16 @@ public class TripViewModel extends AndroidViewModel {
         sourceLongitudes = tripRepository.getSourceLongitudes();
         siteLatitudes = tripRepository.getSiteLatitudes();
         siteLongitudes = tripRepository.getSiteLongitudes();
+        sourceForms = tripRepository.getSourceForms();
+        siteForms = tripRepository.getSiteForms();
+    }
+
+    public LiveData<List<SourceForm>> getSourceForms() {
+        return sourceForms;
+    }
+
+    public LiveData<List<SiteForm>> getSiteForms() {
+        return siteForms;
     }
 
     public LiveData<List<Integer>> getGetSelected() {
@@ -123,7 +136,13 @@ public class TripViewModel extends AndroidViewModel {
     public void insertSource(SourceInformation sourceInformation) {
         tripRepository.insertSourceinformation(sourceInformation);
     }
+    public void insertSiteForm(SiteForm siteForm) {
+        tripRepository.insertSiteForms(siteForm);
+    }
 
+    public void insertSourceForm(SourceForm sourceForm) {
+        tripRepository.insetSourceForms(sourceForm);
+    }
     public void insertTrailer(Trailer trailer) {
         tripRepository.insertTrailer(trailer);
     }

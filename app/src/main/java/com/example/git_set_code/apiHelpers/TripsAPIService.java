@@ -25,8 +25,14 @@ import java.util.List;
 
 public class TripsAPIService {
     private static String JSON_GET_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/GetDetailedTripListByDriver/gitsetcode?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
+    private static String URL_PROD_PUT = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/TripProductPickupPut/gitsetcode/183/24/887/12/2021-05-03%2000:00:00.0000000/2021-05-03%2000:00:00.0000000/10/10?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
 //    https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/TripProductPickupPut/gitsetcode/183/24/887/12/2021-05-03%2000:00:00.0000000/2021-05-03%2000:00:00.0000000/10/10?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef
     public interface VolleyResponseListener {
+        void onError(String message);
+
+        void onResponse();
+    }
+    public interface VolleyResponseListenerPut {
         void onError(String message);
 
         void onResponse();
@@ -78,6 +84,40 @@ public class TripsAPIService {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         volleyResponseListener.onError("Could not fetch data. Make sure you're connected to the internet.");
+                        // TODO: Handle error
+                    }
+                });
+
+        TripsRequestSingleton.getInstance(thiscontext).addToRequestQueue(jsonObjectRequest);
+    }
+    public void getTripsProductAPI(Context thiscontext, VolleyResponseListenerPut volleyResponseListenerPut){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, URL_PROD_PUT, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if(response.getString("status").equals("success")){
+                                JSONObject obj = response.getJSONObject("data");
+                                JSONArray resultSet2 = obj.getJSONArray("resultSet2");
+                                for(int i=0; i<resultSet2.length(); i++){
+                                    JSONObject jsonObject = resultSet2.getJSONObject(i);
+                                    Toast.makeText(thiscontext, jsonObject.getString("DriverCode") + "  "+jsonObject.getString("TripID") + "  "+jsonObject.getString("SourceGrossQuantity"), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(thiscontext, "Error processing API", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+
+                        volleyResponseListenerPut.onResponse();
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        volleyResponseListenerPut.onError("Could not fetch data. Make sure you're connected to the internet.");
                         // TODO: Handle error
                     }
                 });

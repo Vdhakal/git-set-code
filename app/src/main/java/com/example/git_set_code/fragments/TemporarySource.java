@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -18,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.os.Environment;
@@ -46,7 +49,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.git_set_code.R;
+import com.example.git_set_code.apiHelpers.TripsAPIService;
 import com.example.git_set_code.fragments.dialogs.SignatureDialog;
+import com.example.git_set_code.trip_database.Table.SourceForm;
+import com.example.git_set_code.trip_database.Table.SourceInformation;
+import com.example.git_set_code.trip_database.ViewModel.TripViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -59,6 +66,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import soup.neumorphism.NeumorphButton;
 
@@ -85,6 +94,10 @@ public class TemporarySource extends Fragment {
     private String tempBolPath = null;
     private Uri photoUri = null;
     private File photoFile = null;
+    SourceForm sourceForm =null;
+    String time="";
+    SharedPreferences sharedPreferences;
+    private TripViewModel tripViewModel;
     public TemporarySource() {
         // Required empty public constructor
     }
@@ -126,6 +139,7 @@ public class TemporarySource extends Fragment {
         initItems(rootView);
         onSourceButtonClicked(sourceButton);
         dateListener();
+        tripViewModel = new ViewModelProvider(requireActivity()).get(TripViewModel.class);
         addScanBillOfLadingListener();
         return rootView;
     }
@@ -158,12 +172,14 @@ public class TemporarySource extends Fragment {
                 setTimeFormat(TimeFormat.CLOCK_12H)
                 .setHour(Calendar.HOUR)
                 .setMinute(Calendar.MINUTE)
-                .setTitleText("Select Appointment time");
+                .setTitleText("Select Time");
         final MaterialTimePicker materialTimePicker = builder.build();
         materialTimePicker.show(getParentFragmentManager(), "tag");
         materialTimePicker.addOnPositiveButtonClickListener(v -> {
-            inputTime.setText(materialTimePicker.getHour() +" : "+materialTimePicker.getMinute());
+            time=materialTimePicker.getHour() +" : "+materialTimePicker.getMinute();
+            inputTime.setText(time);
         });
+
 
         inputTime.setTextColor(ContextCompat.getColor(getContext(),android.R.color.black));
     }
@@ -186,6 +202,13 @@ public class TemporarySource extends Fragment {
         grossGallons = rootView.findViewById(R.id.gross_gallons_source);
         netGallons = rootView.findViewById(R.id.net_gallons_source);
         remainingFuel = rootView.findViewById(R.id.remaining_fuel_source);
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Date currentTime = Calendar.getInstance().getTime();
+        startDate.setText(currentTime.toString().substring(0,10));
+        endDate.setText(currentTime.toString().substring(0,10));
+        startTime.setText(currentTime.toString().substring(10,16));
+        endTime.setText(currentTime.toString().substring(10,16));
+
 
     }
 
@@ -193,74 +216,35 @@ public class TemporarySource extends Fragment {
         sourceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(sharedPreferences.getInt("tripTracker",-1)==0)
+                    sourceForm = new SourceForm(24, prodType.getText().toString(), startDate.getText().toString(), startTime.getText().toString(), endDate.getText().toString(), endTime.getText().toString(), grossGallons.getText().toString(), netGallons.getText().toString(), "", "10", "");
+                else
+                    sourceForm = new SourceForm(4, prodType.getText().toString(), startDate.getText().toString(), startTime.getText().toString(), endDate.getText().toString(), endTime.getText().toString(), grossGallons.getText().toString(), netGallons.getText().toString(), "", "10", "");
+                tripViewModel.insertSourceForm(sourceForm);
+                TripsAPIService tripsAPIService = new TripsAPIService();
+                tripsAPIService.getTripsProductAPI(getContext(), new TripsAPIService.VolleyResponseListenerPut() {
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(getContext(), "No Success", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onResponse() {
+
+                    }
+                });
+
                 swapFragment(v);
-                try {
-                    RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                    String URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/TripProductPickupPut/gitsetcode/183/24/887/12/2021-05-03%2000:00:00.0000000/2021-05-03%2000:00:00.0000000/10/10?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
-                    JSONObject jsonBody = new JSONObject();
-                    jsonBody.put("DriverCode", "GitSetCode");
-                    jsonBody.put("TripID", 183);
-                    jsonBody.put("SourceID", 24);
-                    jsonBody.put("TripWayPointID", 126);
-                    jsonBody.put("id", 220);
-                    jsonBody.put("Productid", 887);
-                    jsonBody.put("ManifestNumber", "12");
-                    jsonBody.put("LoadstartDateTime", "GitSetCode");
-                    jsonBody.put("LoadEndDateTime", "GitSetCode");
-                    jsonBody.put("SourceGrossQuantity", 10);
-                    jsonBody.put("SourceNetQuantity", 10);
-                    final String requestBody = jsonBody.toString();
-
-                    StringRequest stringRequest = new StringRequest(Request.Method.PUT, URL, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.i("VOLLEY", response);
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("VOLLEY", "NOOOOOO "+error.toString());
-                        }
-                    }) {
-                        @Override
-                        public String getBodyContentType() {
-                            return "application/json; charset=utf-8";
-                        }
-
-                        @Override
-                        public byte[] getBody() throws AuthFailureError {
-                            try {
-                                return requestBody == null ? null : requestBody.getBytes("utf-8");
-                            } catch (UnsupportedEncodingException uee) {
-                                VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                                return null;
-                            }
-                        }
-
-                        @Override
-                        protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                            String responseString = "";
-                            if (response != null) {
-                                responseString = String.valueOf(response.statusCode);
-                                // can get more details such as response.headers
-                            }
-                            return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                        }
-                    };
-
-                    requestQueue.add(stringRequest);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Toast.makeText(getContext(), "{" +
-                        "\nProduct Dropped: "+prodType.getText()+
-                        "\nStart Date: "+startDate.getText()+
-                        "\nStart Time: "+startTime.getText()+
-                        "\nEnd Date: "+endDate.getText()+
-                        "\nEnd Time: "+endTime.getText()+
-                        "\nGross Gallons: "+grossGallons.getText()+
-                        "\nNet Gallons: "+netGallons.getText()+
-                        "\nRemaining Fuel: "+remainingFuel.getText()+"\n}", Toast.LENGTH_LONG).show();
+//
+//                    Toast.makeText(getContext(), "{" +
+//                        "\nProduct Dropped: "+prodType.getText()+
+//                        "\nStart Date: "+startDate.getText()+
+//                        "\nStart Time: "+startTime.getText()+
+//                        "\nEnd Date: "+endDate.getText()+
+//                        "\nEnd Time: "+endTime.getText()+
+//                        "\nGross Gallons: "+grossGallons.getText()+
+//                        "\nNet Gallons: "+netGallons.getText()+
+//                        "\nRemaining Fuel: "+remainingFuel.getText()+"\n}", Toast.LENGTH_LONG).show();
             }
         });
     }
