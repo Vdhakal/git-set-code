@@ -30,14 +30,14 @@ public class TripClientData {
     }
 
     /**
-     * @return
+     * @return selected
      */
     public int getSelected() {
         return selected;
     }
 
     /**
-     * @return
+     * @return tripId
      */
     public int getTripId() {
         return tripId;

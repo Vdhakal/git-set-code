@@ -18,7 +18,7 @@ public class StringTypeConverter {
 
     /**
      * @param data
-     * @return
+     * @return List<String>
      */
     @TypeConverter
     public static List<String> stringToSomeObjectList(String data) {
@@ -34,7 +34,7 @@ public class StringTypeConverter {
 
     /**
      * @param someObjects
-     * @return
+     * @return a String
      */
     @TypeConverter
     public static String someObjectListToString(List<String> someObjects) {

@@ -38,7 +38,7 @@ public class Trip {
 
 
     /**
-     * @return
+     * @return tripId
      */
     public int getTripId() {
         return tripId;
@@ -52,7 +52,7 @@ public class Trip {
     }
 
     /**
-     * @return
+     * @return tripName
      */
     public String getTripName() {
         return tripName;
@@ -66,7 +66,7 @@ public class Trip {
     }
 
     /**
-     * @return
+     * @return tripDate
      */
     public String getTripDate() {
         return tripDate;
@@ -87,7 +87,7 @@ public class Trip {
     }
 
     /**
-     * @return
+     * @return driverId
      */
     public String getDriverId() {
         return driverId;

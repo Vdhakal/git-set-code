@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 /**
- *
+ * This class consists of the driver information
  */
 @Entity(tableName = "driver")
 public class Driver {
@@ -14,18 +14,22 @@ public class Driver {
     @NonNull
     @ColumnInfo(name = "id")
     private String driverCode;
-    private String dirverName;
+    private String driverName;
 
     /**
+     * Constructor for Driver
+     *
      * @param driverCode
-     * @param dirverName
+     * @param driverName
      */
-    public Driver(String driverCode, String dirverName) {
+    public Driver(String driverCode, String driverName) {
         this.driverCode = driverCode;
-        this.dirverName = dirverName;
+        this.driverName = driverName;
     }
 
     /**
+     * Setter for driverCode
+     *
      * @param driverCode
      */
     public void setDriverCode(String driverCode) {
@@ -33,23 +37,29 @@ public class Driver {
     }
 
     /**
-     * @param dirverName
+     * Setter for driverName
+     *
+     * @param driverName
      */
-    public void setDirverName(String dirverName) {
-        this.dirverName = dirverName;
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
     }
 
     /**
-     * @return
+     * Getter for driverCode
+     *
+     * @return driverCode
      */
     public String getDriverCode() {
         return driverCode;
     }
 
     /**
-     * @return
+     * Getter for
+     *
+     * @return driverName
      */
-    public String getDirverName() {
-        return dirverName;
+    public String getDriverName() {
+        return driverName;
     }
 }

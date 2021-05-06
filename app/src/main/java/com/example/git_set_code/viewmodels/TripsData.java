@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 /**
- *
+ * This class consists of all the data of the trip
  */
 public class TripsData {
     public long id;
@@ -50,6 +50,7 @@ public class TripsData {
     }
 
     /**
+     * Constructor for TripsData
      * @param statusCode
      * @param datastatus
      * @param jsonstatus
@@ -127,7 +128,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return statusCode
      */
     public int getStatusCode() {
         return statusCode;
@@ -141,7 +142,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return datastatus
      */
     public String getDatastatus() {
         return datastatus;
@@ -155,7 +156,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return jsonstatus
      */
     public String getJsonstatus() {
         return jsonstatus;
@@ -169,7 +170,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return driverCode
      */
     public String getDriverCode() {
         return driverCode;
@@ -183,7 +184,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return driverName
      */
     public String getDriverName() {
         return driverName;
@@ -197,7 +198,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return truckId
      */
     public int getTruckId() {
         return truckId;
@@ -211,7 +212,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return truckCode
      */
     public String getTruckCode() {
         return truckCode;
@@ -225,7 +226,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return truckDesc
      */
     public String getTruckDesc() {
         return truckDesc;
@@ -239,7 +240,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return trailerId
      */
     public int getTrailerId() {
         return trailerId;
@@ -253,7 +254,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return trailerCode
      */
     public String getTrailerCode() {
         return trailerCode;
@@ -267,7 +268,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return trailerDesc
      */
     public String getTrailerDesc() {
         return trailerDesc;
@@ -281,7 +282,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return tripId
      */
     public int getTripId() {
         return tripId;
@@ -295,7 +296,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return tripName
      */
     public String getTripName() {
         return tripName;
@@ -309,7 +310,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return tripDate
      */
     public String getTripDate() {
         return tripDate;
@@ -323,7 +324,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return seqNum
      */
     public int getSeqNum() {
         return seqNum;
@@ -337,7 +338,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return waypointTypeDescription
      */
     public String getWaypointTypeDescription() {
         return waypointTypeDescription;
@@ -351,7 +352,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return latitude
      */
     public float getLatitude() {
         return latitude;
@@ -365,7 +366,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return longitude
      */
     public float getLongitude() {
         return longitude;
@@ -379,7 +380,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return destinationCod
      */
     public String getDestinationCod() {
         return destinationCod;
@@ -393,7 +394,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return destinationName
      */
     public String getDestinationName() {
         return destinationName;
@@ -407,7 +408,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return siteContainerCode
      */
     public String getSiteContainerCode() {
         return siteContainerCode;
@@ -421,7 +422,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return siteContainerDescription
      */
     public String getSiteContainerDescription() {
         return siteContainerDescription;
@@ -435,7 +436,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return address1
      */
     public String getAddress1() {
         return address1;
@@ -449,7 +450,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return address2
      */
     public String getAddress2() {
         return address2;
@@ -463,7 +464,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return city
      */
     public String getCity() {
         return city;
@@ -477,7 +478,7 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * @return stateAbbrev
      */
     public String getStateAbbrev() {
         return stateAbbrev;
@@ -491,13 +492,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for postalCode
+     * @return postalCode
      */
     public int getPostalCode() {
         return postalCode;
     }
 
     /**
+     * Setter for postalCode
      * @param postalCode
      */
     public void setPostalCode(int postalCode) {
@@ -505,13 +508,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for delReqNum
+     * @return delReqNum
      */
     public int getDelReqNum() {
         return delReqNum;
     }
 
     /**
+     * Setter for delReqNum
      * @param delReqNum
      */
     public void setDelReqNum(int delReqNum) {
@@ -519,13 +524,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for delReqLineNum
+     * @return delReqLineNum
      */
     public int getDelReqLineNum() {
         return delReqLineNum;
     }
 
     /**
+     * Setter for delReqLineNum
      * @param delReqLineNum
      */
     public void setDelReqLineNum(int delReqLineNum) {
@@ -533,13 +540,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for productId
+     * @return productId
      */
     public int getProductId() {
         return productId;
     }
 
     /**
+     * Setter for productId
      * @param productId
      */
     public void setProductId(int productId) {
@@ -547,13 +556,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for productCode
+     * @return productCode
      */
     public String getProductCode() {
         return productCode;
     }
 
     /**
+     * Setter for productCode
      * @param productCode
      */
     public void setProductCode(String productCode) {
@@ -561,13 +572,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for productDesc
+     * @return productDesc
      */
     public String getProductDesc() {
         return productDesc;
     }
 
     /**
+     * Setter for productDesc
      * @param productDesc
      */
     public void setProductDesc(String productDesc) {
@@ -575,13 +588,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for requestedQty
+     * @return requestedQty
      */
     public int getRequestedQty() {
         return requestedQty;
     }
 
     /**
+     * Setter for requestedQty
      * @param requestedQty
      */
     public void setRequestedQty(int requestedQty) {
@@ -589,13 +604,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for uom
+     * @return uom
      */
     public String getUom() {
         return uom;
     }
 
     /**
+     * Setter for uom
      * @param uom
      */
     public void setUom(String uom) {
@@ -603,13 +620,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for fill
+     * @return fill
      */
     public String getFill() {
         return fill;
     }
 
     /**
+     * Setter for fill
      * @param fill
      */
     public void setFill(String fill) {
@@ -617,13 +636,15 @@ public class TripsData {
     }
 
     /**
-     * @return
+     * Getter for stops
+     * @return stops
      */
     public int getStops() {
         return stops;
     }
 
     /**
+     * Setter for stops
      * @param stops
      */
     public void setStops(int stops) {

@@ -34,7 +34,7 @@ public class IntTypeConverters {
 
     /**
      * @param someObjects
-     * @return
+     * @return a String
      */
     @TypeConverter
     public static String someObjectListToString(List<Integer> someObjects) {

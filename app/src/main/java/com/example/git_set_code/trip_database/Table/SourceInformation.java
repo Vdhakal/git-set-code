@@ -65,14 +65,14 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return sourceID
      */
     public int getSourceID() {
         return sourceID;
     }
 
     /**
-     * @return
+     * @return seqNum
      */
     public int getSeqNum() {
         return seqNum;
@@ -86,7 +86,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return waypointTypeDescription
      */
     public String getWaypointTypeDescription() {
         return waypointTypeDescription;
@@ -100,7 +100,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return latitude
      */
     public double getLatitude() {
         return latitude;
@@ -114,7 +114,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return longitude
      */
     public double getLongitude() {
         return longitude;
@@ -128,7 +128,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return destinationCod
      */
     public String getDestinationCod() {
         return destinationCod;
@@ -142,7 +142,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return destinationName
      */
     public String getDestinationName() {
         return destinationName;
@@ -156,7 +156,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return address1
      */
     public String getAddress1() {
         return address1;
@@ -170,7 +170,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return address2
      */
     public String getAddress2() {
         return address2;
@@ -184,7 +184,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return city
      */
     public String getCity() {
         return city;
@@ -198,7 +198,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return stateAbbrev
      */
     public String getStateAbbrev() {
         return stateAbbrev;
@@ -212,7 +212,7 @@ public class SourceInformation {
     }
 
     /**
-     * @return
+     * @return postalCode
      */
     public int getPostalCode() {
         return postalCode;
@@ -235,7 +235,7 @@ public class SourceInformation {
 //    }
 
     /**
-     * @return
+     * @return trip_id
      */
     public int getTrip_id() {
         return trip_id;

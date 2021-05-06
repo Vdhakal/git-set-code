@@ -36,7 +36,7 @@ public class Trailer {
     }
 
     /**
-     * @return
+     * @return truckId
      */
     public int getTruckId() {
         return truckId;
@@ -50,7 +50,7 @@ public class Trailer {
     }
 
     /**
-     * @return
+     * @return trailerId
      */
     public int getTrailerId() {
         return trailerId;
@@ -64,7 +64,7 @@ public class Trailer {
     }
 
     /**
-     * @return
+     * @return trailerCode
      */
     public String getTrailerCode() {
         return trailerCode;
@@ -78,7 +78,7 @@ public class Trailer {
     }
 
     /**
-     * @return
+     * @return trailerDesc
      */
     public String getTrailerDesc() {
         return trailerDesc;

@@ -6,6 +6,9 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+/**
+ *
+ */
 @Entity(foreignKeys = @ForeignKey(entity = Driver.class,
         parentColumns = "id",
         childColumns = "driver_id",
@@ -20,14 +23,26 @@ public class Truck {
     @ColumnInfo(name = "driver_id")
     private String driverId;
 
+    /**
+     * @param driverId
+     */
     public void setDriverId(String driverId) {
         this.driverId = driverId;
     }
 
+    /**
+     * @return driverId
+     */
     public String getDriverId() {
         return driverId;
     }
 
+    /**
+     * @param truckId
+     * @param truckCode
+     * @param truckDesc
+     * @param driverId
+     */
     public Truck(int truckId, String truckCode, String truckDesc, String driverId) {
         this.truckId = truckId;
         this.truckCode = truckCode;
@@ -35,25 +50,44 @@ public class Truck {
         this.driverId = driverId;
     }
 
+    /**
+     * @return truckId
+     */
     public int getTruckId() {
         return truckId;
     }
 
+    /**
+     * @return truckCode
+     */
     public String getTruckCode() {
         return truckCode;
     }
 
+    /**
+     * @return truckDesc
+     */
     public String getTruckDesc() {
         return truckDesc;
     }
+
+    /**
+     * @param truckId
+     */
     public void setTruckId(int truckId) {
         this.truckId = truckId;
     }
 
+    /**
+     * @param truckCode
+     */
     public void setTruckCode(String truckCode) {
         this.truckCode = truckCode;
     }
 
+    /**
+     * @param truckDesc
+     */
     public void setTruckDesc(String truckDesc) {
         this.truckDesc = truckDesc;
     }

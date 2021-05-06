@@ -16,7 +16,7 @@ import com.example.git_set_code.fragments.HomeFragment;
 import java.util.List;
 
 /**
- *
+ * ViewModel for the TripsObject
  */
 public class TripsObjectViewModel extends AndroidViewModel {
     private TripsObjectRepository tripsObjectRepository;
@@ -24,7 +24,8 @@ public class TripsObjectViewModel extends AndroidViewModel {
     private List<TripsObject> getAllTrips;
 
     /**
-     * @param application
+     * Constructor for TripsObjectViewModel
+     * @param application, an Application
      */
     public TripsObjectViewModel(@NonNull Application application) {
         super(application);
@@ -34,7 +35,7 @@ public class TripsObjectViewModel extends AndroidViewModel {
     }
 
     /**
-     *
+     * This interface gives other classes to implement this blue print to modify according to their requirements
      */
     public interface ViewModelInsertListener {
         void onError(String message);
@@ -43,22 +44,25 @@ public class TripsObjectViewModel extends AndroidViewModel {
     }
 
     /**
-     * @return
+     * Getter for getAlltripObjects
+     * @return getAlltripObjects, the list LiveData<List<TripsObject>>
      */
     public LiveData<List<TripsObject>> getGetAlltripObjects() {
         return getAlltripObjects;
     }
 
     /**
-     * @return
+     * Getter for getAllTrips
+     * @return getAllTrips, the list List<TripsObject>
      */
     public List<TripsObject> getAllTrips() {
         return getAllTrips;
     }
 
     /**
-     * @param tripsObject
-     * @param context
+     * For insertion
+     * @param tripsObject, a TripsObject object
+     * @param context, a Context object
      */
     public void insert(TripsObject tripsObject, Context context) {
         tripsObjectRepository.insert(tripsObject, new TripsObjectRepository.InsertResponseListener() {
@@ -74,7 +78,7 @@ public class TripsObjectViewModel extends AndroidViewModel {
     }
 
     /**
-     *
+     * This method deletes the tripsObjectRepository
      */
     public void delete() {
         tripsObjectRepository.delete();

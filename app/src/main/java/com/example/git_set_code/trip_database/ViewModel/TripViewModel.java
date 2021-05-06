@@ -59,91 +59,91 @@ public class TripViewModel extends AndroidViewModel {
     }
 
     /**
-     * @return
+     * @return getSelected
      */
     public LiveData<List<Integer>> getGetSelected() {
         return getSelected;
     }
 
     /**
-     * @return
+     * @return allDrivers
      */
     public LiveData<List<Driver>> getAllDrivers() {
         return allDrivers;
     }
 
     /**
-     * @return
+     * @return allSite
      */
     public LiveData<List<SiteInformation>> getAllSite() {
         return allSite;
     }
 
     /**
-     * @return
+     * @return allSource
      */
     public LiveData<List<SourceInformation>> getAllSource() {
         return allSource;
     }
 
     /**
-     * @return
+     * @return allTrailer
      */
     public LiveData<List<Trailer>> getAllTrailer() {
         return allTrailer;
     }
 
     /**
-     * @return
+     * @return allTruck
      */
     public LiveData<List<Truck>> getAllTruck() {
         return allTruck;
     }
 
     /**
-     * @return
+     * @return allTrip
      */
     public LiveData<List<Trip>> getAllTrip() {
         return allTrip;
     }
 
     /**
-     * @return
+     * @return allTripClientData
      */
     public LiveData<List<TripClientData>> getAllTripClientData() {
         return allTripClientData;
     }
 
     /**
-     * @return
+     * @return insertTripClient
      */
     public LiveData<List<Integer>> getInsertTripClient() {
         return insertTripClient;
     }
 
     /**
-     * @return
+     * @return sourceLatitudes
      */
     public LiveData<List<Double>> getSourceLatitudes() {
         return sourceLatitudes;
     }
 
     /**
-     * @return
+     * @return sourceLongitudes
      */
     public LiveData<List<Double>> getSourceLongitudes() {
         return sourceLongitudes;
     }
 
     /**
-     * @return
+     * @return siteLatitudes
      */
     public LiveData<List<Double>> getSiteLatitudes() {
         return siteLatitudes;
     }
 
     /**
-     * @return
+     * @return siteLongitudes
      */
     public LiveData<List<Double>> getSiteLongitudes() {
         return siteLongitudes;

@@ -7,7 +7,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 /**
- *
+ * This class consists of information about the Site
  */
 @Entity(foreignKeys = @ForeignKey(entity = Trip.class,
         parentColumns = "trip_id",
@@ -90,162 +90,283 @@ public class SiteInformation {
         this.trip_id = trip_id;
     }
 
+
+    /**
+     * @return postalCode
+     */
     public int getPostalCode() {
         return postalCode;
     }
 
+    /**
+     * @return latitude
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * @return longitude
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * @return destinationCod
+     */
     public String getDestinationCod() {
         return destinationCod;
     }
 
+    /**
+     * @return destinationName
+     */
     public String getDestinationName() {
         return destinationName;
     }
 
+    /**
+     * @return address1
+     */
     public String getAddress1() {
         return address1;
     }
 
+    /**
+     * @return address2
+     */
     public String getAddress2() {
         return address2;
     }
 
+    /**
+     * @return city
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * @return stateAbbrev
+     */
     public String getStateAbbrev() {
         return stateAbbrev;
     }
 
+    /**
+     * @return siteContainerCode
+     */
     public String getSiteContainerCode() {
         return siteContainerCode;
     }
 
+    /**
+     * @param siteContainerCode
+     */
     public void setSiteContainerCode(String siteContainerCode) {
         this.siteContainerCode = siteContainerCode;
     }
 
+    /**
+     * @return siteContainerDescription
+     */
     public String getSiteContainerDescription() {
         return siteContainerDescription;
     }
 
+    /**
+     * @param siteContainerDescription
+     */
     public void setSiteContainerDescription(String siteContainerDescription) {
         this.siteContainerDescription = siteContainerDescription;
     }
 
+    /**
+     * @return delReqNum
+     */
     public int getDelReqNum() {
         return delReqNum;
     }
 
+    /**
+     * @param delReqNum
+     */
     public void setDelReqNum(int delReqNum) {
         this.delReqNum = delReqNum;
     }
 
+    /**
+     * @return delReqLineNum
+     */
     public int getDelReqLineNum() {
         return delReqLineNum;
     }
 
+    /**
+     * @param delReqLineNum
+     */
     public void setDelReqLineNum(int delReqLineNum) {
         this.delReqLineNum = delReqLineNum;
     }
 
+    /**
+     * @return productId
+     */
     public int getProductId() {
         return productId;
     }
 
+    /**
+     * @param productId
+     */
     public void setProductId(int productId) {
         this.productId = productId;
     }
 
+    /**
+     * @return productCode
+     */
     public String getProductCode() {
         return productCode;
     }
 
+    /**
+     * @param latitude
+     */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * @param longitude
+     */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
+    /**
+     * @param destinationCod
+     */
     public void setDestinationCod(String destinationCod) {
         this.destinationCod = destinationCod;
     }
 
+    /**
+     * @param destinationName
+     */
     public void setDestinationName(String destinationName) {
         this.destinationName = destinationName;
     }
 
+    /**
+     * @param address1
+     */
     public void setAddress1(String address1) {
         this.address1 = address1;
     }
 
+    /**
+     * @param address2
+     */
     public void setAddress2(String address2) {
         this.address2 = address2;
     }
 
+    /**
+     * @param city
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     * @param stateAbbrev
+     */
     public void setStateAbbrev(String stateAbbrev) {
         this.stateAbbrev = stateAbbrev;
     }
 
+    /**
+     * @param postalCode
+     */
     public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
     }
 
+    /**
+     * @return sequenceNum
+     */
     public int getSequenceNum() {
         return sequenceNum;
     }
 
+    /**
+     * @param sequenceNum
+     */
     public void setSequenceNum(int sequenceNum) {
         this.sequenceNum = sequenceNum;
     }
 
+    /**
+     * @param productCode
+     */
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
 
+    /**
+     * @return productDesc
+     */
     public String getProductDesc() {
         return productDesc;
     }
 
+    /**
+     * @param productDesc
+     */
     public void setProductDesc(String productDesc) {
         this.productDesc = productDesc;
     }
 
+    /**
+     * @return requestedQty
+     */
     public int getRequestedQty() {
         return requestedQty;
     }
 
+    /**
+     * @param requestedQty
+     */
     public void setRequestedQty(int requestedQty) {
         this.requestedQty = requestedQty;
     }
 
+    /**
+     * @return uom
+     */
     public String getUom() {
         return uom;
     }
 
+    /**
+     * @param uom
+     */
     public void setUom(String uom) {
         this.uom = uom;
     }
 
+    /**
+     * @return fill
+     */
     public String getFill() {
         return fill;
     }
 
+    /**
+     * @param fill
+     */
     public void setFill(String fill) {
         this.fill = fill;
     }
@@ -259,7 +380,7 @@ public class SiteInformation {
 //    }
 
     /**
-     * @return
+     * @return trip_id
      */
     public int getTrip_id() {
         return trip_id;
@@ -273,7 +394,7 @@ public class SiteInformation {
     }
 
     /**
-     * @return
+     * @return waypointTypeDescription
      */
     public String getWaypointTypeDescription() {
         return waypointTypeDescription;

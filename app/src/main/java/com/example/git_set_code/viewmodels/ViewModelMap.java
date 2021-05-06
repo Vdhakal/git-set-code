@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * This class is responsible for modeling the map according to the geolocations
  */
 public class ViewModelMap extends ViewModel {
     private List<Double> sourceLatitudes;
@@ -43,7 +43,7 @@ public class ViewModelMap extends ViewModel {
     private int lol = -1;
 
     /**
-     * @return
+     * @return an int representing the lol
      */
     public int getLol() {
         if (lol == -1)
@@ -52,7 +52,7 @@ public class ViewModelMap extends ViewModel {
     }
 
     /**
-     * @return
+     * @return an int representing the tripTracker
      */
     public int getTripTracker() {
         if (tripTracker == -1)
@@ -61,49 +61,54 @@ public class ViewModelMap extends ViewModel {
     }
 
     /**
-     *
+     * Setter for tripTracker
      */
     private void setTripTracker() {
         tripTracker++;
     }
 
     /**
-     *
+     *Constructor for ViewModelMap
      */
     public ViewModelMap() {
 
     }
 
     /**
-     * @param sourceLatitudes
+     * Setter for sourceLatitudes
+     * @param sourceLatitudes, a list of Double
      */
     public void setSourceLatitudes(List<Double> sourceLatitudes) {
         this.sourceLatitudes = sourceLatitudes;
     }
 
     /**
-     * @param sourceLongitudes
+     * Setter for sourceLongitudes
+     * @param sourceLongitudes, a list of Double
      */
     public void setSourceLongitudes(List<Double> sourceLongitudes) {
         this.sourceLongitudes = sourceLongitudes;
     }
 
     /**
-     * @param siteLatitudes
+     * Setter for siteLatitudes
+     * @param siteLatitudes, a list of Double
      */
     public void setSiteLatitudes(List<Double> siteLatitudes) {
         this.siteLatitudes = siteLatitudes;
     }
 
     /**
-     * @param siteLongitudes
+     * Setter for siteLongitudes
+     * @param siteLongitudes, a list of Double
      */
     public void setSiteLongitudes(List<Double> siteLongitudes) {
         this.siteLongitudes = siteLongitudes;
     }
 
     /**
-     * @return
+     * Getter for sourceGeoCoordinates
+     * @return sourceGeoCoordinates
      */
     public List<GeoCoordinate> getSourceGeoCoordinates() {
         if (sourceGeoCoordinates == null) {
@@ -114,7 +119,7 @@ public class ViewModelMap extends ViewModel {
     }
 
     /**
-     *
+     * Setter for sourceGeoCoordinates
      */
     private void setSourceGeoCoordinates() {
         sourceGeoCoordinates = new ArrayList<GeoCoordinate>();
@@ -124,7 +129,8 @@ public class ViewModelMap extends ViewModel {
     }
 
     /**
-     * @return
+     * Getter for siteGeoCoordinates
+     * @return siteGeoCoordinates, a list of GeoCoordinates
      */
     public List<GeoCoordinate> getSiteGeoCoordinates() {
         if (siteGeoCoordinates == null)
@@ -133,7 +139,7 @@ public class ViewModelMap extends ViewModel {
     }
 
     /**
-     *
+     * Setter for siteGeoCoordinates
      */
     private void setSiteGeoCoordinates() {
         siteGeoCoordinates = new ArrayList<GeoCoordinate>();
@@ -144,7 +150,8 @@ public class ViewModelMap extends ViewModel {
     }
 
     /**
-     * @return
+     * Getter for m_navigationManager
+     * @return m_navigationManager, a NavigationManager object
      */
     public NavigationManager getM_navigationManager() {
         if (m_navigationManager == null)
@@ -153,35 +160,38 @@ public class ViewModelMap extends ViewModel {
     }
 
     /**
-     *
+     * Setter for m_navigationManager
      */
     private void setM_navigationManager() {
         m_navigationManager = NavigationManager.getInstance();
     }
 
     /**
-     * @return
+     * Getter for geoPosition
+     * @return geoPosition, a GeoPosition object
      */
     public GeoPosition getGeoPosition() {
         return geoPosition;
     }
 
     /**
-     * @param geoPosition
+     * Setter for geoPosition
+     * @param geoPosition, a GeoPosition object
      */
     public void setGeoPosition(GeoPosition geoPosition) {
         this.geoPosition = geoPosition;
     }
 
     /**
-     *
+     * Setter for map
      */
     public void setMap() {
         map = mapFragment.getMap();
     }
 
     /**
-     * @return
+     * Getter for map
+     * @return a Map object
      */
     public Map getMap() {
         if (map == null)
@@ -190,8 +200,9 @@ public class ViewModelMap extends ViewModel {
     }
 
     /**
-     * @param mapFragment
-     * @return
+     * Getter for mapFragment
+     * @param mapFragment, a AndroidXMapFragment object
+     * @return a AndroidXMapFragment object
      */
     public AndroidXMapFragment getMapFragment(AndroidXMapFragment mapFragment) {
         if (this.mapFragment == null) {
@@ -203,7 +214,8 @@ public class ViewModelMap extends ViewModel {
     }
 
     /**
-     * @param mapFragment
+     * Setter for the mapFragment
+     * @param mapFragment, a AndroidXMapFragment object
      */
     private void setMapFragment(AndroidXMapFragment mapFragment) {
         this.mapFragment = mapFragment;

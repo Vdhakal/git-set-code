@@ -34,7 +34,7 @@ public class FloatTypeConverters {
 
     /**
      * @param someObjects
-     * @return
+     * @return a String
      */
     @TypeConverter
     public static String someObjectListToString(List<Double> someObjects) {
