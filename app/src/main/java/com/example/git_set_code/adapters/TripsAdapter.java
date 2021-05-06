@@ -50,7 +50,7 @@ import soup.neumorphism.NeumorphButton;
 import soup.neumorphism.NeumorphCardView;
 
 /**
- *
+ * This activity class is for displaying the trips
  */
 public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.ViewHolder> {
 

@@ -31,7 +31,7 @@ import soup.neumorphism.NeumorphButton;
 import soup.neumorphism.NeumorphCardView;
 
 /**
- *
+ * This activity class displays the summary of the source
  */
 public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdapter.ViewHolder> {
 
@@ -39,6 +39,11 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
     List<SourceInformation> sourceInformationList;
     Context context;
 
+    /**
+     *  Constructor for the SourceSummary Adapter
+     * @param context the Context Object
+     * @param sourceInformationList the list of SourceInformation objects
+     */
     public SourceSummaryAdapter(Context context, List<SourceInformation> sourceInformationList) {
         this.sourceInformationList = sourceInformationList;
         this.context = context;
@@ -52,9 +57,9 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
 
 
     /**
-     * @param parent
-     * @param viewType
-     * @return
+     * @param parent a ViewGroup object
+     * @param viewType an integer representing the type of the view
+     * @return returns a SourceSummaryAdapter.ViewHolder object
      */
     @NonNull
     @Override
@@ -64,8 +69,9 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
     }
 
     /**
-     * @param holder
-     * @param position
+     * This method updates the RecyclerView.ViewHolder contents with the item at the given position
+     * @param holder a SiteSummaryAdapter.ViewHolder object
+     * @param position the position of the item
      */
     @Override
     public void onBindViewHolder(@NonNull SourceSummaryAdapter.ViewHolder holder, int position) {
@@ -78,15 +84,16 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
     }
 
     /**
-     * @param sourceButton
-     * @param wayPointType
+     * This method listens to the click on the Source Summary Button and changes the view to the new view
+     * @param sourceButton a NeumorphButton object
+     * @param wayPointType a wayPointType object
      */
     private void onSourceSummaryButtonClicked(NeumorphButton sourceButton, String wayPointType) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
 
             /**
-             *
-             * @param v
+             *This method overrides the onClick method and swaps the fragment to the new view
+             * @param v, the View object
              */
             @Override
             public void onClick(View v) {
@@ -96,7 +103,8 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
     }
 
     /**
-     * @param v
+     * This method swaps the current fragment to the new view
+     * @param v, the View object
      */
     private void swapFragment(View v) {
         Navigation.findNavController(v).navigate(R.id.action_tripSummary_to_temporarySource);
@@ -105,7 +113,8 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
 
 
     /**
-     * @return
+     * Getter for the count of the items
+     * @return an int value representing the size of the list of the source Information objects
      */
     @Override
     public int getItemCount() {
@@ -113,7 +122,7 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
     }
 
     /**
-     *
+     * The ViewHolder class extends the RecyclerView.ViewHolder and caches views associated with the default preference layouts
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView vendorName, terminalName, terminalAddress, wayPointType;
@@ -122,7 +131,8 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
         private final NeumorphButton formButton;
 
         /**
-         * @param itemView
+         * Constructor for the ViewHolder class
+         * @param itemView, a View object
          */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -140,7 +150,8 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
         }
 
         /**
-         * @param cardView
+         * This method listens to the click and expands the cardView when clicked
+         * @param cardView, a NeumorphCardView object
          */
         private void expandOnClick(NeumorphCardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -153,44 +164,48 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
         }
 
         /**
-         * @return
+         * Getter for expandableSummaryLayout
+         * @return expandable_summary_layout, a ConstraintLayout object
          */
         public ConstraintLayout getExpandableSummaryLayout() {
             return expandable_summary_layout;
         }
 
         /**
-         * @return
+         * Getter for wayPointType
+         * @return wayPointType, a TextView object
          */
         public TextView getWayPointType() {
             return wayPointType;
         }
 
         /**
-         * @return
+         * Getter for vendorName
+         * @return vendorName, a TextView object
          */
         public TextView getVendorName() {
             return vendorName;
         }
 
         /**
-         * /
-         *
-         * @return
+         *Getter for terminalName
+         * @return terminalName, a TextView Object
          */
         public TextView getTerminalName() {
             return terminalName;
         }
 
         /**
-         * @return
+         * Getter for terminalAddress
+         * @return terminalAddress, a TextView object
          */
         public TextView getTerminalAddress() {
             return terminalAddress;
         }
 
         /**
-         * @return
+         * Getter for FormButton
+         * @return formButton, a NeumorphButton object
          */
         public NeumorphButton getFormButton() {
             return formButton;

@@ -20,7 +20,7 @@ import com.example.git_set_code.R;
 import com.example.git_set_code.permissions.PermissionsRequestor;
 
 /**
- *
+ * The Login Activity class; for the login page allowing drivers to access their account with correct credentials.
  */
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         handleAndroidPermissions();
         login_button.setOnClickListener(new View.OnClickListener() {
             /**
-             *
-             * @param v
+             * This method listens to the click and changes the activity to Landing Activity
+             * @param v the View object
              */
             @Override
             public void onClick(View v) {
@@ -77,10 +77,16 @@ public class LoginActivity extends AppCompatActivity {
         permissionsRequestor = new PermissionsRequestor(LoginActivity.this);
         permissionsRequestor.request(new PermissionsRequestor.ResultListener() {
 
+            /**
+             * In case, the user doesnot grant permission, the app does nothing.
+             */
             @Override
             public void permissionsGranted() {
             }
 
+            /**
+             * If the user denies the permission, a text message is displayed.
+             */
             @Override
             public void permissionsDenied() {
                 Log.e("TAG", "Permissions denied by user.");

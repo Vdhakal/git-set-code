@@ -34,7 +34,7 @@ import soup.neumorphism.NeumorphCardView;
 import soup.neumorphism.ShapeType;
 
 /**
- *
+ * Activity class for the site summary
  */
 public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.ViewHolder> {
 
@@ -44,20 +44,30 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     Context context;
     int step;
 
+    /**
+     *Argument Constructor
+     * @param context the Context object
+     * @param siteInformationObjectList a List of SiteInformation objects
+     */
     public SiteSummaryAdapter(Context context, List<SiteInformation> siteInformationObjectList) {
         this.siteInformationObjectList = siteInformationObjectList;
         this.context = context;
     }
 
+    /**
+     *Setter for SiteInformationObjectList
+     * @param siteInformationObjectList a list of SiteInformation objects
+     */
     public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
         this.siteInformationObjectList = siteInformationObjectList;
     }
 
 
     /**
-     * @param parent
-     * @param viewType
-     * @return
+     * This method creates a new ViewHolder of the site_item layout whenever the RecyclerView needs it.
+     * @param parent a ViewGroup object
+     * @param viewType an int value
+     * @return SiteSummaryAdapter.ViewHolder, a view holder of the site summary adapter
      */
     @NonNull
     @Override
@@ -67,8 +77,9 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     }
 
     /**
-     * @param holder
-     * @param position
+     * This method updates the RecyclerView.ViewHolder contents with the item at the given position
+     * @param holder a SiteSummaryAdapter.ViewHolder object
+     * @param position the position of the item
      */
     @Override
     public void onBindViewHolder(@NonNull SiteSummaryAdapter.ViewHolder holder, int position) {
@@ -84,7 +95,8 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     }
 
     /**
-     * @param sourceButton
+     * This method swaps the current fragment with the new view when the button is clicked
+     * @param sourceButton the Button object
      */
     private void onSourceSummaryButtonClicked(Button sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +113,8 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     }
 
     /**
-     * @param v
+     * This method swaps the fragment
+     * @param v, the View object
      */
     private void swapFragment(View v) {
         Navigation.findNavController(v).navigate(R.id.action_tripSummary_to_temporarySite);
@@ -109,7 +122,8 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     }
 
     /**
-     * @return
+     * Getter for the number of items itemCount
+     * @return an int value representing the size of the list of siteInformation objects
      */
     @Override
     public int getItemCount() {
@@ -117,7 +131,7 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
     }
 
     /**
-     *
+     * The ViewHolder class caches views associated with the default Preference layouts
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, wayPointType;
@@ -126,7 +140,8 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
         private final NeumorphButton formButton;
 
         /**
-         * @param itemView
+         * Constructor for the ViewHolder class
+         * @param itemView a View object
          */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -151,7 +166,8 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
         }
 
         /**
-         * @param cardView
+         * This method listens to a click and expands the cardView object received as a parameter
+         * @param cardView a NeumorphCardView object
          */
         private void expandOnClick(NeumorphCardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -167,63 +183,72 @@ public class SiteSummaryAdapter extends RecyclerView.Adapter<SiteSummaryAdapter.
 
 
         /**
-         * @return
+         * Returns the layout defined for the expendable summary
+         * @return expandable_summary_layout, a constraint layout of the expendable summary
          */
         public ConstraintLayout getExpandableSummaryLayout() {
             return expandable_summary_layout;
         }
 
         /**
-         * @return
+         * Getter for wayPointType
+         * @return wayPointType, a TextView object
          */
         public TextView getWayPointType() {
             return wayPointType;
         }
 
         /**
-         * @return
+         * Getter for productName
+         * @return productName, a TextView object
          */
         public TextView getProductName() {
             return productName;
         }
 
         /**
-         * @return
+         * Getter for VendorName
+         * @return vendorName, a TextView object
          */
         public TextView getVendorName() {
             return vendorName;
         }
 
         /**
-         * @return
+         * Getter for terminalName
+         * @return terminalName, a TextView object
          */
         public TextView getTerminalName() {
             return terminalName;
         }
 
         /**
-         * @return
+         * Getter for terminalAddress
+         * @return terminalAddress, a TextView object
          */
         public TextView getTerminalAddress() {
             return terminalAddress;
         }
 
         /**
-         * @return
+         * Getter for formButton
+         * @return formButton, a button object
          */
         public Button getFormButton() {
             return formButton;
         }
 
         /**
-         * @return
+         * Getter for specialInstructions
+         * @return specialInstructions, a TextView object
          */
         public TextView getSpecialInstructions() {
             return specialInstructions;
         }
 
         /**
-         * @return
+         * Getter for Quantities
+         * @return quantities, a TextView object
          */
         public TextView getQuantities() {
             return quantities;
