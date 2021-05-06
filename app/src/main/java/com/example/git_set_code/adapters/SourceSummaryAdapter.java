@@ -55,10 +55,10 @@ public class SourceSummaryAdapter extends RecyclerView.Adapter<SourceSummaryAdap
         this.sourceInformationList = sourceInformationList;
     }
 
-
     /**
+     * This method creates a new ViewHolder of the site_item layout whenever the RecyclerView needs it.
      * @param parent a ViewGroup object
-     * @param viewType an integer representing the type of the view
+     * @param viewType an int value
      * @return returns a SourceSummaryAdapter.ViewHolder object
      */
     @NonNull

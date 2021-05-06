@@ -28,10 +28,11 @@ import com.github.gcacace.signaturepad.views.SignaturePad;
 public class SignatureDialog extends DialogFragment {
 
     /**
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * Creates the view when the activity is loaded
+     * @param inflater, a LayoutInflater object
+     * @param container, a ViewGroup object
+     * @param savedInstanceState, a Bundle
+     * @return a View object
      */
     @Nullable
     @Override
@@ -41,8 +42,9 @@ public class SignatureDialog extends DialogFragment {
     }
 
     /**
-     * @param view
-     * @param savedInstanceState
+     * This method makes sure the view is fully created
+     * @param view, a View object
+     * @param savedInstanceState, a Bundle
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -63,8 +65,9 @@ public class SignatureDialog extends DialogFragment {
     }
 
     /**
-     * @param savedInstanceState
-     * @return
+     *This method is responsible for creating dialogs that are managed by the activity
+     * @param savedInstanceState, a Bundle
+     * @return a Dialog object
      */
     @NonNull
     @Override
@@ -80,7 +83,8 @@ public class SignatureDialog extends DialogFragment {
     }
 
     /**
-     * @return
+     * This method creates a new instance of SignatureDialog
+     * @return a SignatureDialog object
      */
     public static SignatureDialog newInstance() {
         return new SignatureDialog();

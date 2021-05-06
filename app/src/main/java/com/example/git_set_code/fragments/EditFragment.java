@@ -1,5 +1,7 @@
 package com.example.git_set_code.fragments;
 
+// Importing necessary packages
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +52,7 @@ public class EditFragment extends Fragment {
     private String mParam2;
 
     /**
-     *
+     * Constructor for EditFragment
      */
     public EditFragment() {
         // Required empty public constructor
@@ -76,7 +78,9 @@ public class EditFragment extends Fragment {
 
 
     /**
-     * @param savedInstanceState
+     * This method inflates the UI
+     *
+     * @param savedInstanceState, a Bundle
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,10 +92,12 @@ public class EditFragment extends Fragment {
     }
 
     /**
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * This method return a View by creating avIew from the inflaters and containers received
+     *
+     * @param inflater,           a LayoutInflater object
+     * @param container,          a ViewGroup object
+     * @param savedInstanceState, a Bundle
+     * @return a View object
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -137,7 +143,7 @@ public class EditFragment extends Fragment {
     }
 
     /**
-     *
+     * This method initiates the signature pad
      */
     private void initiateSignaturePad() {
         Button captureSignatureButton = getView().findViewById(R.id.captureSignatureButton);
@@ -148,7 +154,9 @@ public class EditFragment extends Fragment {
     }
 
     /**
-     * @param signatureBitmap
+     * This method captures the signature
+     *
+     * @param signatureBitmap,a Bitmap
      */
     public void captureSignature(Bitmap signatureBitmap) {
         ImageView signatureView = getView().findViewById(R.id.signatureView);
@@ -159,7 +167,7 @@ public class EditFragment extends Fragment {
     }
 
     /**
-     *
+     * This method initiates the Bol capture
      */
     private void initiateBolCapture() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -167,9 +175,11 @@ public class EditFragment extends Fragment {
     }
 
     /**
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * This method takes the requestCode and resultCode and saves it to bolBitMap
+     *
+     * @param requestCode, an int representing the request code
+     * @param resultCode,  an int representing the result code
+     * @param data,        an Intent object
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -183,7 +193,9 @@ public class EditFragment extends Fragment {
     }
 
     /**
-     * @param bitmap
+     * This method saves the bitmap to the gallery
+     *
+     * @param bitmap, a BitMap object
      */
     public void saveToGallery(Bitmap bitmap) {
         FileOutputStream outputStream = null;

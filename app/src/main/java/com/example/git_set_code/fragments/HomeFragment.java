@@ -52,6 +52,7 @@ import soup.neumorphism.NeumorphCardView;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
     protected RecyclerView mRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
     private ProgressBar progressBar;
@@ -69,6 +70,7 @@ public class HomeFragment extends Fragment {
 
 
     /**
+     *
      * @param savedInstanceState
      */
     @Override
@@ -116,7 +118,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     *
+     * This method saves the data in the SD card
      */
     private void saveToSdCard() {
         try {
@@ -142,7 +144,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     *
+     * This method sets up the observers
      */
     private void setUpObservers() {
 
@@ -177,7 +179,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     *
+     * This method sets up the UI
      */
     private void setUpUI() {
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -195,8 +197,9 @@ public class HomeFragment extends Fragment {
 
 
     /**
-     * @param view
-     * @param savedInstanceState
+     * This method makes sure the view is created
+     * @param view, a View object
+     * @param savedInstanceState, a Bundle
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -205,10 +208,11 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * @param tripCbjectList
-     * @param activity
+     * This method sets up the slider
+     * @param tripObjectList, a list of
+     * @param activity, an Activity
      */
-    public void setUpSlider(List<Trip> tripCbjectList, Activity activity) {
+    public void setUpSlider(List<Trip> tripObjectList, Activity activity) {
 /*        swipeButton = (SwipeButton) rootView.findViewById(R.id.slideView);
         swipeButton.setText("sdsad");
             swipeButton.setOnStateChangeListener(new OnStateChangeListener() {

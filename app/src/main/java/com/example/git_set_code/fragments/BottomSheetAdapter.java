@@ -33,7 +33,7 @@ import soup.neumorphism.NeumorphButton;
 import soup.neumorphism.NeumorphCardView;
 
 /**
- *
+ * This activity extends the RecyclerView.Adapter and handles the bottom shhet of the adapter
  */
 public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.ViewHolder> {
     List<SiteInformation> siteInformationObjectList;
@@ -42,12 +42,12 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
     int tripTracker;
 
     /**
-     * @param context
-     * @param tripObjectList
-     * @param siteInformationObjectList
-     * @param sourceInformationObjectList
-     * @param owner
-     * @param tripTracker
+     * @param context, a Context object
+     * @param tripObjectList, a list of Trip objects
+     * @param siteInformationObjectList, a list of siteInformationObject
+     * @param sourceInformationObjectList, a list of sourceInformationObject
+     * @param owner, a ViewModelStoreOwner object
+     * @param tripTracker, an int keeping the track of trips
      */
     public BottomSheetAdapter(
             Context context,
@@ -62,7 +62,8 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
     }
 
     /**
-     * @param siteInformationObjectList
+     * Setter for siteInformationObjectList
+     * @param siteInformationObjectList, a list of siteInformation object
      */
     public void setSiteInformationObjectList(List<SiteInformation> siteInformationObjectList) {
         this.siteInformationObjectList = siteInformationObjectList;
@@ -70,16 +71,19 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
 
 
     /**
-     * @param sourceInformationObjectList
+     * Setter for sourceInformationObjectList
+     * @param sourceInformationObjectList, a sourceInformationObjectList object
      */
     public void setSourceInformationObjectList(List<SourceInformation> sourceInformationObjectList) {
         this.sourceInformationObjectList = sourceInformationObjectList;
     }
 
     /**
-     * @param parent
-     * @param viewType
-     * @return
+     * This method creates a ViewHolder when the activity gets loaded
+     *
+     * @param parent,   a ViewGroup object
+     * @param viewType, an integer value representing the type of the view
+     * @return a BottomSheetAdapter.ViewHolder object
      */
     @NonNull
     @Override
@@ -90,8 +94,10 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
 
 
     /**
-     * @param holder
-     * @param position
+     * This method updates the RecyclerView.ViewHolder contents with the item at the given position
+     *
+     * @param holder,   a TripsAdapter.ViewHolder object representing the holder for the trips adapter
+     * @param position, an integer value representing the position of the item
      */
     @Override
     public void onBindViewHolder(@NonNull BottomSheetAdapter.ViewHolder holder, int position) {
@@ -99,7 +105,9 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
     }
 
     /**
-     * @param holder
+     * This method sets up the new step View
+     *
+     * @param holder, a ViewHolder object
      */
     private void setUpStepView(BottomSheetAdapter.ViewHolder holder) {
         List<String> stepsBeanList = new ArrayList<>();
@@ -126,7 +134,8 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
     }
 
     /**
-     * @return
+     * Getter for itemCount
+     * @return 1
      */
     @Override
     public int getItemCount() {
@@ -135,14 +144,16 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
 
 
     /**
-     *
+     * The ViewHolder class extends the RecyclerView.ViewHolder and caches views associated with the default preference layouts
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final VerticalStepView stepView;
 
 
         /**
-         * @param itemView
+         * Constructor for the ViewHolder class
+         *
+         * @param itemView, a View object
          */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -150,7 +161,8 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
         }
 
         /**
-         * @return
+         * Getter for stepView
+         * @return stepView, a VerticalStepView object
          */
         public VerticalStepView getStepView() {
             return stepView;

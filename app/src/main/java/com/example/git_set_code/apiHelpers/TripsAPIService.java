@@ -24,14 +24,14 @@ import org.json.JSONObject;
 import java.util.List;
 
 /**
- *
+ * This Activity handles the Trip API service
  */
 public class TripsAPIService {
     private static String JSON_GET_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/GetDetailedTripListByDriver/gitsetcode?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef";
 //    https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/TripProductPickupPut/gitsetcode/183/24/887/12/2021-05-03%2000:00:00.0000000/2021-05-03%2000:00:00.0000000/10/10?apiKey=f20f8b25-b149-481c-9d2c-41aeb76246ef
 
     /**
-     *
+     * This interface provides two abstract methods which can be implemented according to required needs
      */
     public interface VolleyResponseListener {
         void onError(String message);
@@ -40,23 +40,24 @@ public class TripsAPIService {
     }
 
     /**
-     * @param thiscontext
-     * @param driverObjectList
-     * @param siteInformationObjectList
-     * @param sourceInformationObjectList
-     * @param truckObjectList
-     * @param trailerObjectList
-     * @param tripObjectList
-     * @param tripClientDataList
-     * @param volleyResponseListener
+     * This method gets the requested Json for the repo
+     * @param thiscontext, a Context object
+     * @param driverObjectList, list of Driver objects
+     * @param siteInformationObjectList, list of siteInformation
+     * @param sourceInformationObjectList, a list of sourceInformation
+     * @param truckObjectList, a list of truckObjects
+     * @param trailerObjectList, a list of trailerObjects
+     * @param tripObjectList, a list of tripObjects
+     * @param tripClientDataList, a list of tripClientData
+     * @param volleyResponseListener, a list of VolleyResponseListener object
      */
     public void getRequestedJsonForRepo(Context thiscontext, List<Driver> driverObjectList, List<SiteInformation> siteInformationObjectList, List<SourceInformation> sourceInformationObjectList, List<Truck> truckObjectList, List<Trailer> trailerObjectList, List<Trip> tripObjectList, List<TripClientData> tripClientDataList, VolleyResponseListener volleyResponseListener) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, JSON_GET_URL, null, new Response.Listener<JSONObject>() {
 
                     /**
-                     *
-                     * @param response
+                     *  This method handles the response
+                     * @param response, a JSON object
                      */
                     @Override
                     public void onResponse(JSONObject response) {
@@ -98,7 +99,7 @@ public class TripsAPIService {
 
                     /**
                      *
-                     * @param error
+                     * @param error, a VolleyError
                      */
                     @Override
                     public void onErrorResponse(VolleyError error) {

@@ -23,7 +23,7 @@ import com.example.git_set_code.viewmodels.TripsData;
 import java.util.List;
 
 /**
- *
+ * This activity is responsible for displaying the summary of the trips
  */
 public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummaryAdapterOnline.ViewHolder> {
 
@@ -33,8 +33,10 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
     Context context;
 
     /**
-     * @param context
-     * @param tripsDataList
+     * Constructor for the TripsSummaryAdapterOnline class
+     *
+     * @param context,       a Context object
+     * @param tripsDataList, a list of TripsData objects
      */
     public TripsSummaryAdapterOnline(Context context, List<TripsData> tripsDataList) {
         this.tripsDataList = tripsDataList;
@@ -43,9 +45,11 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
     }
 
     /**
-     * @param parent
-     * @param viewType
-     * @return
+     * This method creates a new ViewHolder of the site_item layout whenever the RecyclerView needs it.
+     *
+     * @param parent   a ViewGroup object
+     * @param viewType an int value
+     * @return SiteSummaryAdapter.ViewHolder, a view holder of the site summary adapter
      */
     @NonNull
     @Override
@@ -55,8 +59,10 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
     }
 
     /**
-     * @param holder
-     * @param position
+     * This method updates the RecyclerView.ViewHolder contents with the item at the given position
+     *
+     * @param holder   a SiteSummaryAdapter.ViewHolder object
+     * @param position the position of the item
      */
     @Override
     public void onBindViewHolder(@NonNull TripsSummaryAdapterOnline.ViewHolder holder, int position) {
@@ -72,11 +78,17 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
     }
 
     /**
-     * @param sourceButton
-     * @param wayPointType
+     * This method listens to the click on the Source Summary Button and changes the view to the new view
+     *
+     * @param sourceButton a NeumorphButton object
+     * @param wayPointType a wayPointType object
      */
     private void onSourceSummaryButtonClicked(Button sourceButton, String wayPointType) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method listens to the click and calls the swapFragment class
+             * @param v, the View object
+             */
             @Override
             public void onClick(View v) {
                 swapFragment(v, wayPointType);
@@ -85,8 +97,10 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
     }
 
     /**
-     * @param v
-     * @param wayPointType
+     * This method swaps the fragment
+     *
+     * @param v,            a View object
+     * @param wayPointType, a String object
      */
     private void swapFragment(View v, String wayPointType) {
         if (wayPointType.equals("Source"))
@@ -97,7 +111,9 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
     }
 
     /**
-     * @return
+     * Getter for item count
+     *
+     * @return an int representing the size of the list
      */
     @Override
     public int getItemCount() {
@@ -105,7 +121,7 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
     }
 
     /**
-     *
+     * The ViewHolder class caches views associated with the default Preference layouts
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView productName, vendorName, terminalName, terminalAddress, specialInstructions, quantities, wayPointType;
@@ -114,7 +130,9 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
         private final Button formButton;
 
         /**
-         * @param itemView
+         * Constructor for ViewHolder class
+         *
+         * @param itemView, a View object
          */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -134,14 +152,16 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
         }
 
         /**
-         * @param cardView
+         * This method listens to a click and expands the cardView
+         *
+         * @param cardView, a CardView object
          */
         private void expandOnClick(CardView cardView) {
             cardView.setOnClickListener(new View.OnClickListener() {
 
                 /**
-                 *
-                 * @param v
+                 *This method listens to the click and expands the new cardView
+                 * @param v, the View object
                  */
                 @Override
                 public void onClick(View v) {
@@ -152,7 +172,9 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
         }
 
         /**
-         * @return
+         * Getter for expandableSummaryLayout
+         *
+         * @return expandable_summary_layout, a ConstraintLayout
          */
         public ConstraintLayout getExpandableSummaryLayout() {
             return expandable_summary_layout;
@@ -160,56 +182,72 @@ public class TripsSummaryAdapterOnline extends RecyclerView.Adapter<TripsSummary
 
 
         /**
-         * @return
+         * Getter for wayPointType
+         *
+         * @return wayPointType, a TextView object
          */
         public TextView getWayPointType() {
             return wayPointType;
         }
 
         /**
-         * @return
+         * Getter for productName
+         *
+         * @return productName, a TextView object
          */
         public TextView getProductName() {
             return productName;
         }
 
         /**
-         * @return
+         * Getter for vendorName
+         *
+         * @return vendorName, a TextView object
          */
         public TextView getVendorName() {
             return vendorName;
         }
 
         /**
-         * @return
+         * Getter for terminalName
+         *
+         * @return terminalName, a TextView object
          */
         public TextView getTerminalName() {
             return terminalName;
         }
 
         /**
-         * @return
+         * Getter for terminalAddress
+         *
+         * @return terminalAddress, a TextView object
          */
         public TextView getTerminalAddress() {
             return terminalAddress;
         }
 
         /**
-         * @return
+         * Getter for formButton
+         *
+         * @return formButton, a Button
          */
         public Button getFormButton() {
             return formButton;
         }
 
         /**
-         * @return
+         * Getter for specialInstructions
+         *
+         * @return specialInstructions, a TextView object
          */
         public TextView getSpecialInstructions() {
             return specialInstructions;
         }
 
         /**
-         * @return
+         * Getter for quantities
+         *
+         * @return quantities, a TextView object
          */
         public TextView getQuantities() {
             return quantities;

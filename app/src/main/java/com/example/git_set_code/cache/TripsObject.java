@@ -10,33 +10,39 @@ import com.example.git_set_code.viewmodels.TripsData;
 @Entity(tableName = "trips_table")
 
 /**
- *
+ * The TripsObject class
  */
 public class TripsObject {
 
+
     @PrimaryKey(autoGenerate = true)
     public long id;
-
 
     @TypeConverters({NestedDataTypeConverter.class})
     public TripsData tripsData;
 
     /**
-     * @param tripsData
+     * Constructor for TripsObject class
+     *
+     * @param tripsData, TripsData object
      */
     public TripsObject(TripsData tripsData) {
         this.tripsData = tripsData;
     }
 
     /**
-     * @return
+     * Getter for tripsData
+     *
+     * @return tripsData, a TripsData object
      */
     public TripsData getTripsData() {
         return tripsData;
     }
 
     /**
-     * @param tripsData
+     * Setter for tripsData
+     *
+     * @param tripsData, a TripsData converter
      */
     public void setTripsData(TripsData tripsData) {
         this.tripsData = tripsData;

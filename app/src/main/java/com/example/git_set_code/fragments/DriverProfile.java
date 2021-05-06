@@ -27,6 +27,9 @@ public class DriverProfile extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    /**
+     * Constructor for DriverProfile
+     */
     public DriverProfile() {
         // Required empty public constructor
     }
@@ -50,7 +53,8 @@ public class DriverProfile extends Fragment {
     }
 
     /**
-     * @param savedInstanceState
+     * This method inflates the activity's UI
+     * @param savedInstanceState, a Bundle
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,10 +67,10 @@ public class DriverProfile extends Fragment {
     }
 
     /**
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * @param inflater, a LayoutInflater
+     * @param container, a ViewGroup object
+     * @param savedInstanceState, a Bundle
+     * @return a View object
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

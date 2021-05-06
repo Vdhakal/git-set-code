@@ -33,7 +33,7 @@ public interface TripsObjectDao {
     void delete();
 
     /**
-     * @return
+     * @return LiveData<List<TripsObject>
      */
     @Query("SELECT * FROM trips_table")
     LiveData<List<TripsObject>> getAllTripInformation();

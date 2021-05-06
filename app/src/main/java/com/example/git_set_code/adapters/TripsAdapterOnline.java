@@ -33,7 +33,7 @@ import java.util.List;
 import ng.max.slideview.SlideView;
 
 /**
- *
+ * The TripsAdapterOnline extends the RecyclerView.Adapter
  */
 public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.ViewHolder> {
 
@@ -43,8 +43,9 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
     private SlidebarStateHolder slidebarStateHolder;
 
     /**
-     * @param context
-     * @param tripsDataList
+     * Constructor for the TripsAdapterOnline class
+     * @param context, the Context object
+     * @param tripsDataList, the list of TripsData
      */
     public TripsAdapterOnline(Context context, List<TripsData> tripsDataList) {
         this.tripsDataList = tripsDataList;
@@ -55,9 +56,10 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
     }
 
     /**
+     * This method creates a new ViewHolder of the site_item layout whenever the RecyclerView needs it.
      * @param parent
-     * @param viewType
-     * @return
+     * @param viewType, an integer representing viewType
+     * @return TripsAdapterOnline.ViewHolder
      */
     @NonNull
     @Override
@@ -67,8 +69,9 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
     }
 
     /**
-     * @param holder
-     * @param position
+     * This method updates the RecyclerView.ViewHolder contents with the item at the given position
+     * @param holder,   a TripsAdapter.ViewHolder object representing the holder for the trips adapter
+     * @param position, an integer value representing the position of the item
      */
     @Override
     public void onBindViewHolder(@NonNull TripsAdapterOnline.ViewHolder holder, int position) {
@@ -83,14 +86,15 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
     //This is how you'd change fragments
 
     /**
-     * @param sourceButton
+     * This method is responsible to display the summary when the summary button is clicked
+     * @param sourceButton, a Button
      */
     private void onSummaryButtonClick(Button sourceButton) {
         sourceButton.setOnClickListener(new View.OnClickListener() {
 
             /**
-             *
-             * @param v
+             *This method listens to the click and calls the swapFragment method
+             * @param v, a View object
              */
             @Override
             public void onClick(View v) {
@@ -100,7 +104,8 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
     }
 
     /**
-     * @param v
+     * This method swaps the current fragment with the View v
+     * @param v, a view object
      */
     private void swapFragment(View v) {
         Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_tripSummary);
@@ -108,7 +113,8 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
     }
 
     /**
-     * @param holder
+     * This method sets up a slider view
+     * @param holder, a ViewHolder object
      */
     private void setUpSlider(ViewHolder holder) {
         holder.getSlideView().setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
@@ -129,7 +135,8 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
     }
 
     /**
-     * @param holder
+     * This method sets up a step View
+     * @param holder, a ViewHolder object
      */
     private void setUpStepView(ViewHolder holder) {
         List<String> stepsBeanList = new ArrayList<>();
@@ -164,7 +171,7 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
     }
 
     /**
-     *
+     * The ViewHolder class caches views associated with the default Preference layouts
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView productName, stops, title;
@@ -176,7 +183,8 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
 
 
         /**
-         * @param itemView
+         * Constructor for ViewHolder class
+         * @param itemView, a View object
          */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -193,6 +201,7 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
         }
 
         /**
+         * This method listens to a click and expands the cardView
          * @param cardView
          */
         private void expandOnClick(CardView cardView) {
@@ -206,49 +215,56 @@ public class TripsAdapterOnline extends RecyclerView.Adapter<TripsAdapterOnline.
         }
 
         /**
-         * @return
+         * Getter for summaryButton
+         * @return summaryButton,a Button
          */
         public Button getSummaryButton() {
             return summaryButton;
         }
 
         /**
-         * @return
+         * Getter for productName
+         * @return productName, a TextView object
          */
         public TextView getProductName() {
             return productName;
         }
 
         /**
-         * @return
+         Getter for stops
+         * @return stops, a TextView object
          */
         public TextView getStops() {
             return stops;
         }
 
         /**
-         * @return
+         * Getter for expandableLayout
+         * @return expandableLayout, a ConstraintLayout
          */
         public ConstraintLayout getExpandableLayout() {
             return expandableLayout;
         }
 
         /**
-         * @return
+         * Getter for stepView
+         * @return stepView, a TextView object
          */
         public VerticalStepView getStepView() {
             return stepView;
         }
 
         /**
-         * @return
+         * Getter for slideView
+         * @return slideView, a TextView object
          */
         public SlideView getSlideView() {
             return slideView;
         }
 
         /**
-         * @return
+         * Getter for title
+         * @return title, a TextView object
          */
         public TextView getTitle() {
             return title;
